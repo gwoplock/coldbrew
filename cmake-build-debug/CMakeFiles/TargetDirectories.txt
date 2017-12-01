@@ -1,0 +1,3 @@
+/Users/garrettbattaglia/Documents/dev/coldbrew/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/garrettbattaglia/Documents/dev/coldbrew/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/garrettbattaglia/Documents/dev/coldbrew/cmake-build-debug/CMakeFiles/coldbrew.dir
