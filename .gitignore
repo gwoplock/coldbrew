@@ -67,3 +67,7 @@ CTestTestfile.cmake
 
 #mac
 .ds_store
+
+#vim
+*.swp
+.vimrc
