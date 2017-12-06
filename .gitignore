@@ -68,7 +68,8 @@ CTestTestfile.cmake
 #mac
 .ds_store
 
-#vim and project specific vim config
+#vim
 *.swp
-.vimrc
-.src # Cherry will use this to make vim behave with the style guide
+
+build/*
+!build/.keep
