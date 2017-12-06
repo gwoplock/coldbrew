@@ -9,5 +9,5 @@ A C based package manger for Mac OS X
 * Abby: coming soon
 * Oskari: coming soon
 * Jacob Lancaster: coming soon
-* Jacob Cherry: coming soon
+* Jacob Cherry: [Cherry](jacobcherry36@gmail.com) 
 * Andrew: coming soon
