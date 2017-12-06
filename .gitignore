@@ -64,6 +64,7 @@ CTestTestfile.cmake
 
 #clion
 .idea/
+cmake-build-debug/
 
 #mac
 .ds_store
