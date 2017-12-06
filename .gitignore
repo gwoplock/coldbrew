@@ -68,3 +68,9 @@ cmake-build-debug/
 
 #mac
 .ds_store
+
+#vim
+*.swp
+
+build/*
+!build/.keep
