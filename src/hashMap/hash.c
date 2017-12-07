@@ -5,6 +5,6 @@
 #include "hash.h"
 
 int hash_string(char* key, int key_size){
-	
+
 	return 0;
 }
