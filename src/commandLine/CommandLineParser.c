@@ -4,6 +4,7 @@
 
 #include "CommandlineParser.h"
 
-void parseCommandLine(int argc, char** argv){
+void parseCommandLine(int argc, char **argv)
+{
 
 }
