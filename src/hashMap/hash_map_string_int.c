@@ -68,15 +68,25 @@ void hashmap_string_int_resize(struct hashmap_string_int *hashmap)
 void hashmap_string_int_remove(struct hashmap_string_int *hashmap, char *key)
 {
 	int index = hash_string(key) % hashmap->size;
-	if (/*todo not side chanined */ 1) {
+	if (/*todo side chanined */ 1) {
 		hashmap->map[index] = 0;
+		hashmap->key[index]= "";
 	}
 }
 
 int get_hashmap_string_int(struct hashmap_string_int *hashmap, char *key)
 {
 	int index = hash_string(key) % hashmap->size;
-	if (/*todo not side chanined */ 1){
+	if (/*todo side chanined */ 1) {
 		return hashmap->map[index];
+	}
+}
+
+void mod_hashmap_string_int(struct hashmap_string_int *hashmap, char *key, int value)
+{
+	int index = hash_string(key) % hashmap->size;
+	if (/*todo side chanined */ 1) {
+		hashmap->map[index] = value;
+		hashmap->key[index] = key;
 	}
 }

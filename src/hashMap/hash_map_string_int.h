@@ -24,4 +24,8 @@ void hashmap_string_int_resize(struct hashmap_string_int *hashmap);
 
 void hashmap_string_int_remove(struct hashmap_string_int *hashmap, char *key);
 
+int get_hashmap_string_int(struct hashmap_string_int *hashmap, char *key);
+
+void mod_hashmap_string_int(struct hashmap_string_int *hashmap, char *key, int value);
+
 #endif //COLDBREW_HASHMAPSTRINGINT_H
