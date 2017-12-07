@@ -35,7 +35,13 @@ void add_hashmap_string_int(struct hashmap_string_int *hashmap, char *key, int v
 
 int hashmap_string_int_used(struct hashmap_string_int *hashmap)
 {
-	//todo
+	int used = 0;
+	for (int i = 0; i < hashmap->size; i++){
+		if (hashmap->map[i] != 0 ){
+			used++;
+		}
+	}
+	return (used/hashmap->size)*100;
 }
 
 
