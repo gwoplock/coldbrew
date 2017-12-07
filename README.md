@@ -7,7 +7,7 @@ A C based package manger for Mac OS X
 ### Email
 * Garrett: coming soon
 * Abby: coming soon
-* Oskari: coming soon
+* Oskari: [Oskari](mailto:xxc3ncoredxx+coldbrew@gmail.com)
 * Jacob Lancaster: coming soon
 * Jacob Cherry: [Cherry](mailto:jacobcherry36@gmail.com) 
 * Andrew: coming soon
