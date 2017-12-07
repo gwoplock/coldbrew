@@ -10,7 +10,8 @@ struct hashmap_string_int *new_hashmap_string_int() {
 }
 
 void add_hashmap_string_int(struct hashmap_string_int *hashmap, char *key, int key_size, int value) {
-	int index = hash_string(key, key_size);
+	int hash = hash_string(key, key_size);
+	int index = hash % 26;
 	if (hashmap->map[index] == 0) {
 		hashmap->map[index] = value;
 	} else{
