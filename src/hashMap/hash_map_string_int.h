@@ -7,10 +7,10 @@
 
 #include <stdlib.h>
 
-struct HashMapStringInt {
+struct hashmap_string_int {
 	int map[26];
 };
 
-struct HashmapStringInt* newHashMapStringInt();
+struct hashmap_string_int* new_hashmap_string_int();
 
 #endif //COLDBREW_HASHMAPSTRINGINT_H
