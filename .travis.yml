@@ -1,6 +1,6 @@
 language: c
 compiler: clang
-dist: osx
+os: osx
 
 script:
   - cd build
