@@ -1,4 +1,5 @@
 # coldbrew
+[![Build Status](https://travis-ci.org/gwoplock/coldbrew.svg?branch=master)](https://travis-ci.org/gwoplock/coldbrew)
 A C based package manger for Mac OS X 
 
 
