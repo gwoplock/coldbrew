@@ -1,5 +1,4 @@
 language: c
-compiler: clang
 os: osx
 
 script:
