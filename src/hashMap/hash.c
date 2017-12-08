@@ -5,6 +5,7 @@
 #include "hash.h"
 #include <math.h>
 #include <string.h>
+#include <stdlib.h>
 
 int hash_string(char *key)
 {
@@ -16,5 +17,5 @@ int hash_string(char *key)
 		float multcan = (int) pow(31, expon);
 		hash += roundf(key[i] * multcan);
 	}
-	return hash;
+	return abs(hash);
 }

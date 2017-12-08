@@ -13,7 +13,7 @@ void parseCommandLine(int argc, char **argv)
 	for (int i = 0; i < argc; i++){
 		char* arg = argv[i];
 		//if it hasn't been added add it.
-		if (get_hashmap_string_int(command_line_args, arg) == 0){
+		if (get_hashmap_string_int(command_line_args, arg) == 0 ){
 			add_hashmap_string_int(command_line_args, arg, 1);
 		} else{
 			//increase the count if it exists
