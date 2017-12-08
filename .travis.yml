@@ -3,6 +3,6 @@ compiler: clang
 dist: osx
 
 script:
--cd build
--cmake ..
--make
+  - cd build
+  - cmake ..
+  - make
