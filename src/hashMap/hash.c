@@ -8,12 +8,13 @@
 
 int hash_string(char *key)
 {
+	//using java's string hash function, sum(s[i]*31^(n-1-i), where i is the current index and n is the length of the string
 	int key_size = strlen(key);
 	int hash = 0;
 	for (int i = 0; i < key_size; i++) {
-		int expon = (key_size - 1) - 1 - i;
-		int multcan = (int) pow(31, expon);
-		hash += key[i] * multcan;
+		float expon = key_size - 1 - i;
+		float multcan = (int) pow(31, expon);
+		hash += roundf(key[i] * multcan);
 	}
 	return hash;
 }

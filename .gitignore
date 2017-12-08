@@ -71,6 +71,7 @@ cmake-build-debug/
 
 #vim
 *.swp
+*.swo
 
 build/*
 !build/.keep
