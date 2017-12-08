@@ -1,6 +1,7 @@
 #include <stdio.h>
+#include "commandLine/CommandlineParser.h"
 
-int main() {
-	printf("Hello, World!\n");
-	return 0;
+int main(int argc, char **argv)
+{
+	parseCommandLine(argc-1, argv +1);
 }
