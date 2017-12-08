@@ -8,6 +8,7 @@
 
 int hash_string(char *key)
 {
+	//using java's string hash function, sum(s[i]*31^(n-1-i), where i is the current index and n is the length of the string
 	int key_size = strlen(key);
 	int hash = 0;
 	for (int i = 0; i < key_size; i++) {
