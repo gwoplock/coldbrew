@@ -7,8 +7,27 @@
 
 from sys import argv
 
-with open (argv[1], "r") as (inf, err):
-    if err:
-	print ("File not found: %s" % argv[1])
-    else
-	print ("File exists")
+# TODO: FIX!!!!!
+@contextmanager
+def opened_w_error (filename, mode="r"):
+	try:
+		f = open (filename, mode)
+	except Error:
+		yield None, True
+	else:
+		try:
+			yield f, False
+		finally:
+			f.close ()
+
+if len(argv) < 2:
+	print ("Please provide a filename")
+	quit (-1)
+
+with opened_w_error (argv[1], "r") as (infile, err):
+	if err:
+		print ("File not found: %s" % argv[1])
+		quit (-1)
+	else:
+		print ("File exists")
+		quit (0)
