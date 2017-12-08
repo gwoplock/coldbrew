@@ -1,5 +1,4 @@
 language: c
-os: osx
 
 script:
   - cd build
