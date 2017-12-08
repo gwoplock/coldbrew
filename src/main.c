@@ -3,5 +3,5 @@
 
 int main(int argc, char **argv)
 {
-	parseCommandLine(argc, argv);
+	parseCommandLine(argc-1, argv +1);
 }
