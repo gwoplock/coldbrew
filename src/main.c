@@ -28,7 +28,12 @@ int main(int argc, char **argv)
 	}
 	lock();
 	parseCommandLine(argc-1, argv +1);
-	//DO stuff here
+#ifdef DEV
+	// command line parsing testcode
+	for(int i = 0; i<command_line_args->size; i++){
+		printf("%i: %s -> %i\n", i, command_line_args->key[i], command_line_args->map[i]);
+	}
+#endif
 	unlock();
 
 }
