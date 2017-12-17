@@ -4,3 +4,4 @@ script:
   - cd build
   - cmake ..
   - make
+  - ./coldbrew this is a test of coldbrew comand line parsing
