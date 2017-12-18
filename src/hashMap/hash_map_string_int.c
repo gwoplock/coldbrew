@@ -136,3 +136,16 @@ void mod_hashmap_string_int(struct hashmap_string_int *hashmap, char *key, int v
 		hashmap->key[index] = key;
 	}
 }
+
+int hashmap_string_int_contains(struct hashmap_string_int* hashmap, char* search){
+	int index = hash_string(search) % hashmap->size;
+	if (/*todo side chained*/ 1 ){
+		if (!strcmp(hashmap->key[index],search)){
+			return 1;
+		} else {
+			return 0;
+		}
+	} else {
+
+	}
+}
