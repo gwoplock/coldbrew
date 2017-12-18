@@ -9,6 +9,8 @@
 
 extern struct hashmap_string_int *command_line_args;
 
+extern struct configuration config;
+
 enum mode
 {
 	INSTALL, UPGRADE, UPDATE, SYNC, UNINSTALL, BUILD, CHECK
@@ -19,7 +21,7 @@ struct brew_options
 
 };
 
-struct config
+struct configuration
 {
 	enum mode selected_mode;
 	struct brew_options brew_opts;

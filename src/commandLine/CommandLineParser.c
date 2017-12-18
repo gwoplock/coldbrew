@@ -2,10 +2,13 @@
 // Created by Garrett Battaglia on 12/7/17.
 //
 
+#include <stdio.h>
 #include "CommandlineParser.h"
 #include "../utils/stringMinip.h"
 
 struct hashmap_string_int *command_line_args;
+
+struct configuration config;
 
 void parseCommandLine(int argc, char **argv)
 {
@@ -26,7 +29,35 @@ void parseCommandLine(int argc, char **argv)
 
 void set_mode()
 {
-
+	if (hashmap_string_int_contains(command_line_args, "install")) {
+		config.selected_mode=INSTALL;
+	}
+	if (hashmap_string_int_contains(command_line_args, "upgrade")) {
+		config.selected_mode=UPGRADE;
+	}
+	if (hashmap_string_int_contains(command_line_args, "update")) {
+		config.selected_mode=UPDATE;
+	}
+	if (hashmap_string_int_contains(command_line_args, "sync")) {
+		config.selected_mode=SYNC;
+	}
+	if (hashmap_string_int_contains(command_line_args, "query")) {
+		fprintf(stderr, "Mode query isn't supported yet");
+		exit (1);
+	}
+	if (hashmap_string_int_contains(command_line_args, "search")) {
+		fprintf(stderr, "Mode search isn't supported yet");
+		exit (1);
+	}
+	if (hashmap_string_int_contains(command_line_args, "uninstall")) {
+		config.selected_mode=UNINSTALL;
+	}
+	if (hashmap_string_int_contains(command_line_args, "build")) {
+		config.selected_mode=BUILD;
+	}
+	if (hashmap_string_int_contains(command_line_args, "check")) {
+		config.selected_mode=CHECK;
+	}
 }
 
 void set_options()
