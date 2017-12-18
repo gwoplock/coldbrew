@@ -49,7 +49,7 @@ int hashmap_string_int_used(struct hashmap_string_int *hashmap)
 			used++;
 		}
 	}
-	return round(((double)used / (double)hashmap->size) * 100);
+	return round(((double) used / (double) hashmap->size) * 100);
 }
 
 
@@ -68,10 +68,10 @@ void hashmap_string_int_resize(struct hashmap_string_int *hashmap)
 		char *old_key = old_key_arr[i];
 		if (old_val != 0/*TODO check for side chaining*/) {
 			int index = hash_string(old_key) % hashmap->size;
-			if(hashmap->map[index] == 0) {
+			if (hashmap->map[index] == 0) {
 				hashmap->key[index] = old_key;
 				hashmap->map[index] = old_val;
-			} else{
+			} else {
 				//TODO side chaining
 			}
 		}
@@ -137,10 +137,11 @@ void mod_hashmap_string_int(struct hashmap_string_int *hashmap, char *key, int v
 	}
 }
 
-int hashmap_string_int_contains(struct hashmap_string_int* hashmap, char* search){
+int hashmap_string_int_contains(struct hashmap_string_int *hashmap, char *search)
+{
 	int index = hash_string(search) % hashmap->size;
-	if (/*todo side chained*/ 1 ){
-		if (hashmap->key[index] != 0 && !strcmp(hashmap->key[index],search)){
+	if (/*todo side chained*/ 1) {
+		if (hashmap->key[index] != 0 && !strcmp(hashmap->key[index], search)) {
 			return 1;
 		} else {
 			return 0;

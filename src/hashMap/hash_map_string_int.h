@@ -16,7 +16,7 @@ struct hashmap_string_int
 
 struct hashmap_string_int *new_hashmap_string_int();
 
-void add_hashmap_string_int(struct hashmap_string_int *hashmap, char *key,  int value);
+void add_hashmap_string_int(struct hashmap_string_int *hashmap, char *key, int value);
 
 int hashmap_string_int_used(struct hashmap_string_int *hashmap);
 
@@ -28,6 +28,6 @@ int get_hashmap_string_int(struct hashmap_string_int *hashmap, char *key);
 
 void mod_hashmap_string_int(struct hashmap_string_int *hashmap, char *key, int value);
 
-int hashmap_string_int_contains(struct hashmap_string_int* hashmap, char* search);
+int hashmap_string_int_contains(struct hashmap_string_int *hashmap, char *search);
 
 #endif //COLDBREW_HASHMAPSTRINGINT_H

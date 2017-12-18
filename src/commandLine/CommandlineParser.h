@@ -13,12 +13,16 @@ extern struct configuration config;
 
 enum mode
 {
-	INSTALL, UPGRADE, UPDATE, SYNC, UNINSTALL, BUILD, CHECK
+	INSTALL, UPGRADE, UPDATE, SYNC, UNINSTALL, BUILD, CHECK, HELP
 };
 
 struct brew_options
 {
-
+	int color;
+	int verbose;
+	int debug;
+	int confirm;
+	int confirm_override;
 };
 
 struct configuration
