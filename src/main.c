@@ -27,7 +27,8 @@ int main(int argc, char **argv)
 		exit(-1);
 	}
 	lock();
-	parseCommandLine(argc-1, argv +1);
+	parseCommandLine(argc, argv);
+	set_mode();
 #ifdef DEV
 	// command line parsing testcode
 	for(int i = 0; i<command_line_args->size; i++){
