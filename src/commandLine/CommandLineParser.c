@@ -74,6 +74,7 @@ void set_options()
 
 	config.brew_opts.verbosity = 0;
 	config.brew_opts.confirm = 1;
+	config.brew_opts.sync = 1;
 
 	if (hashmap_string_int_contains(command_line_args, "no-color")) {
 		config.brew_opts.color = 0;
@@ -92,6 +93,9 @@ void set_options()
 	}
 	if (hashmap_string_int_contains(command_line_args, "confirm")) {
 		config.brew_opts.confirm = 1;
+	}
+	if (hashmap_string_int_contains(command_line_args, "no-sync")) {
+		config.brew_opts.sync = 0;
 	}
 }
 

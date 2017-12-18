@@ -21,6 +21,7 @@ struct brew_options
 	int color;
 	int verbosity;
 	int confirm;
+	int sync;
 };
 
 struct configuration

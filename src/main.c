@@ -36,10 +36,16 @@ int main(int argc, char **argv)
 	set_options();
 #ifdef DEV
 	// command line parsing testcode
+	printf("----------------------------------\n");
 	for (int i = 0; i < command_line_args->size; i++) {
-		printf("%i: %s -> %i\n", i, command_line_args->key[i], command_line_args->map[i]);
+		printf(" %i: %s -> %i\n", i, command_line_args->key[i], command_line_args->map[i]);
 	}
-	printf("mode is %i", config.selected_mode);
+	printf("---------------------------------- \n");
+	printf(" mode is %i \n", config.selected_mode);
+	printf("---------------------------------- \n");
+	printf(" color: %i \n verbosity: %i \n confirm: %i \n sync: %i \n", config.brew_opts.color,
+	       config.brew_opts.verbosity, config.brew_opts.confirm, config.brew_opts.sync);
+	printf("----------------------------------\n");
 #endif
 	unlock();
 
