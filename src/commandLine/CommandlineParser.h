@@ -19,10 +19,8 @@ enum mode
 struct brew_options
 {
 	int color;
-	int verbose;
-	int debug;
+	int verbosity;
 	int confirm;
-	int confirm_override;
 };
 
 struct configuration

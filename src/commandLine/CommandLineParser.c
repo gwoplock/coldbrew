@@ -66,10 +66,32 @@ void set_mode()
 
 void set_options()
 {
-	if (isatty(fileno(stdout))){
+	if (isatty(fileno(stdout))) {
 		config.brew_opts.color = 1;
 	} else {
 		config.brew_opts.color = 0;
+	}
+
+	config.brew_opts.verbosity = 0;
+	config.brew_opts.confirm = 1;
+
+	if (hashmap_string_int_contains(command_line_args, "no-color")) {
+		config.brew_opts.color = 0;
+	}
+	if (hashmap_string_int_contains(command_line_args, "color")) {
+		config.brew_opts.color = 0;
+	}
+	if (hashmap_string_int_contains(command_line_args, "verbose")) {
+		config.brew_opts.verbosity = 1;
+	}
+	if (hashmap_string_int_contains(command_line_args, "debug")) {
+		config.brew_opts.verbosity = 2;
+	}
+	if (hashmap_string_int_contains(command_line_args, "no-confirm")) {
+		config.brew_opts.confirm = 0;
+	}
+	if (hashmap_string_int_contains(command_line_args, "confirm")) {
+		config.brew_opts.confirm = 1;
 	}
 }
 
