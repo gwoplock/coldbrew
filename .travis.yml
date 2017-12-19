@@ -4,4 +4,5 @@ script:
   - cd build
   - cmake ..
   - make
-  - ./coldbrew this is a test of coldbrew comand line parsing
+  - ./coldbrew debug install test
+  - ./coldbrew debug uninstall test
