@@ -48,6 +48,50 @@ int main(int argc, char **argv)
 		printf(" color: %i \n verbosity: %i \n confirm: %i \n sync: %i \n", config.brew_opts.color,
 		       config.brew_opts.verbosity, config.brew_opts.confirm, config.brew_opts.sync);
 		printf("----------------------------------\n");
+		switch (config.selected_mode) {
+			case INSTALL : {
+				printf(" local: %i \n no-deps: %i \n force: %i \n needed: %i \n as-dep: %i \n as-expl: %i \n",
+				       ((struct install_options *) (config.mode_opts))->local,
+				       ((struct install_options *) (config.mode_opts))->no_deps,
+				       ((struct install_options *) (config.mode_opts))->force,
+				       ((struct install_options *) (config.mode_opts))->needed,
+				       ((struct install_options *) (config.mode_opts))->as_dep,
+				       ((struct install_options *) (config.mode_opts))->as_expl);
+				break;
+			}
+			case UPGRADE: {
+				printf(" force: %i, no-save: %i",
+				       ((struct upgrade_options *) (config.mode_opts))->force,
+				       ((struct upgrade_options *) (config.mode_opts))->no_save);
+				break;
+			}
+			case UNINSTALL: {
+				printf(" no-deps: %i \n cascade: %i \n no-save: %i \n recursive: %i \n unneeded: %i \n",
+				       ((struct uninstall_options *) (config.mode_opts))->no_deps,
+				       ((struct uninstall_options *) (config.mode_opts))->cascade,
+				       ((struct uninstall_options *) (config.mode_opts))->no_save,
+				       ((struct uninstall_options *) (config.mode_opts))->recursive,
+				       ((struct uninstall_options *) (config.mode_opts))->unneeded);
+				break;
+			}
+			case BUILD: {
+				printf(" local: %i \n force: %i \n",
+				       ((struct build_options *) (config.mode_opts))->local,
+				       ((struct build_options *) (config.mode_opts))->force);
+				break;
+			}
+			case CHECK: {
+				printf(" local: %i \n type: %i \n",
+				       ((struct check_options *) (config.mode_opts))->local,
+				       ((struct check_options *) (config.mode_opts))->check_type);
+				break;
+			}
+
+			default: {
+				printf("Selected mode doesn't have options \n");
+			}
+		}
+		printf("----------------------------------\n");
 	}
 #ifdef DEV
 	if (config.brew_opts.verbosity != 2) {
@@ -61,6 +105,50 @@ int main(int argc, char **argv)
 		printf("---------------------------------- \n");
 		printf(" color: %i \n verbosity: %i \n confirm: %i \n sync: %i \n", config.brew_opts.color,
 		       config.brew_opts.verbosity, config.brew_opts.confirm, config.brew_opts.sync);
+		printf("----------------------------------\n");
+		switch (config.selected_mode) {
+			case INSTALL : {
+				printf(" local: %i \n no-deps: %i \n force: %i \n needed: %i \n as-dep: %i \n as-expl: %i \n",
+				       ((struct install_options *) (config.mode_opts))->local,
+				       ((struct install_options *) (config.mode_opts))->no_deps,
+				       ((struct install_options *) (config.mode_opts))->force,
+				       ((struct install_options *) (config.mode_opts))->needed,
+				       ((struct install_options *) (config.mode_opts))->as_dep,
+				       ((struct install_options *) (config.mode_opts))->as_expl);
+				break;
+			}
+			case UPGRADE: {
+				printf(" force: %i, no-save: %i",
+				       ((struct upgrade_options *) (config.mode_opts))->force,
+				       ((struct upgrade_options *) (config.mode_opts))->no_save);
+				break;
+			}
+			case UNINSTALL: {
+				printf(" no-deps: %i \n cascade: %i \n no-save: %i \n recursive: %i \n unneeded: %i \n",
+				       ((struct uninstall_options *) (config.mode_opts))->no_deps,
+				       ((struct uninstall_options *) (config.mode_opts))->cascade,
+				       ((struct uninstall_options *) (config.mode_opts))->no_save,
+				       ((struct uninstall_options *) (config.mode_opts))->recursive,
+				       ((struct uninstall_options *) (config.mode_opts))->unneeded);
+				break;
+			}
+			case BUILD: {
+				printf(" local: %i \n force: %i \n",
+				       ((struct build_options *) (config.mode_opts))->local,
+				       ((struct build_options *) (config.mode_opts))->force);
+				break;
+			}
+			case CHECK: {
+				printf(" local: %i \n type: %i \n",
+				       ((struct check_options *) (config.mode_opts))->local,
+				       ((struct check_options *) (config.mode_opts))->check_type);
+				break;
+			}
+
+			default: {
+				printf("Selected mode doesn't have options \n");
+			}
+		}
 		printf("----------------------------------\n");
 	}
 #endif
