@@ -16,7 +16,8 @@ enum mode
 	INSTALL, UPGRADE, UPDATE, SYNC, UNINSTALL, BUILD, CHECK, HELP, SEARCH, QUERY
 };
 
-enum type {
+enum type
+{
 	PACKAGE, SCRIPT
 };
 
@@ -35,7 +36,8 @@ struct configuration
 	struct mode_options *mode_opts;
 };
 
-struct install_options{
+struct install_options
+{
 	int local;
 	int no_deps;
 	int force;
@@ -44,30 +46,35 @@ struct install_options{
 	int as_expl;
 };
 
-struct uninstall_options{
+struct uninstall_options
+{
 	int no_deps;
 	int cascade;
 	int no_save;
 	int recursive;
-	int unneded;
+	int unneeded;
 };
 
-struct upgrade_options{
+struct upgrade_options
+{
 	int force;
 	int no_save;
 };
 
-struct build_options{
+struct build_options
+{
 	int local;
 	int force;
 };
 
-struct check_options{
+struct check_options
+{
 	int local;
-	enum  type check_type;
+	enum type check_type;
 };
 
 extern void lock();
+
 extern void unlock();
 
 void parseCommandLine(int argc, char **argv);

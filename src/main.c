@@ -36,7 +36,7 @@ int main(int argc, char **argv)
 	set_options();
 	set_mode_options();
 
-	if(config.brew_opts.verbosity == 2 ) {
+	if (config.brew_opts.verbosity == 2) {
 		// command line parsing testcode
 		printf("----------------------------------\n");
 		for (int i = 0; i < command_line_args->size; i++) {
@@ -50,7 +50,7 @@ int main(int argc, char **argv)
 		printf("----------------------------------\n");
 	}
 #ifdef DEV
-	if(config.brew_opts.verbosity !=2 ) {
+	if (config.brew_opts.verbosity != 2) {
 		// command line parsing testcode
 		printf("----------------------------------\n");
 		for (int i = 0; i < command_line_args->size; i++) {

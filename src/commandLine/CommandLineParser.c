@@ -127,10 +127,38 @@ void set_mode_options()
 	switch (config.selected_mode) {
 		case INSTALL: {
 			config.mode_opts = calloc(1, sizeof(struct install_options));
+			if (hashmap_string_int_contains(command_line_args, "local")) {
+				((struct install_options *) (config.mode_opts))->local = 1;
+			}
+			if (hashmap_string_int_contains(command_line_args, "no-deps")) {
+				((struct install_options *) (config.mode_opts))->no_deps = 1;
+			}
+			if (hashmap_string_int_contains(command_line_args, "force")) {
+				((struct install_options *) (config.mode_opts))->force = 1;
+			}
+			if (hashmap_string_int_contains(command_line_args, "needed")) {
+				((struct install_options *) (config.mode_opts))->needed = 1;
+			}
+			if (hashmap_string_int_contains(command_line_args, "as-dep")) {
+				((struct install_options *) (config.mode_opts))->as_dep = 1;
+				fprintf(stderr, "as-dep is not supported yet");
+				exit(4);
+			}
+			if (hashmap_string_int_contains(command_line_args, "as-expl")) {
+				((struct install_options *) (config.mode_opts))->as_expl = 1;
+				((struct install_options *) (config.mode_opts))->as_dep = 0;
+
+			}
 			break;
 		}
 		case UPGRADE: {
 			config.mode_opts = calloc(1, sizeof(struct upgrade_options));
+			if (hashmap_string_int_contains(command_line_args, "force")) {
+				((struct upgrade_options *) (config.mode_opts))->force = 1;
+			}
+			if (hashmap_string_int_contains(command_line_args, "no-save")) {
+				((struct upgrade_options *) (config.mode_opts))->no_save = 1;
+			}
 			break;
 		}
 		case UPDATE: {
@@ -143,14 +171,47 @@ void set_mode_options()
 		}
 		case UNINSTALL: {
 			config.mode_opts = calloc(1, sizeof(struct uninstall_options));
+			if (hashmap_string_int_contains(command_line_args, "no-deps")) {
+				((struct uninstall_options *) (config.mode_opts))->no_deps = 1;
+			}
+			if (hashmap_string_int_contains(command_line_args, "cascade")) {
+				((struct uninstall_options *) (config.mode_opts))->cascade = 1;
+			}
+			if (hashmap_string_int_contains(command_line_args, "no-save")) {
+				((struct uninstall_options *) (config.mode_opts))->no_save = 1;
+			}
+			if (hashmap_string_int_contains(command_line_args, "recursive")) {
+				((struct uninstall_options *) (config.mode_opts))->recursive = 1;
+			}
+			if (hashmap_string_int_contains(command_line_args, "recursive-strong")) {
+				((struct uninstall_options *) (config.mode_opts))->recursive = 2;
+			}
+			if (hashmap_string_int_contains(command_line_args, "unneeded")) {
+				((struct uninstall_options *) (config.mode_opts))->unneeded = 1;
+			}
 			break;
 		}
 		case BUILD: {
 			config.mode_opts = calloc(1, sizeof(struct build_options));
+			if (hashmap_string_int_contains(command_line_args, "local")) {
+				((struct build_options *) (config.mode_opts))->local = 1;
+			}
+			if (hashmap_string_int_contains(command_line_args, "force")) {
+				((struct build_options *) (config.mode_opts))->force = 1;
+			}
 			break;
 		}
 		case CHECK: {
 			config.mode_opts = calloc(1, sizeof(struct check_options));
+			if (hashmap_string_int_contains(command_line_args, "local")){
+				((struct check_options*) (config.mode_opts))-> local= 1;
+			}
+			if (hashmap_string_int_contains(command_line_args, "package")){
+				((struct check_options*) (config.mode_opts))->check_type = PACKAGE;
+			}
+			if (hashmap_string_int_contains(command_line_args, "script")){
+				((struct check_options*) (config.mode_opts))->check_type = SCRIPT;
+			}
 			break;
 		}
 		case HELP: {
