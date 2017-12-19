@@ -35,18 +35,34 @@ int main(int argc, char **argv)
 	set_mode();
 	set_options();
 	set_mode_options();
+
+	if(config.brew_opts.verbosity == 2 ) {
+		// command line parsing testcode
+		printf("----------------------------------\n");
+		for (int i = 0; i < command_line_args->size; i++) {
+			printf(" %i: %s -> %i\n", i, command_line_args->key[i], command_line_args->map[i]);
+		}
+		printf("---------------------------------- \n");
+		printf(" mode is %i \n", config.selected_mode);
+		printf("---------------------------------- \n");
+		printf(" color: %i \n verbosity: %i \n confirm: %i \n sync: %i \n", config.brew_opts.color,
+		       config.brew_opts.verbosity, config.brew_opts.confirm, config.brew_opts.sync);
+		printf("----------------------------------\n");
+gi	}
 #ifdef DEV
-	// command line parsing testcode
-	printf("----------------------------------\n");
-	for (int i = 0; i < command_line_args->size; i++) {
-		printf(" %i: %s -> %i\n", i, command_line_args->key[i], command_line_args->map[i]);
+	if(config.brew_opts.verbosity !=2 ) {
+		// command line parsing testcode
+		printf("----------------------------------\n");
+		for (int i = 0; i < command_line_args->size; i++) {
+			printf(" %i: %s -> %i\n", i, command_line_args->key[i], command_line_args->map[i]);
+		}
+		printf("---------------------------------- \n");
+		printf(" mode is %i \n", config.selected_mode);
+		printf("---------------------------------- \n");
+		printf(" color: %i \n verbosity: %i \n confirm: %i \n sync: %i \n", config.brew_opts.color,
+		       config.brew_opts.verbosity, config.brew_opts.confirm, config.brew_opts.sync);
+		printf("----------------------------------\n");
 	}
-	printf("---------------------------------- \n");
-	printf(" mode is %i \n", config.selected_mode);
-	printf("---------------------------------- \n");
-	printf(" color: %i \n verbosity: %i \n confirm: %i \n sync: %i \n", config.brew_opts.color,
-	       config.brew_opts.verbosity, config.brew_opts.confirm, config.brew_opts.sync);
-	printf("----------------------------------\n");
 #endif
 	unlock();
 
