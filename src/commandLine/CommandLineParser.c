@@ -176,6 +176,7 @@ void set_mode_options()
 			}
 			if (hashmap_string_int_contains(command_line_args, "cascade")) {
 				((struct uninstall_options *) (config.mode_opts))->cascade = 1;
+				config.brew_opts.confirm=1;
 			}
 			if (hashmap_string_int_contains(command_line_args, "no-save")) {
 				((struct uninstall_options *) (config.mode_opts))->no_save = 1;
@@ -185,6 +186,7 @@ void set_mode_options()
 			}
 			if (hashmap_string_int_contains(command_line_args, "recursive-strong")) {
 				((struct uninstall_options *) (config.mode_opts))->recursive = 2;
+				config.brew_opts.confirm=1;
 			}
 			if (hashmap_string_int_contains(command_line_args, "unneeded")) {
 				((struct uninstall_options *) (config.mode_opts))->unneeded = 1;
