@@ -80,7 +80,7 @@ void set_options()
 		config.brew_opts.color = 0;
 	}
 	if (hashmap_string_int_contains(command_line_args, "color")) {
-		config.brew_opts.color = 0;
+		config.brew_opts.color = 1;
 	}
 	if (hashmap_string_int_contains(command_line_args, "verbose")) {
 		config.brew_opts.verbosity = 1;

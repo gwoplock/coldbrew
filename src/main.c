@@ -34,6 +34,7 @@ int main(int argc, char **argv)
 	parseCommandLine(argc, argv);
 	set_mode();
 	set_options();
+	set_mode_options();
 #ifdef DEV
 	// command line parsing testcode
 	printf("----------------------------------\n");
