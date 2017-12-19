@@ -67,6 +67,8 @@ struct check_options{
 	enum  type check_type;
 };
 
+extern void lock();
+extern void unlock();
 
 void parseCommandLine(int argc, char **argv);
 

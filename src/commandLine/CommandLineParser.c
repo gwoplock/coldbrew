@@ -44,11 +44,13 @@ void set_mode()
 	}
 	if (hashmap_string_int_contains(command_line_args, "query")) {
 		fprintf(stderr, "Mode query isn't supported yet");
-		exit(1);
+		unlock();
+		exit(2);
 	}
 	if (hashmap_string_int_contains(command_line_args, "search")) {
 		fprintf(stderr, "Mode search isn't supported yet");
-		exit(1);
+		unlock();
+		exit(2);
 	}
 	if (hashmap_string_int_contains(command_line_args, "uninstall")) {
 		config.selected_mode = UNINSTALL;
@@ -101,5 +103,43 @@ void set_options()
 
 void set_mode_options()
 {
-
+	switch (config.selected_mode) {
+		case INSTALL: {
+			config.mode_opts = calloc(1, sizeof(struct install_options));
+			break;
+		}
+		case UPGRADE: {
+			config.mode_opts = calloc(1, sizeof(struct upgrade_options));
+			break;
+		}
+		case UPDATE: {
+			config.mode_opts = NULL;
+			break;
+		}
+		case SYNC: {
+			config.mode_opts = NULL;
+			break;
+		}
+		case UNINSTALL: {
+			config.mode_opts = calloc(1, sizeof(struct uninstall_options));
+			break;
+		}
+		case BUILD: {
+			config.mode_opts = calloc(1, sizeof(struct build_options));
+			break;
+		}
+		case CHECK: {
+			config.mode_opts = calloc(1, sizeof(struct check_options));
+			break;
+		}
+		case HELP: {
+			config.mode_opts = NULL;
+			break;
+		}
+		default: {
+			fprintf(stderr, "Something went very wrong in parsing the commandline options.");
+			unlock();
+			exit(3);
+		}
+	}
 }

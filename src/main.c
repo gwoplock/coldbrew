@@ -28,7 +28,7 @@ int main(int argc, char **argv)
 	if (lockfile_exists()) {
 		fprintf(stderr,
 		        "Lockfile exists, exiting... \n if you believe this is an error verify coldbrew isn't running then delete \""LOCKFILE" \" ");
-		exit(-1);
+		exit(1);
 	}
 	lock();
 	parseCommandLine(argc, argv);
@@ -48,7 +48,7 @@ int main(int argc, char **argv)
 		printf(" color: %i \n verbosity: %i \n confirm: %i \n sync: %i \n", config.brew_opts.color,
 		       config.brew_opts.verbosity, config.brew_opts.confirm, config.brew_opts.sync);
 		printf("----------------------------------\n");
-gi	}
+	}
 #ifdef DEV
 	if(config.brew_opts.verbosity !=2 ) {
 		// command line parsing testcode
