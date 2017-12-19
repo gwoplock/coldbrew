@@ -13,7 +13,7 @@ extern struct configuration config;
 
 enum mode
 {
-	INSTALL, UPGRADE, UPDATE, SYNC, UNINSTALL, BUILD, CHECK, HELP
+	INSTALL, UPGRADE, UPDATE, SYNC, UNINSTALL, BUILD, CHECK, HELP, SEARCH, QUERY
 };
 
 enum type {

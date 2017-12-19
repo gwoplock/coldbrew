@@ -35,34 +35,55 @@ void set_mode()
 	}
 	if (hashmap_string_int_contains(command_line_args, "upgrade")) {
 		config.selected_mode = UPGRADE;
+		fprintf(stderr, "Mode query isn't supported yet");
+		unlock();
+		exit(2);
 	}
 	if (hashmap_string_int_contains(command_line_args, "update")) {
 		config.selected_mode = UPDATE;
+		fprintf(stderr, "Mode query isn't supported yet");
+		unlock();
+		exit(2);
 	}
 	if (hashmap_string_int_contains(command_line_args, "sync")) {
 		config.selected_mode = SYNC;
+		fprintf(stderr, "Mode query isn't supported yet");
+		unlock();
+		exit(2);
 	}
 	if (hashmap_string_int_contains(command_line_args, "query")) {
+		config.selected_mode = QUERY;
 		fprintf(stderr, "Mode query isn't supported yet");
 		unlock();
 		exit(2);
 	}
 	if (hashmap_string_int_contains(command_line_args, "search")) {
+		config.selected_mode = SEARCH;
 		fprintf(stderr, "Mode search isn't supported yet");
 		unlock();
 		exit(2);
 	}
 	if (hashmap_string_int_contains(command_line_args, "uninstall")) {
 		config.selected_mode = UNINSTALL;
+
 	}
 	if (hashmap_string_int_contains(command_line_args, "build")) {
 		config.selected_mode = BUILD;
+		fprintf(stderr, "Mode query isn't supported yet");
+		unlock();
+		exit(2);
 	}
 	if (hashmap_string_int_contains(command_line_args, "check")) {
 		config.selected_mode = CHECK;
+		fprintf(stderr, "Mode query isn't supported yet");
+		unlock();
+		exit(2);
 	}
 	if (hashmap_string_int_contains(command_line_args, "help")) {
 		config.selected_mode = HELP;
+		fprintf(stderr, "Mode query isn't supported yet");
+		unlock();
+		exit(2);
 	}
 }
 
