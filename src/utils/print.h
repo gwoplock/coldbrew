@@ -11,4 +11,6 @@ enum print_level {
 
 void dbprintf(enum print_level pl, char* format, ...);
 
+void dbfprintf(enum print_level pl, FILE * output , char* format, ...);
+
 #endif //COLDBREW_PRINT_H
