@@ -6,7 +6,11 @@
 #include <math.h>
 #include <string.h>
 #include <stdlib.h>
-
+/**
+ * hashes a string based off java's string hash
+ * @param key: value to hash
+ * @return hash, absolute value of 32 bit int
+ */
 int hash_string(char *key)
 {
 	//using java's string hash function, sum(s[i]*31^(n-1-i), where i is the current index and n is the length of the string
