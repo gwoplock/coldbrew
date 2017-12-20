@@ -147,6 +147,7 @@ void set_mode_options()
 			if (hashmap_string_int_contains(command_line_args, "as-dep")) {
 				((struct install_options *) (config.mode_opts))->as_dep = 1;
 				fprintf(stderr, "as-dep is not supported yet");
+				unlock();
 				exit(4);
 			}
 			if (hashmap_string_int_contains(command_line_args, "as-expl")) {
