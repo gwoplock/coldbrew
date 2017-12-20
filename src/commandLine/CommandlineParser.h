@@ -85,4 +85,8 @@ void set_options();
 
 void set_mode_options();
 
+void print_mode_options();
+
+void back_print_options();
+
 #endif //COLDBREW_COMMANDLINEPARSER_H

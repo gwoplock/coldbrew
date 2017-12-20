@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include "CommandlineParser.h"
 #include "../utils/stringMinip.h"
+#include "../utils/print.h"
 
 struct hashmap_string_int *command_line_args;
 
@@ -35,19 +36,19 @@ void set_mode()
 	}
 	if (hashmap_string_int_contains(command_line_args, "upgrade")) {
 		config.selected_mode = UPGRADE;
-		fprintf(stderr, "Mode query isn't supported yet");
+		fprintf(stderr, "Mode upgrade isn't supported yet");
 		unlock();
 		exit(2);
 	}
 	if (hashmap_string_int_contains(command_line_args, "update")) {
 		config.selected_mode = UPDATE;
-		fprintf(stderr, "Mode query isn't supported yet");
+		fprintf(stderr, "Mode update isn't supported yet");
 		unlock();
 		exit(2);
 	}
 	if (hashmap_string_int_contains(command_line_args, "sync")) {
 		config.selected_mode = SYNC;
-		fprintf(stderr, "Mode query isn't supported yet");
+		fprintf(stderr, "Mode sync isn't supported yet");
 		unlock();
 		exit(2);
 	}
@@ -69,19 +70,19 @@ void set_mode()
 	}
 	if (hashmap_string_int_contains(command_line_args, "build")) {
 		config.selected_mode = BUILD;
-		fprintf(stderr, "Mode query isn't supported yet");
+		fprintf(stderr, "Mode build isn't supported yet");
 		unlock();
 		exit(2);
 	}
 	if (hashmap_string_int_contains(command_line_args, "check")) {
 		config.selected_mode = CHECK;
-		fprintf(stderr, "Mode query isn't supported yet");
+		fprintf(stderr, "Mode check isn't supported yet");
 		unlock();
 		exit(2);
 	}
 	if (hashmap_string_int_contains(command_line_args, "help")) {
 		config.selected_mode = HELP;
-		fprintf(stderr, "Mode query isn't supported yet");
+		fprintf(stderr, "Mode help isn't supported yet");
 		unlock();
 		exit(2);
 	}
@@ -95,7 +96,11 @@ void set_options()
 		config.brew_opts.color = 0;
 	}
 
-	config.brew_opts.verbosity = 0;
+#ifdef DEV
+	config.brew_opts.verbosity = DEBUG;
+#else
+	config.brew_opts.verbosity = NORMAL;
+#endif
 	config.brew_opts.confirm = 1;
 	config.brew_opts.sync = 1;
 
@@ -106,10 +111,10 @@ void set_options()
 		config.brew_opts.color = 1;
 	}
 	if (hashmap_string_int_contains(command_line_args, "verbose")) {
-		config.brew_opts.verbosity = 1;
+		config.brew_opts.verbosity = VERBOSE;
 	}
 	if (hashmap_string_int_contains(command_line_args, "debug")) {
-		config.brew_opts.verbosity = 2;
+		config.brew_opts.verbosity = DEBUG;
 	}
 	if (hashmap_string_int_contains(command_line_args, "no-confirm")) {
 		config.brew_opts.confirm = 0;
@@ -176,7 +181,7 @@ void set_mode_options()
 			}
 			if (hashmap_string_int_contains(command_line_args, "cascade")) {
 				((struct uninstall_options *) (config.mode_opts))->cascade = 1;
-				config.brew_opts.confirm=1;
+				config.brew_opts.confirm = 1;
 			}
 			if (hashmap_string_int_contains(command_line_args, "no-save")) {
 				((struct uninstall_options *) (config.mode_opts))->no_save = 1;
@@ -186,7 +191,7 @@ void set_mode_options()
 			}
 			if (hashmap_string_int_contains(command_line_args, "recursive-strong")) {
 				((struct uninstall_options *) (config.mode_opts))->recursive = 2;
-				config.brew_opts.confirm=1;
+				config.brew_opts.confirm = 1;
 			}
 			if (hashmap_string_int_contains(command_line_args, "unneeded")) {
 				((struct uninstall_options *) (config.mode_opts))->unneeded = 1;
@@ -205,14 +210,14 @@ void set_mode_options()
 		}
 		case CHECK: {
 			config.mode_opts = calloc(1, sizeof(struct check_options));
-			if (hashmap_string_int_contains(command_line_args, "local")){
-				((struct check_options*) (config.mode_opts))-> local= 1;
+			if (hashmap_string_int_contains(command_line_args, "local")) {
+				((struct check_options *) (config.mode_opts))->local = 1;
 			}
-			if (hashmap_string_int_contains(command_line_args, "package")){
-				((struct check_options*) (config.mode_opts))->check_type = PACKAGE;
+			if (hashmap_string_int_contains(command_line_args, "package")) {
+				((struct check_options *) (config.mode_opts))->check_type = PACKAGE;
 			}
-			if (hashmap_string_int_contains(command_line_args, "script")){
-				((struct check_options*) (config.mode_opts))->check_type = SCRIPT;
+			if (hashmap_string_int_contains(command_line_args, "script")) {
+				((struct check_options *) (config.mode_opts))->check_type = SCRIPT;
 			}
 			break;
 		}
@@ -226,4 +231,69 @@ void set_mode_options()
 			exit(3);
 		}
 	}
+	print_mode_options();
+}
+
+void print_mode_options()
+{
+	switch (config.selected_mode) {
+		case INSTALL : {
+			dbprintf(VERBOSE," local: %i \n no-deps: %i \n force: %i \n needed: %i \n as-dep: %i \n as-expl: %i \n",
+			       ((struct install_options *) (config.mode_opts))->local,
+			       ((struct install_options *) (config.mode_opts))->no_deps,
+			       ((struct install_options *) (config.mode_opts))->force,
+			       ((struct install_options *) (config.mode_opts))->needed,
+			       ((struct install_options *) (config.mode_opts))->as_dep,
+			       ((struct install_options *) (config.mode_opts))->as_expl);
+			break;
+		}
+		case UPGRADE: {
+			dbprintf(VERBOSE, " force: %i, no-save: %i",
+			       ((struct upgrade_options *) (config.mode_opts))->force,
+			       ((struct upgrade_options *) (config.mode_opts))->no_save);
+			break;
+		}
+		case UNINSTALL: {
+			dbprintf(VERBOSE," no-deps: %i \n cascade: %i \n no-save: %i \n recursive: %i \n unneeded: %i \n",
+			       ((struct uninstall_options *) (config.mode_opts))->no_deps,
+			       ((struct uninstall_options *) (config.mode_opts))->cascade,
+			       ((struct uninstall_options *) (config.mode_opts))->no_save,
+			       ((struct uninstall_options *) (config.mode_opts))->recursive,
+			       ((struct uninstall_options *) (config.mode_opts))->unneeded);
+			break;
+		}
+		case BUILD: {
+			dbprintf(VERBOSE," local: %i \n force: %i \n",
+			       ((struct build_options *) (config.mode_opts))->local,
+			       ((struct build_options *) (config.mode_opts))->force);
+			break;
+		}
+		case CHECK: {
+			dbprintf(VERBOSE," local: %i \n type: %i \n",
+			       ((struct check_options *) (config.mode_opts))->local,
+			       ((struct check_options *) (config.mode_opts))->check_type);
+			break;
+		}
+
+		default: {
+			dbprintf(DEBUG,"Selected mode doesn't have options \n");
+		}
+	}
+	printf("----------------------------------\n");
+}
+
+void back_print_options()
+{
+	// command line parsing testcode
+	dbprintf(VERBOSE, "----------------------------------\n");
+	for (int i = 0; i < command_line_args->size; i++) {
+		dbprintf(DEBUG, " %i: %s -> %i\n", i, command_line_args->key[i], command_line_args->map[i]);
+	}
+	dbprintf(DEBUG, "---------------------------------- \n");
+	dbprintf(VERBOSE, " mode is %i \n", config.selected_mode);
+	dbprintf(VERBOSE, "---------------------------------- \n");
+	dbprintf(VERBOSE, " color: %i \n verbosity: %i \n confirm: %i \n sync: %i \n", config.brew_opts.color,
+	         config.brew_opts.verbosity, config.brew_opts.confirm, config.brew_opts.sync);
+	dbprintf(VERBOSE, "----------------------------------\n");
+
 }
