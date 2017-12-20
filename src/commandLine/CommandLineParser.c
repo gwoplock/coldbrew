@@ -10,7 +10,11 @@
 struct hashmap_string_int *command_line_args;
 
 struct configuration config;
-
+/***
+ * inserts all elements into hashmap
+ * @param argc
+ * @param argv
+ */
 void parseCommandLine(int argc, char **argv)
 {
 	command_line_args = new_hashmap_string_int();
@@ -27,9 +31,12 @@ void parseCommandLine(int argc, char **argv)
 		}
 	}
 }
-
+/***
+ * finds mode by checking for mode names in the hashmap
+ */
 void set_mode()
 {
+	//find the correct mode by what is in the list of command line params
 	if (hashmap_string_int_contains(command_line_args, "install")) {
 		config.selected_mode = INSTALL;
 	}
@@ -86,18 +93,22 @@ void set_mode()
 		exit(2);
 	}
 }
-
+/***
+ * sets coldbrew options
+ */
 void set_options()
 {
+	//set defualt coloring based on output
 	if (isatty(fileno(stdout))) {
 		config.brew_opts.color = 1;
 	} else {
 		config.brew_opts.color = 0;
 	}
-
+	//defaults
 	config.brew_opts.verbosity = 0;
 	config.brew_opts.confirm = 1;
 	config.brew_opts.sync = 1;
+	//modifications to the defaults
 
 	if (hashmap_string_int_contains(command_line_args, "no-color")) {
 		config.brew_opts.color = 0;
@@ -121,9 +132,12 @@ void set_options()
 		config.brew_opts.sync = 0;
 	}
 }
-
+/***
+ * sets mode based options
+ */
 void set_mode_options()
 {
+	//set mode based options
 	switch (config.selected_mode) {
 		case INSTALL: {
 			config.mode_opts = calloc(1, sizeof(struct install_options));
@@ -221,6 +235,7 @@ void set_mode_options()
 			break;
 		}
 		default: {
+			//this really shouldn't happen, it only will if the mode is set outside of set_mode and to an int that isn't in the enum.
 			fprintf(stderr, "Something went very wrong in parsing the commandline options.");
 			unlock();
 			exit(3);
