@@ -9,16 +9,25 @@
 #define LOCKFILE "/etc/coldbrew/lockfile"
 #endif
 
+/**
+ * checks if the lockfile exsits
+ * @return bool if file exsits, true if it does, false if not
+ */
 char lockfile_exists()
 {
 	return !access(LOCKFILE, F_OK);
 }
 
+/**
+ * creates lockfile
+ */
 void lock()
 {
 	system("touch "  LOCKFILE);
 }
-
+/**
+ * removes lockfile
+ */
 void unlock()
 {
 	system("rm " LOCKFILE);

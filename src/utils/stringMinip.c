@@ -6,6 +6,11 @@
 #include <string.h>
 #include "stringMinip.h"
 
+/**
+ * converts a char* to all lowercase
+ * @param string: char* to turn to lowercase
+ * @return lowercase string
+ */
 char *lower_string(char *string)
 {
 	char *to_ret = (char *) calloc(sizeof(char), strlen(string));
