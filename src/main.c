@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include "commandLine/CommandlineParser.h"
+#include "utils/print.h"
 
 #ifdef DEV
 #define LOCKFILE "./lockfile"
@@ -26,7 +27,7 @@ void unlock()
 int main(int argc, char **argv)
 {
 	if (lockfile_exists()) {
-		fprintf(stderr,
+		dbfprintf(NORMAL, stderr,
 		        "Lockfile exists, exiting... \n if you believe this is an error verify coldbrew isn't running then delete \""LOCKFILE" \" ");
 		exit(1);
 	}
