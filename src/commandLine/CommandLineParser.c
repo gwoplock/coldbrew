@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include <unistd.h>
+#include <string.h>
 #include "CommandlineParser.h"
 #include "../utils/stringMinip.h"
 #include "../utils/print.h"
@@ -30,7 +31,30 @@ int parse_brew_opts(int argc, char **argv)
 {
 	int i;
 	for (i = 0; i < argc && argv[i][0] == '-' && argv[i][0] == '-'; i++) {
-
+		if (strcmp(argv[i], "--color")) {
+			config.brew_opts.color = 1;
+		}
+		if (strcmp(argv[i], "--no-color")) {
+			config.brew_opts.color = 0;
+		}
+		if (strcmp(argv[i], "--verbose")) {
+			config.brew_opts.verbosity = VERBOSE;
+		}
+		if (strcmp(argv[i], "--debug")) {
+			config.brew_opts.verbosity = DEBUG;
+		}
+		if (strcmp(argv[i], "--no-confirm")) {
+			config.brew_opts.confirm = 0;
+		}
+		if (strcmp(argv[i], "--confirm")) {
+			config.brew_opts.confirm = 1;
+		}
+		if (strcmp(argv[i], "--no-sync")) {
+			config.brew_opts.sync = 0;
+		}
+		if (strcmp(argv[i], "--sync")) {
+			config.brew_opts.sync = 1;
+		}
 	}
 	return i;
 }
