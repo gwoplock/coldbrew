@@ -77,14 +77,114 @@ void read_mode(int argc, char **argv, int index)
 		config.selected_mode = SEARCH;
 	} else if (strcmp(arg, "query") == 0) {
 		config.selected_mode = QUERY;
-	} else{
+	} else {
 		//bad mode
 	}
 }
 
 int parse_mode_opts(int argc, char **argv, int start_index)
 {
+	int i;
+	for (i = start_index; i < argc && argv[i][0] == '-' && argv[i][0] == '-'; i++) {
+		switch (config.selected_mode) {
+			case INSTALL: {
+				config.mode_opts = calloc(1, sizeof(struct install_options));
+				if (strcmp(argv[i], "--local")) {
 
+				} else if (strcmp(argv[i], "--no-deps")) {
+
+				} else if (strcmp(argv[i], "--force")) {
+
+				} else if (strcmp(argv[i], "--needed")) {
+
+				} else if (strcmp(argv[i], "--as-deps")) {
+
+				} else if (strcmp(argv[i], "--as-expl")) {
+
+				} else {
+					//bad option
+				}
+				break;
+			}
+			case UPGRADE: {
+				config.mode_opts = calloc(1, sizeof(struct upgrade_options));
+				if (strcmp(argv[i], "--force")) {
+
+				} else if (strcmp(argv[i], "--no-save")) {
+
+				} else {
+
+				}
+				break;
+			}
+			case UPDATE: {
+				config.mode_opts = NULL;
+				break;
+			}
+			case SYNC: {
+				config.mode_opts = NULL;
+				break;
+			}
+			case UNINSTALL: {
+				config.mode_opts = calloc(1, sizeof(struct uninstall_options));
+				if (strcmp(argv[i], "--no-deps")) {
+
+				} else if (strcmp(argv[i], "--cascade")) {
+
+				} else if (strcmp(argv[i], "--no-save")) {
+
+				} else if (strcmp(argv[i], "--recursive")) {
+
+				} else if (strcmp(argv[i], "--recursive-strong")) {
+
+				} else if (strcmp(argv[i], "--unneeded")) {
+
+				} else {
+
+				}
+				break;
+			}
+			case BUILD: {
+				config.mode_opts = calloc(1, sizeof(struct build_options));
+				if (strcmp(argv[i], "--local")) {
+
+				} else if (strcmp(argv[i], "--force")) {
+
+				} else {
+
+				}
+			}
+			case CHECK: {
+				config.mode_opts = calloc(1, sizeof(struct check_options));
+				if (strcmp(argv[i], "--local")) {
+
+				} else if (strcmp(argv[i], "--package")) {
+
+				} else if (strcmp(argv[i], "--script")) {
+
+				} else {
+
+				}
+				break;
+			}
+			case HELP: {
+				config.mode_opts = NULL;
+				break;
+			}
+			case SEARCH: {
+				config.mode_opts = NULL;
+				break;
+			}
+			case QUERY: {
+				config.mode_opts = NULL;
+				break;
+			}
+			default: {
+
+			}
+		}
+	}
+	return i;
 }
 
 void parse_targets(int argc, char **argv, int start_index)
