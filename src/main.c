@@ -42,9 +42,5 @@ int main(int argc, char **argv)
 	}
 	lock();
 	parseCommandLine(argc, argv);
-	set_mode();
-	set_options();
-	back_print_options();
-	set_mode_options();
 	unlock();
 }

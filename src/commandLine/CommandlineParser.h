@@ -79,14 +79,12 @@ extern void unlock();
 
 void parseCommandLine(int argc, char **argv);
 
-void set_mode();
+int parse_brew_opts(int argc, char **argv);
 
-void set_options();
+void read_mode(int argc, char **argv, int index);
 
-void set_mode_options();
+int parse_mode_opts(int argc, char **argv, int start_index);
 
-void print_mode_options();
-
-void back_print_options();
+void parse_targets(int argc, char **argv, int start_index)
 
 #endif //COLDBREW_COMMANDLINEPARSER_H
