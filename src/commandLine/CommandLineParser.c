@@ -89,17 +89,19 @@ int parse_mode_opts(int argc, char **argv, int start_index)
 		switch (config.selected_mode) {
 			case INSTALL: {
 				config.mode_opts = calloc(1, sizeof(struct install_options));
-				if (strcmp(argv[i], "--local") ==0 ) {
-
+				if (strcmp(argv[i], "--local") == 0) {
+					((struct install_options *) (config.mode_opts))->local = 1;
 				} else if (strcmp(argv[i], "--no-deps") == 0) {
-
+					((struct install_options *) (config.mode_opts))->no_deps = 1;
 				} else if (strcmp(argv[i], "--force") == 0) {
-
+					((struct install_options *) (config.mode_opts))->force = 1;
 				} else if (strcmp(argv[i], "--needed") == 0) {
-
+					((struct install_options *) (config.mode_opts))->needed = 1;
 				} else if (strcmp(argv[i], "--as-deps") == 0) {
-
+					((struct install_options *) (config.mode_opts))->as_dep = 1;
 				} else if (strcmp(argv[i], "--as-expl") == 0) {
+					((struct install_options *) (config.mode_opts))->as_expl = 1;
+					((struct install_options *) (config.mode_opts))->as_dep = 0;
 
 				} else {
 					//bad option
@@ -109,9 +111,9 @@ int parse_mode_opts(int argc, char **argv, int start_index)
 			case UPGRADE: {
 				config.mode_opts = calloc(1, sizeof(struct upgrade_options));
 				if (strcmp(argv[i], "--force") == 0) {
-
+					((struct upgrade_options *) (config.mode_opts))->force = 1;
 				} else if (strcmp(argv[i], "--no-save") == 0) {
-
+					((struct upgrade_options *) (config.mode_opts))->no_save = 1;
 				} else {
 
 				}
@@ -128,17 +130,19 @@ int parse_mode_opts(int argc, char **argv, int start_index)
 			case UNINSTALL: {
 				config.mode_opts = calloc(1, sizeof(struct uninstall_options));
 				if (strcmp(argv[i], "--no-deps") == 0) {
-
+					((struct uninstall_options *) (config.mode_opts))->no_deps = 1;
 				} else if (strcmp(argv[i], "--cascade") == 0) {
-
+					((struct uninstall_options *) (config.mode_opts))->cascade = 1;
+					config.brew_opts.confirm = 1;
 				} else if (strcmp(argv[i], "--no-save") == 0) {
-
+					((struct uninstall_options *) (config.mode_opts))->no_save = 1;
 				} else if (strcmp(argv[i], "--recursive") == 0) {
-
+					((struct uninstall_options *) (config.mode_opts))->recursive = 1;
 				} else if (strcmp(argv[i], "--recursive-strong") == 0) {
-
+					((struct uninstall_options *) (config.mode_opts))->recursive = 2;
+					config.brew_opts.confirm = 1;
 				} else if (strcmp(argv[i], "--unneeded") == 0) {
-
+					((struct uninstall_options *) (config.mode_opts))->unneeded = 1;
 				} else {
 
 				}
@@ -147,9 +151,9 @@ int parse_mode_opts(int argc, char **argv, int start_index)
 			case BUILD: {
 				config.mode_opts = calloc(1, sizeof(struct build_options));
 				if (strcmp(argv[i], "--local") == 0) {
-
+					((struct build_options *) (config.mode_opts))->local = 1;
 				} else if (strcmp(argv[i], "--force") == 0) {
-
+					((struct build_options *) (config.mode_opts))->force = 1;
 				} else {
 
 				}
@@ -157,11 +161,11 @@ int parse_mode_opts(int argc, char **argv, int start_index)
 			case CHECK: {
 				config.mode_opts = calloc(1, sizeof(struct check_options));
 				if (strcmp(argv[i], "--local") == 0) {
-
+					((struct check_options *) (config.mode_opts))->local = 1;
 				} else if (strcmp(argv[i], "--package") == 0) {
-
+					((struct check_options *) (config.mode_opts))->check_type = PACKAGE;
 				} else if (strcmp(argv[i], "--script") == 0) {
-
+					((struct check_options *) (config.mode_opts))->check_type = SCRIPT;
 				} else {
 
 				}
@@ -180,7 +184,10 @@ int parse_mode_opts(int argc, char **argv, int start_index)
 				break;
 			}
 			default: {
-
+				//this really shouldn't happen, it only will if the mode is set outside of set_mode and to an int that isn't in the enum.
+				fprintf(stderr, "Something went very wrong in parsing the commandline options.");
+				unlock();
+				exit(3);
 			}
 		}
 	}
