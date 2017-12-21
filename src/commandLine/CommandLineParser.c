@@ -37,7 +37,7 @@ void parseCommandLine(int argc, char **argv)
 int parse_brew_opts(int argc, char **argv)
 {
 	int i;
-	for (i = 0; i < argc && argv[i][0] == '-' && argv[i][0] == '-'; i++) {
+	for (i = 1; i < argc && argv[i][0] == '-' && argv[i][0] == '-'; i++) {
 		if (strcmp(argv[i], "--color") == 0) {
 			config.brew_opts.color = 1;
 		} else if (strcmp(argv[i], "--no-color") == 0) {
@@ -219,17 +219,67 @@ void parse_targets(int argc, char **argv, int start_index)
 
 void print_brew_opts()
 {
-	
+	dbprintf(VERBOSE, "----------------------------------\n");
+	dbprintf(VERBOSE, " color: %i \n verbosity: %i \n confirm: %i \n sync: %i \n", config.brew_opts.color,
+	         config.brew_opts.verbosity, config.brew_opts.confirm, config.brew_opts.sync);
+	dbprintf(VERBOSE, "----------------------------------\n");
+
 }
 
 void print_mode()
 {
-
+	dbprintf(VERBOSE, " mode is %i \n", config.selected_mode);
+	dbprintf(VERBOSE, "---------------------------------- \n");
 }
 
 void print_mode_opts()
 {
+	switch (config.selected_mode) {
+		case INSTALL : {
+			dbprintf(VERBOSE,
+			         " local: %i \n no-deps: %i \n force: %i \n needed: %i \n as-dep: %i \n as-expl: %i \n",
+			         ((struct install_options *) (config.mode_opts))->local,
+			         ((struct install_options *) (config.mode_opts))->no_deps,
+			         ((struct install_options *) (config.mode_opts))->force,
+			         ((struct install_options *) (config.mode_opts))->needed,
+			         ((struct install_options *) (config.mode_opts))->as_dep,
+			         ((struct install_options *) (config.mode_opts))->as_expl);
+			break;
+		}
+		case UPGRADE: {
+			dbprintf(VERBOSE, " force: %i, no-save: %i",
+			         ((struct upgrade_options *) (config.mode_opts))->force,
+			         ((struct upgrade_options *) (config.mode_opts))->no_save);
+			break;
+		}
+		case UNINSTALL: {
+			dbprintf(VERBOSE,
+			         " no-deps: %i \n cascade: %i \n no-save: %i \n recursive: %i \n unneeded: %i \n",
+			         ((struct uninstall_options *) (config.mode_opts))->no_deps,
+			         ((struct uninstall_options *) (config.mode_opts))->cascade,
+			         ((struct uninstall_options *) (config.mode_opts))->no_save,
+			         ((struct uninstall_options *) (config.mode_opts))->recursive,
+			         ((struct uninstall_options *) (config.mode_opts))->unneeded);
+			break;
+		}
+		case BUILD: {
+			dbprintf(VERBOSE, " local: %i \n force: %i \n",
+			         ((struct build_options *) (config.mode_opts))->local,
+			         ((struct build_options *) (config.mode_opts))->force);
+			break;
+		}
+		case CHECK: {
+			dbprintf(VERBOSE, " local: %i \n type: %i \n",
+			         ((struct check_options *) (config.mode_opts))->local,
+			         ((struct check_options *) (config.mode_opts))->check_type);
+			break;
+		}
 
+		default: {
+			dbprintf(DEBUG, "Selected mode doesn't have options \n");
+		}
+	}
+	dbprintf(VERBOSE, "---------------------------------- \n");
 }
 
 void print_targets()
