@@ -85,6 +85,6 @@ void read_mode(int argc, char **argv, int index);
 
 int parse_mode_opts(int argc, char **argv, int start_index);
 
-void parse_targets(int argc, char **argv, int start_index)
+void parse_targets(int argc, char **argv, int start_index);
 
 #endif //COLDBREW_COMMANDLINEPARSER_H
