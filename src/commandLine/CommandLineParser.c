@@ -3,13 +3,11 @@
 //
 
 #include <stdio.h>
-#include <unistd.h>
 #include <string.h>
+#include <stdlib.h>
 #include "CommandlineParser.h"
-#include "../utils/stringMinip.h"
 #include "../utils/print.h"
 
-struct hashmap_string_int *command_line_args;
 
 struct configuration config;
 
