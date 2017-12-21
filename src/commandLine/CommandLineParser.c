@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include "CommandlineParser.h"
 #include "../utils/print.h"
 
@@ -24,6 +25,7 @@ int max_targets = 10;
  */
 void parseCommandLine(int argc, char **argv)
 {
+	set_defaults();
 	int end_index = parse_brew_opts(argc, argv) /*+ 1; //this + 1 may be needed*/;
 	print_brew_opts();
 	read_mode(argc, argv, end_index);
@@ -99,7 +101,9 @@ int parse_mode_opts(int argc, char **argv, int start_index)
 	for (i = start_index; i < argc && argv[i][0] == '-' && argv[i][0] == '-'; i++) {
 		switch (config.selected_mode) {
 			case INSTALL: {
-				config.mode_opts = calloc(1, sizeof(struct install_options));
+				if (config.mode_opts == NULL) {
+					config.mode_opts = calloc(1, sizeof(struct install_options));
+				}
 				if (strcmp(argv[i], "--local") == 0) {
 					((struct install_options *) (config.mode_opts))->local = 1;
 				} else if (strcmp(argv[i], "--no-deps") == 0) {
@@ -120,7 +124,9 @@ int parse_mode_opts(int argc, char **argv, int start_index)
 				break;
 			}
 			case UPGRADE: {
-				config.mode_opts = calloc(1, sizeof(struct upgrade_options));
+				if (config.mode_opts == NULL) {
+					config.mode_opts = calloc(1, sizeof(struct upgrade_options));
+				}
 				if (strcmp(argv[i], "--force") == 0) {
 					((struct upgrade_options *) (config.mode_opts))->force = 1;
 				} else if (strcmp(argv[i], "--no-save") == 0) {
@@ -139,7 +145,9 @@ int parse_mode_opts(int argc, char **argv, int start_index)
 				break;
 			}
 			case UNINSTALL: {
-				config.mode_opts = calloc(1, sizeof(struct uninstall_options));
+				if (config.mode_opts == NULL) {
+					config.mode_opts = calloc(1, sizeof(struct uninstall_options));
+				}
 				if (strcmp(argv[i], "--no-deps") == 0) {
 					((struct uninstall_options *) (config.mode_opts))->no_deps = 1;
 				} else if (strcmp(argv[i], "--cascade") == 0) {
@@ -160,7 +168,9 @@ int parse_mode_opts(int argc, char **argv, int start_index)
 				break;
 			}
 			case BUILD: {
-				config.mode_opts = calloc(1, sizeof(struct build_options));
+				if (config.mode_opts == NULL) {
+					config.mode_opts = calloc(1, sizeof(struct build_options));
+				}
 				if (strcmp(argv[i], "--local") == 0) {
 					((struct build_options *) (config.mode_opts))->local = 1;
 				} else if (strcmp(argv[i], "--force") == 0) {
@@ -170,7 +180,9 @@ int parse_mode_opts(int argc, char **argv, int start_index)
 				}
 			}
 			case CHECK: {
-				config.mode_opts = calloc(1, sizeof(struct check_options));
+				if (config.mode_opts == NULL) {
+					config.mode_opts = calloc(1, sizeof(struct check_options));
+				}
 				if (strcmp(argv[i], "--local") == 0) {
 					((struct check_options *) (config.mode_opts))->local = 1;
 				} else if (strcmp(argv[i], "--package") == 0) {
@@ -285,4 +297,23 @@ void print_mode_opts()
 void print_targets()
 {
 
+}
+
+void set_defaults()
+{
+	if (isatty(fileno(stdout))) {
+		config.brew_opts.color = 1;
+	} else {
+		config.brew_opts.color = 0;
+	}
+
+#ifdef DEV
+	config.brew_opts.verbosity = DEBUG;
+#else
+	config.brew_opts.verbosity = NORMAL;
+#endif
+
+	config.brew_opts.confirm = 1;
+	config.brew_opts.sync = 1;
+	config.mode_opts = NULL;
 }
