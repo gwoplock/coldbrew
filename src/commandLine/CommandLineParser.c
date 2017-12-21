@@ -31,21 +31,21 @@ int parse_brew_opts(int argc, char **argv)
 {
 	int i;
 	for (i = 0; i < argc && argv[i][0] == '-' && argv[i][0] == '-'; i++) {
-		if (strcmp(argv[i], "--color")) {
+		if (strcmp(argv[i], "--color") == 0) {
 			config.brew_opts.color = 1;
-		} else if (strcmp(argv[i], "--no-color")) {
+		} else if (strcmp(argv[i], "--no-color") == 0) {
 			config.brew_opts.color = 0;
-		} else if (strcmp(argv[i], "--verbose")) {
+		} else if (strcmp(argv[i], "--verbose") == 0) {
 			config.brew_opts.verbosity = VERBOSE;
-		} else if (strcmp(argv[i], "--debug")) {
+		} else if (strcmp(argv[i], "--debug") == 0) {
 			config.brew_opts.verbosity = DEBUG;
-		} else if (strcmp(argv[i], "--no-confirm")) {
+		} else if (strcmp(argv[i], "--no-confirm") == 0) {
 			config.brew_opts.confirm = 0;
-		} else if (strcmp(argv[i], "--confirm")) {
+		} else if (strcmp(argv[i], "--confirm") == 0) {
 			config.brew_opts.confirm = 1;
-		} else if (strcmp(argv[i], "--no-sync")) {
+		} else if (strcmp(argv[i], "--no-sync") == 0) {
 			config.brew_opts.sync = 0;
-		} else if (strcmp(argv[i], "--sync")) {
+		} else if (strcmp(argv[i], "--sync") == 0) {
 			config.brew_opts.sync = 1;
 		} else {
 			//bad arg
@@ -89,17 +89,17 @@ int parse_mode_opts(int argc, char **argv, int start_index)
 		switch (config.selected_mode) {
 			case INSTALL: {
 				config.mode_opts = calloc(1, sizeof(struct install_options));
-				if (strcmp(argv[i], "--local")) {
+				if (strcmp(argv[i], "--local") ==0 ) {
 
-				} else if (strcmp(argv[i], "--no-deps")) {
+				} else if (strcmp(argv[i], "--no-deps") == 0) {
 
-				} else if (strcmp(argv[i], "--force")) {
+				} else if (strcmp(argv[i], "--force") == 0) {
 
-				} else if (strcmp(argv[i], "--needed")) {
+				} else if (strcmp(argv[i], "--needed") == 0) {
 
-				} else if (strcmp(argv[i], "--as-deps")) {
+				} else if (strcmp(argv[i], "--as-deps") == 0) {
 
-				} else if (strcmp(argv[i], "--as-expl")) {
+				} else if (strcmp(argv[i], "--as-expl") == 0) {
 
 				} else {
 					//bad option
@@ -108,9 +108,9 @@ int parse_mode_opts(int argc, char **argv, int start_index)
 			}
 			case UPGRADE: {
 				config.mode_opts = calloc(1, sizeof(struct upgrade_options));
-				if (strcmp(argv[i], "--force")) {
+				if (strcmp(argv[i], "--force") == 0) {
 
-				} else if (strcmp(argv[i], "--no-save")) {
+				} else if (strcmp(argv[i], "--no-save") == 0) {
 
 				} else {
 
@@ -127,17 +127,17 @@ int parse_mode_opts(int argc, char **argv, int start_index)
 			}
 			case UNINSTALL: {
 				config.mode_opts = calloc(1, sizeof(struct uninstall_options));
-				if (strcmp(argv[i], "--no-deps")) {
+				if (strcmp(argv[i], "--no-deps") == 0) {
 
-				} else if (strcmp(argv[i], "--cascade")) {
+				} else if (strcmp(argv[i], "--cascade") == 0) {
 
-				} else if (strcmp(argv[i], "--no-save")) {
+				} else if (strcmp(argv[i], "--no-save") == 0) {
 
-				} else if (strcmp(argv[i], "--recursive")) {
+				} else if (strcmp(argv[i], "--recursive") == 0) {
 
-				} else if (strcmp(argv[i], "--recursive-strong")) {
+				} else if (strcmp(argv[i], "--recursive-strong") == 0) {
 
-				} else if (strcmp(argv[i], "--unneeded")) {
+				} else if (strcmp(argv[i], "--unneeded") == 0) {
 
 				} else {
 
@@ -146,9 +146,9 @@ int parse_mode_opts(int argc, char **argv, int start_index)
 			}
 			case BUILD: {
 				config.mode_opts = calloc(1, sizeof(struct build_options));
-				if (strcmp(argv[i], "--local")) {
+				if (strcmp(argv[i], "--local") == 0) {
 
-				} else if (strcmp(argv[i], "--force")) {
+				} else if (strcmp(argv[i], "--force") == 0) {
 
 				} else {
 
@@ -156,11 +156,11 @@ int parse_mode_opts(int argc, char **argv, int start_index)
 			}
 			case CHECK: {
 				config.mode_opts = calloc(1, sizeof(struct check_options));
-				if (strcmp(argv[i], "--local")) {
+				if (strcmp(argv[i], "--local") == 0) {
 
-				} else if (strcmp(argv[i], "--package")) {
+				} else if (strcmp(argv[i], "--package") == 0) {
 
-				} else if (strcmp(argv[i], "--script")) {
+				} else if (strcmp(argv[i], "--script") == 0) {
 
 				} else {
 
