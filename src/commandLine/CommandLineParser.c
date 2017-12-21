@@ -33,27 +33,22 @@ int parse_brew_opts(int argc, char **argv)
 	for (i = 0; i < argc && argv[i][0] == '-' && argv[i][0] == '-'; i++) {
 		if (strcmp(argv[i], "--color")) {
 			config.brew_opts.color = 1;
-		}
-		if (strcmp(argv[i], "--no-color")) {
+		} else if (strcmp(argv[i], "--no-color")) {
 			config.brew_opts.color = 0;
-		}
-		if (strcmp(argv[i], "--verbose")) {
+		} else if (strcmp(argv[i], "--verbose")) {
 			config.brew_opts.verbosity = VERBOSE;
-		}
-		if (strcmp(argv[i], "--debug")) {
+		} else if (strcmp(argv[i], "--debug")) {
 			config.brew_opts.verbosity = DEBUG;
-		}
-		if (strcmp(argv[i], "--no-confirm")) {
+		} else if (strcmp(argv[i], "--no-confirm")) {
 			config.brew_opts.confirm = 0;
-		}
-		if (strcmp(argv[i], "--confirm")) {
+		} else if (strcmp(argv[i], "--confirm")) {
 			config.brew_opts.confirm = 1;
-		}
-		if (strcmp(argv[i], "--no-sync")) {
+		} else if (strcmp(argv[i], "--no-sync")) {
 			config.brew_opts.sync = 0;
-		}
-		if (strcmp(argv[i], "--sync")) {
+		} else if (strcmp(argv[i], "--sync")) {
 			config.brew_opts.sync = 1;
+		} else {
+			//bad arg
 		}
 	}
 	return i;
