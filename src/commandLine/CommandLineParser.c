@@ -11,6 +11,11 @@
 
 struct configuration config;
 
+struct target *targets;
+
+int num_of_targets;
+
+int max_targets = 10;
 
 /***
  * inserts all elements into hashmap
@@ -54,7 +59,7 @@ int parse_brew_opts(int argc, char **argv)
 
 void read_mode(int argc, char **argv, int index)
 {
-	if (index < argc-1) {
+	if (index < argc - 1) {
 		char *arg = argv[index];
 		if (strcmp(arg, "install") == 0) {
 			config.selected_mode = INSTALL;
@@ -198,5 +203,12 @@ int parse_mode_opts(int argc, char **argv, int start_index)
 
 void parse_targets(int argc, char **argv, int start_index)
 {
-
+	targets = calloc(max_targets, sizeof(struct target));
+	for (int i = start_index; i < argc; i++) {
+		if ((i - start_index) == max_targets) {
+			max_targets *= 2;
+			targets = realloc(targets, max_targets);
+		}
+		targets[i - start_index].name = argv[i];
+	}
 }

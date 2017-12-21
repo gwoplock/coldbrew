@@ -8,6 +8,12 @@
 
 extern struct configuration config;
 
+extern struct target *targets;
+
+extern int num_of_targets;
+
+extern int max_targets;
+
 enum mode
 {
 	INSTALL, UPGRADE, UPDATE, SYNC, UNINSTALL, BUILD, CHECK, HELP, SEARCH, QUERY
@@ -68,6 +74,12 @@ struct check_options
 {
 	int local;
 	enum type check_type;
+};
+
+struct target
+{
+	char *name;
+
 };
 
 extern void lock();
