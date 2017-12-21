@@ -56,7 +56,30 @@ int parse_brew_opts(int argc, char **argv)
 
 void read_mode(int argc, char **argv, int index)
 {
-
+	char *arg = argv[index];
+	if (strcmp(arg, "install") == 0) {
+		config.selected_mode = INSTALL;
+	} else if (strcmp(arg, "upgrade") == 0) {
+		config.selected_mode = UPGRADE;
+	} else if (strcmp(arg, "update") == 0) {
+		config.selected_mode = UPDATE;
+	} else if (strcmp(arg, "sync") == 0) {
+		config.selected_mode = SYNC;
+	} else if (strcmp(arg, "uninstall") == 0) {
+		config.selected_mode = UNINSTALL;
+	} else if (strcmp(arg, "build") == 0) {
+		config.selected_mode = BUILD;
+	} else if (strcmp(arg, "check") == 0) {
+		config.selected_mode = CHECK;
+	} else if (strcmp(arg, "help") == 0) {
+		config.selected_mode = HELP;
+	} else if (strcmp(arg, "search") == 0) {
+		config.selected_mode = SEARCH;
+	} else if (strcmp(arg, "query") == 0) {
+		config.selected_mode = QUERY;
+	} else{
+		//bad mode
+	}
 }
 
 int parse_mode_opts(int argc, char **argv, int start_index)
