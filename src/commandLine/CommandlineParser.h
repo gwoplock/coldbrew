@@ -96,4 +96,12 @@ int parse_mode_opts(int argc, char **argv, int start_index);
 
 void parse_targets(int argc, char **argv, int start_index);
 
+void print_brew_opts();
+
+void print_mode();
+
+void print_mode_opts();
+
+void print_targets();
+
 #endif //COLDBREW_COMMANDLINEPARSER_H

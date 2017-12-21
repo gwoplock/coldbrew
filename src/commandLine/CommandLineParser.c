@@ -25,9 +25,13 @@ int max_targets = 10;
 void parseCommandLine(int argc, char **argv)
 {
 	int end_index = parse_brew_opts(argc, argv) /*+ 1; //this + 1 may be needed*/;
+	print_brew_opts();
 	read_mode(argc, argv, end_index);
+	print_mode();
 	end_index = parse_mode_opts(argc, argv, end_index + 1/*may be a +2*/)/*+ 1; //this + 1 may be needed*/;
+	print_mode_opts();
 	parse_targets(argc, argv, end_index);
+	print_targets();
 }
 
 int parse_brew_opts(int argc, char **argv)
@@ -211,4 +215,24 @@ void parse_targets(int argc, char **argv, int start_index)
 		}
 		targets[i - start_index].name = argv[i];
 	}
+}
+
+void print_brew_opts()
+{
+	
+}
+
+void print_mode()
+{
+
+}
+
+void print_mode_opts()
+{
+
+}
+
+void print_targets()
+{
+
 }
