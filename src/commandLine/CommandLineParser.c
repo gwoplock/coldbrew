@@ -219,13 +219,15 @@ int parse_mode_opts(int argc, char **argv, int start_index)
 
 void parse_targets(int argc, char **argv, int start_index)
 {
+	num_of_targets = 0;
 	targets = calloc(max_targets, sizeof(struct target));
 	for (int i = start_index; i < argc; i++) {
-		if ((i - start_index) == max_targets) {
+		if (num_of_targets == max_targets) {
 			max_targets *= 2;
 			targets = realloc(targets, max_targets);
 		}
 		targets[i - start_index].name = argv[i];
+		num_of_targets++;
 	}
 }
 
@@ -296,7 +298,9 @@ void print_mode_opts()
 
 void print_targets()
 {
-
+	for (int i = 0; i < num_of_targets; i++) {
+		dbprintf(VERBOSE, "Target %i: %s\n", i, targets[i].name);
+	}
 }
 
 void set_defaults()
