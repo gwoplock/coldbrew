@@ -1,6 +1,7 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include "commandLine/CommandlineParser.h"
 #include "utils/print.h"
 
@@ -54,11 +55,6 @@ int main(int argc, char **argv)
 	}
 
 	parseCommandLine(argc, argv);
-	set_mode();
-	set_options();
-	back_print_options();
-	set_mode_options();
-
 	unlock();
 	exit(0);
 }
