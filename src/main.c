@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "commandLine/CommandlineParser.h"
 #include "utils/print.h"
+#include "utils/stringMinip.h"
 
 #ifdef DEV
 #define LOCKFILE "./lockfile"

@@ -13,13 +13,16 @@
  */
 char *lower_string(char *string)
 {
-	char *to_ret = (char *) calloc(sizeof(char), strlen(string));
-	for (int i = 0; string[i] != '\0'; i++) {
-		if (string[i] >= '\x61' && string[i] <= '\x7a') {
-			to_ret[i] = string[i];
-		} else if (string[i] >= '\x41' && string[i] <= '\x5a') {
-			to_ret[i] = string[i] + 0x20;
+	// +1 so that there's the null termintor
+	char *ret = calloc(sizeof(char), strlen(string) + 1);
+	int cx;
+
+	for (cx = 0; cx < strlen(string); cx++) {
+		if (string[cx] > 0x40 && string[cx] < 0x5B) {
+			ret[cx] = string[cx] + 0x20;
+		} else {
+			ret[cx] = string[cx];
 		}
 	}
-	return to_ret;
+	return ret;
 }
