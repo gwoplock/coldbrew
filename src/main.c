@@ -1,3 +1,4 @@
+#include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
 #include "commandLine/CommandlineParser.h"
@@ -20,31 +21,42 @@ char lockfile_exists()
 
 /**
  * creates lockfile
+ * @return int file descriptor for lockfile
  */
-void lock()
+int lock()
 {
-	system("touch "  LOCKFILE);
+	return creat (LOCKFILE, 00777);
 }
 /**
  * removes lockfile
  */
 void unlock()
 {
-	system("rm " LOCKFILE);
+	unlink (LOCKFILE);
 }
 
 int main(int argc, char **argv)
 {
+	int lockfile;
+
 	if (lockfile_exists()) {
 		dbfprintf(NORMAL, stderr,
-		        "Lockfile exists, exiting... \n if you believe this is an error verify coldbrew isn't running then delete \""LOCKFILE" \" ");
+		        "Lockfile exists, exiting... \n if you believe this is an error verify coldbrew isn't running then delete \""LOCKFILE" \" \n");
 		exit(1);
 	}
-	lock();
+	lockfile = lock();
+	if (lockfile < 0) {
+		dbfprintf(NORMAL, stderr, "unable to create lockfile \""LOCKFILE"\"\n");
+		exit(1);
+	}
+
 	parseCommandLine(argc, argv);
 	set_mode();
 	set_options();
 	back_print_options();
 	set_mode_options();
+
+	close(lockfile);
 	unlock();
+	exit(0);
 }

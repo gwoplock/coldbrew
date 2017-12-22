@@ -73,7 +73,7 @@ struct check_options
 	enum type check_type;
 };
 
-extern void lock();
+extern int lock();
 
 extern void unlock();
 
