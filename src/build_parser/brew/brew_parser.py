@@ -7,27 +7,44 @@
 
 from sys import argv
 
-# TODO: FIX!!!!!
-@contextmanager
-def opened_w_error (filename, mode="r"):
-	try:
-		f = open (filename, mode)
-	except Error:
-		yield None, True
-	else:
-		try:
-			yield f, False
-		finally:
-			f.close ()
-
 if len(argv) < 2:
-	print ("Please provide a filename")
-	quit (-1)
+  print("Please provide a filename")
+  quit (-1)
 
-with opened_w_error (argv[1], "r") as (infile, err):
-	if err:
-		print ("File not found: %s" % argv[1])
-		quit (-1)
-	else:
-		print ("File exists")
-		quit (0)
+with open(argv[1], "r") as infile:
+  desc = "NULL"
+  homepage = "NULL"
+  url = "NULL"
+  sha256 = "NULL"
+  instructions = {}
+
+  for line in infile.readlines():
+    line = line.strip()
+    if len(line) < 1:
+      continue
+    elif line[0] is "#":
+      continue
+    elif "desc" in line:
+      temp = line.split(" ")[1][1:-1]
+      if temp is  not "":
+        desc = temp
+    elif "homepage" in line:
+      temp = line.split(" ")[1][1:-1]
+      if temp is  not "":
+        homepage = temp
+    elif "url" in line:
+      temp = line.split(" ")[1][1:-1]
+      if temp is  not "":
+        url = temp
+    elif "sha256" in line:
+      temp = line.split(" ")[1][1:-1]
+      if temp is  not "":
+        sha256 = temp
+    elif "def" in line:
+      temp = line.split(" ")[1]
+      instructions[temp] = "test"
+
+  print("Desc:", desc)
+  print("Homepage:", homepage)
+  print("URL:", url)
+  print("SHA-256:", sha256)
