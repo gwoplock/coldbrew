@@ -1,2 +1,7 @@
 alias vim='vim -u `git rev-parse --show-toplevel`/.vimrc'
 alias cmake='cd `git rev-parse --show-toplevel`/build && cmake ..'
+
+if [ $# -eq 1 ]; then
+	echo "colorscheme $1" >> `git rev-parse --show-toplevel`/.vimrc
+	echo "Vim colorscheme set to: $1"
+fi
