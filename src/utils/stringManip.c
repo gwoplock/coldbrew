@@ -14,7 +14,7 @@
 char *lower_string(char *string)
 {
 	// +1 so that there's the null termintor
-	char *ret = calloc(sizeof(char), strlen(string) + 1);
+	char *ret = calloc(strlen(string) + 1, sizeof (char));
 	int cx;
 
 	for (cx = 0; cx < strlen(string); cx++) {
