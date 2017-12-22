@@ -4,7 +4,7 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include "stringMinip.h"
+#include "stringManip.h"
 
 /**
  * converts a char* to all lowercase
