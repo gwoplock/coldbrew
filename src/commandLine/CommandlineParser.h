@@ -76,13 +76,15 @@ struct check_options
 	enum type check_type;
 };
 
+
 struct target
 {
 	char *name;
 
 };
 
-extern void lock();
+extern char lock();
+
 
 extern void unlock();
 

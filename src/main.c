@@ -1,3 +1,4 @@
+#include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -21,27 +22,39 @@ char lockfile_exists()
 
 /**
  * creates lockfile
+ * @return bool if success, true, else false
  */
-void lock()
+char lock()
 {
-	system("touch "  LOCKFILE);
+	int fd = creat (LOCKFILE, 00777);
+	if (fd < 0) {
+		return 0;
+	} else {
+		close (fd);
+		return 1;
+	}
 }
 /**
  * removes lockfile
  */
 void unlock()
 {
-	system("rm " LOCKFILE);
+	unlink (LOCKFILE);
 }
 
 int main(int argc, char **argv)
 {
 	if (lockfile_exists()) {
 		dbfprintf(NORMAL, stderr,
-		        "Lockfile exists, exiting... \n if you believe this is an error verify coldbrew isn't running then delete \""LOCKFILE" \" ");
+		        "Lockfile exists, exiting... \n if you believe this is an error verify coldbrew isn't running then delete \""LOCKFILE" \" \n");
 		exit(1);
 	}
-	lock();
+	if (!lock()) {
+		dbfprintf(NORMAL, stderr, "unable to create lockfile \""LOCKFILE"\"\n");
+		exit(1);
+	}
+
 	parseCommandLine(argc, argv);
 	unlock();
+	exit(0);
 }
