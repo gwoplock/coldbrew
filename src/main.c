@@ -21,11 +21,17 @@ char lockfile_exists()
 
 /**
  * creates lockfile
- * @return int file descriptor for lockfile
+ * @return bool if success, true, else false
  */
-int lock()
+char lock()
 {
-	return creat (LOCKFILE, 00777);
+	int fd = creat (LOCKFILE, 00777);
+	if (fd < 0) {
+		return 0;
+	} else {
+		close (fd);
+		return 1;
+	}
 }
 /**
  * removes lockfile
@@ -37,15 +43,12 @@ void unlock()
 
 int main(int argc, char **argv)
 {
-	int lockfile;
-
 	if (lockfile_exists()) {
 		dbfprintf(NORMAL, stderr,
 		        "Lockfile exists, exiting... \n if you believe this is an error verify coldbrew isn't running then delete \""LOCKFILE" \" \n");
 		exit(1);
 	}
-	lockfile = lock();
-	if (lockfile < 0) {
+	if (!lock()) {
 		dbfprintf(NORMAL, stderr, "unable to create lockfile \""LOCKFILE"\"\n");
 		exit(1);
 	}
@@ -56,7 +59,6 @@ int main(int argc, char **argv)
 	back_print_options();
 	set_mode_options();
 
-	close(lockfile);
 	unlock();
 	exit(0);
 }
