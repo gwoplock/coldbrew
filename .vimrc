@@ -3,3 +3,4 @@ set shiftwidth=8
 set noexpandtab
 set number
 syntax on
+colorscheme molokai
