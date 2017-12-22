@@ -106,4 +106,6 @@ void print_targets();
 
 void set_defaults();
 
+void validate_args();
+
 #endif //COLDBREW_COMMANDLINEPARSER_H

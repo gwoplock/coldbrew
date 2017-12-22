@@ -34,6 +34,7 @@ void parseCommandLine(int argc, char **argv)
 	print_mode_opts();
 	parse_targets(argc, argv, end_index);
 	print_targets();
+	validate_args();
 }
 
 int parse_brew_opts(int argc, char **argv)
@@ -67,7 +68,7 @@ int parse_brew_opts(int argc, char **argv)
 
 void read_mode(int argc, char **argv, int index)
 {
-	if (index < argc - 1) {
+	if (index < argc) {
 		char *arg = argv[index];
 		if (strcmp(arg, "install") == 0) {
 			config.selected_mode = INSTALL;
@@ -338,4 +339,21 @@ void set_defaults()
 	config.brew_opts.confirm = 1;
 	config.brew_opts.sync = 1;
 	config.mode_opts = NULL;
+}
+
+void validate_args()
+{
+	if ((config.selected_mode == INSTALL || config.selected_mode == UNINSTALL || config.selected_mode == BUILD ||
+	       config.selected_mode == CHECK) && !(num_of_targets >= 1)) {
+		dbfprintf(NORMAL, stderr, "You must specify a target");
+		unlock();
+		exit(2);
+
+	}
+	if (config.selected_mode == CHECK && config.mode_opts == NULL) {
+		dbfprintf(NORMAL, stderr, "You must specify the type");
+		unlock();
+		exit(2);
+	}
+
 }
