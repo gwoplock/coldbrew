@@ -4,5 +4,5 @@ script:
   - cd build
   - cmake ..
   - make
-  - ./coldbrew debug install test
-  - ./coldbrew debug uninstall test
+  - ./coldbrew --debug install --force test
+  - ./coldbrew --debug uninstall --no-deps test
