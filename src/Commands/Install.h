@@ -7,9 +7,11 @@
 #ifndef COLDBREW_INSTALL_H
 #define COLDBREW_INSTALL_H
 
-
 void install(struct target targ);
 
 enum type get_install_type(struct target targ);
+
+char * download_file(struct target targ, char *tmp_dir);
+
 
 #endif //COLDBREW_INSTALL_H

@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "commandLine/CommandlineParser.h"
 #include "utils/print.h"
+#include "Commands/Install.h"
 
 #ifdef DEV
 #define LOCKFILE "./lockfile"
@@ -26,35 +27,38 @@ char lockfile_exists()
  */
 char lock()
 {
-	int fd = creat (LOCKFILE, 00777);
+	int fd = creat(LOCKFILE, 00777);
 	if (fd < 0) {
 		return 0;
 	} else {
-		close (fd);
+		close(fd);
 		return 1;
 	}
 }
+
 /**
  * removes lockfile
  */
 void unlock()
 {
-	unlink (LOCKFILE);
+	unlink(LOCKFILE);
 }
 
 int main(int argc, char **argv)
 {
 	if (lockfile_exists()) {
 		dbfprintf(NORMAL, stderr,
-		        "Lockfile exists, exiting... \n if you believe this is an error verify coldbrew isn't running then delete \""LOCKFILE" \" \n");
+		          "Lockfile exists, exiting... \n if you believe this is an error verify coldbrew isn't running then delete \""LOCKFILE" \" \n");
 		exit(1);
 	}
 	if (!lock()) {
 		dbfprintf(NORMAL, stderr, "unable to create lockfile \""LOCKFILE"\"\n");
 		exit(1);
 	}
-
 	parseCommandLine(argc, argv);
+	//TODO temp
+	install(targets[0]);
+	//end temp
 	unlock();
 	exit(0);
 }
