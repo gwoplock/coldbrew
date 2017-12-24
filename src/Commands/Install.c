@@ -14,40 +14,40 @@ const short SHABANG = 0x2321;
 
 const short GZ_MAGIC_NUM = 0;
 
-char* tmp_dir;
-
 
 /**
  * installs a target
  * @param targ: target to install
  */
-void install(struct target targ)
+void install(struct target *targ)
 {
-	enum type get_intall_type = get_install_type(targ);
+	targ->target_type = get_install_type(targ);
 
 }
+
 /**
  * gets the type of the target
  * @param targ: target to install
  * @return the type of the target (script or binary package)
  */
-enum type get_install_type(struct target targ)
+enum type get_install_type(struct target *targ)
 {
 
 	FILE *file;
 	if (config.mode_opts != NULL && ((struct install_options *) (config.mode_opts))->local == 1) {
-		file = fopen(targ.name, "r");
+		targ->blob_script_loc = targ->name;
+		file = fopen(targ->name, "r");
 
 	} else {
 		char tmp_dir_template[256];
 		//create a template for the temp dir, this will be where we build the package and such.
 		strcat(tmp_dir_template, "/tmp/coldbrew.");
-		strcat(tmp_dir_template, targ.name);
+		strcat(tmp_dir_template, targ->name);
 		strcat(tmp_dir_template, ".XXXXXX");
-		tmp_dir = mkdtemp(tmp_dir_template);
-		dbprintf(DEBUG, "target: %s, tempdir: %s\n", targ.name, tmp_dir);
-		char *pkg_loc = download_file(targ, tmp_dir);
-		file = fopen(pkg_loc, "r");
+		targ->tmp_dir = mkdtemp(tmp_dir_template);
+		dbprintf(DEBUG, "target: %s, tempdir: %s\n", targ->name, targ->tmp_dir);
+		targ->blob_script_loc = download_file(*targ, targ->tmp_dir);
+		file = fopen(targ->blob_script_loc, "r");
 	}
 	//fopen (or mkdtemp) exploded. we need to die
 	if (file == NULL) {
@@ -77,6 +77,7 @@ enum type get_install_type(struct target targ)
 	fclose(file);
 	return ret;
 }
+
 /**
  * not done but will download target if needbe
  * @param targ: target to download
@@ -90,6 +91,7 @@ char *download_file(struct target targ, char *tmp_dir)
 	unlock();
 	exit(5);
 }
+
 /**
  * gets the first int (4 bytes) from the file, may be moved to utils
  * @param file: FILE* to file

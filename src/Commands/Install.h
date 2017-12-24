@@ -11,9 +11,9 @@ extern const short SHABANG;
 
 extern const short GZ_MAGIC_NUM;
 
-void install(struct target targ);
+void install(struct target* targ);
 
-enum type get_install_type(struct target targ);
+enum type get_install_type(struct target*i targ);
 
 char * download_file(struct target targ, char *tmp_dir);
 

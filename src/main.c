@@ -57,7 +57,7 @@ int main(int argc, char **argv)
 	}
 	parseCommandLine(argc, argv);
 	//TODO temp
-	install(targets[0]);
+	install(&targets[0]);
 	//end temp
 	unlock();
 	exit(0);
