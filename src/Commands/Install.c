@@ -68,7 +68,9 @@ enum type get_install_type(struct target targ)
 	} else if (file_head >> 16 == SHABANG) {
 		ret = SCRIPT;
 	} else {
-		//die, bad file
+		dbfprintf(NORMAL, stderr, "The file doesn't appear to be a format we know about");
+		unlock();
+		exit(7);
 	}
 	dbprintf(VERBOSE, "we determened the target to be a type %i\n", ret);
 	//close the file, we will need it later
@@ -91,7 +93,7 @@ char *download_file(struct target targ, char *tmp_dir)
 /**
  * gets the first int (4 bytes) from the file, may be moved to utils
  * @param file: FILE* to file
- * @return first 4 bytes. 
+ * @return first 4 bytes. c
  */
 int get_first_int(FILE *file)
 {
