@@ -12,7 +12,7 @@
 
 const short SHABANG = 0x2321;
 
-const short GZ_MAGIC_NUM = 0;
+const short GZ_MAGIC_NUM = 0x1f8b;
 
 
 /**
@@ -63,7 +63,7 @@ enum type get_install_type(struct target *targ)
 	int file_head = get_first_int(file);
 	dbprintf(DEBUG, "first 4 bytes of the package are %x\n", file_head);
 	//comp magic numbers, #! is the magic number for script files.
-	if (file_head == GZ_MAGIC_NUM) {
+	if (file_head>>16 == GZ_MAGIC_NUM) {
 		ret = PACKAGE;
 	} else if (file_head >> 16 == SHABANG) {
 		ret = SCRIPT;
