@@ -5,6 +5,8 @@
 #ifndef COLDBREW_PRINT_H
 #define COLDBREW_PRINT_H
 
+#include <stdio.h>
+
 enum print_level {
 	NORMAL, VERBOSE, DEBUG
 };

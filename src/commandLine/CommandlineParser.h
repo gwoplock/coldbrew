@@ -80,7 +80,10 @@ struct check_options
 struct target
 {
 	char *name;
-
+	char *tmp_dir;
+	char *blob_loc;
+	char *blob_script_loc;
+	enum type target_type;
 };
 
 extern char lock();

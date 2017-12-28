@@ -7,4 +7,6 @@
 
 char *lower_string(char *string);
 
+char *strip_path(char *path);
+
 #endif //COLDBREW_STRINGMANIP_H

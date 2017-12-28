@@ -2,7 +2,11 @@ language: c
 
 script:
   - cd build
+  - echo "#!gi homebrew" > test.pkgbuild
+  - tar -cvf src.tar ./../src
+  - gzip ./src.tar
+  - mv ./src.tar.gz ./test.pkg.tar.gz
   - cmake ..
   - make
-  - ./coldbrew --debug install --force test
-  - ./coldbrew --debug uninstall --no-deps test
+  - ./coldbrew --debug install --force --local test.pkgbuild
+  - ./coldbrew install --local test.pkg.tar.gz

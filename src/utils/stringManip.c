@@ -14,7 +14,7 @@
 char *lower_string(char *string)
 {
 	// +1 so that there's the null termintor
-	char *ret = calloc(strlen(string) + 1, sizeof (char));
+	char *ret = calloc(strlen(string) + 1, sizeof(char));
 	int cx;
 
 	for (cx = 0; cx < strlen(string); cx++) {
@@ -22,6 +22,17 @@ char *lower_string(char *string)
 			ret[cx] = string[cx] + 0x20;
 		} else {
 			ret[cx] = string[cx];
+		}
+	}
+	return ret;
+}
+
+char *strip_path(char *path)
+{
+	char *ret = path;
+	for (int i = 0; i < strlen(path); i++) {
+		if (path[i] == '\\' || path[i] == '/') {
+			ret = &path[i + 1];
 		}
 	}
 	return ret;
