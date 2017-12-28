@@ -22,6 +22,10 @@ const short GZ_MAGIC_NUM = 0x1f8b;
 void install(struct target *targ)
 {
 	targ->target_type = get_install_type(targ);
+	if (targ->target_type == SCRIPT){
+		build_blob(targ);
+	}
+	//install blob
 
 }
 
@@ -110,4 +114,15 @@ int get_first_int(FILE *file)
 	fread(ret, 1, 1, file);
 	//return
 	return *ret;
+}
+
+void build_blob(struct target* targ){
+	//create tmp dir if needed
+	//parse script
+	//extract srcs
+	//run prep()
+	//run build()
+	//run check()
+	//run package()
+	//compress package
 }

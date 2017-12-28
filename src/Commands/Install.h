@@ -19,4 +19,6 @@ char * download_file(struct target targ, char *tmp_dir);
 
 int get_first_int(FILE* file);
 
+void build_blob(struct target* targ);
+
 #endif //COLDBREW_INSTALL_H
