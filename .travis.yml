@@ -2,7 +2,7 @@ language: c
 
 script:
   - cd build
-  - echo "!# homebrew" > test.pkgbuild
+  - echo "#!gi homebrew" > test.pkgbuild
   - tar -cvf src.tar ./../src
   - gzip ./src.tar
   - mv ./src.tar.gz ./test.pkg.tar.gz
