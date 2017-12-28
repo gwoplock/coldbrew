@@ -11,15 +11,17 @@
 
 char *create_tmp_dir(char *dir_name)
 {
+	const char *prefix = "/tmp/coldbrew.";
+	const char *suffix = ".XXXXXX";
 	// +1 for null terminator
-	const size_t name_len = 14 + strlen (dir_name) + 7 + 1;
+	const size_t name_len = strlen(prefix) + strlen(dir_name) + strlen(suffix) + 1;
 	char tmp_dir_template[name_len];
 	// Initialize to 0
 	memset (tmp_dir_template, 0, name_len);
 	//create a template for the temp dir, this will be where we build the package and such.
-	strcat(tmp_dir_template, "/tmp/coldbrew.");
+	strcat(tmp_dir_template, prefix);
 	strcat(tmp_dir_template, dir_name);
-	strcat(tmp_dir_template, ".XXXXXX");
+	strcat(tmp_dir_template, suffix);
 	char *tmp = mkdtemp(tmp_dir_template);
 	if (tmp == NULL) {
 		dbfprintf(VERBOSE, stderr,
