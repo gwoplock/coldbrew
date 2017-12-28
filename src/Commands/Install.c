@@ -117,7 +117,6 @@ int get_first_int(FILE *file)
 
 void install_blob(struct target* targ) {
 	//create tmp dir if needed
-
 	//create dirs
 	//move files
 	//set up links
