@@ -44,7 +44,6 @@ enum type get_install_type(struct target *targ)
 	if (config.mode_opts != NULL && ((struct install_options *) (config.mode_opts))->local == 1) {
 		targ->blob_script_loc = targ->name;
 		file = fopen(targ->name, "r");
-
 	} else {
 		if (targ->tmp_dir == NULL) {
 			targ->tmp_dir = create_tmp_dir(strip_path(targ->name));

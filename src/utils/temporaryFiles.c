@@ -11,8 +11,12 @@
 
 char *create_tmp_dir(char *dir_name)
 {
-	char tmp_dir_template[256] = {0};
-//create a template for the temp dir, this will be where we build the package and such.
+	// +1 for null terminator
+	const size_t name_len = 14 + strlen (dir_name) + 7 + 1;
+	char tmp_dir_template[name_len];
+	// Initialize to 0
+	memset (tmp_dir_template, 0, name_len);
+	//create a template for the temp dir, this will be where we build the package and such.
 	strcat(tmp_dir_template, "/tmp/coldbrew.");
 	strcat(tmp_dir_template, dir_name);
 	strcat(tmp_dir_template, ".XXXXXX");
