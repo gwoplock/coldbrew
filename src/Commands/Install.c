@@ -25,7 +25,7 @@ void install(struct target *targ)
 	if (targ->target_type == SCRIPT){
 		build_blob(targ);
 	}
-	//install blob
+	install_blob(targ);
 
 }
 
@@ -125,4 +125,13 @@ void build_blob(struct target* targ){
 	//run check()
 	//run package()
 	//compress package
+}
+
+void install_blob(struct target* targ) {
+	//create tmp dir if needed
+	//create dirs
+	//move files
+	//set up links
+	//apply permissions
+	//save package info
 }
