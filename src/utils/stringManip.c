@@ -29,5 +29,11 @@ char *lower_string(char *string)
 
 char *strip_path(char *path)
 {
-	return "foo";
+	char *ret = path;
+	for (int i = 0; i < strlen(path); i++) {
+		if (path[i] == '\\' || path[i] == '/') {
+			ret = &path[i + 1];
+		}
+	}
+	return ret;
 }

@@ -19,10 +19,11 @@ void build_blob(struct target *targ){
 		strcat(tmp_dir_template, strip_path(targ->name));
 		strcat(tmp_dir_template, ".XXXXXX");
 		targ->tmp_dir = mkdtemp(tmp_dir_template);
-		dbprintf(DEBUG, "target: %s, tempdir: %s\n", targ->name, targ->tmp_dir);
+		dbprintf(DEBUG, "target: %s, template: %s, tempdir: %s\n", targ->name,tmp_dir_template, targ->tmp_dir);
 	}
 	//parse script
 	parse_script(targ->blob_script_loc);
+	//download srcs
 	//extract srcs
 	//run prep()
 	//run build()
