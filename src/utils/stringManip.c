@@ -14,7 +14,7 @@
 char *lower_string(char *string)
 {
 	// +1 so that there's the null termintor
-	char *ret = calloc(strlen(string) + 1, sizeof (char));
+	char *ret = calloc(strlen(string) + 1, sizeof(char));
 	int cx;
 
 	for (cx = 0; cx < strlen(string); cx++) {
@@ -25,4 +25,9 @@ char *lower_string(char *string)
 		}
 	}
 	return ret;
+}
+
+char *strip_path(char *path)
+{
+	return "foo";
 }
