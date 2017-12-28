@@ -3,13 +3,14 @@
 //
 
 #include <stdio.h>
-#include <unistd.h>
 #include <string.h>
 #include <sys/errno.h>
 #include <stdlib.h>
 #include "Install.h"
 #include "../utils/print.h"
 #include "../build_parser/coldbrew/scriptHandler.h"
+#include "../utils/stringManip.h"
+#include "../utils/temporaryFiles.h"
 
 
 const short SHABANG = 0x2321;
@@ -45,13 +46,9 @@ enum type get_install_type(struct target *targ)
 		file = fopen(targ->name, "r");
 
 	} else {
-		char tmp_dir_template[256];
-		//create a template for the temp dir, this will be where we build the package and such.
-		strcat(tmp_dir_template, "/tmp/coldbrew.");
-		strcat(tmp_dir_template, targ->name);
-		strcat(tmp_dir_template, ".XXXXXX");
-		targ->tmp_dir = mkdtemp(tmp_dir_template);
-		dbprintf(DEBUG, "target: %s, tempdir: %s\n", targ->name, targ->tmp_dir);
+		if (targ->tmp_dir == NULL) {
+			targ->tmp_dir = create_tmp_dir(strip_path(targ->name));
+		}
 		targ->blob_script_loc = download_file(*targ, targ->tmp_dir);
 		file = fopen(targ->blob_script_loc, "r");
 	}
@@ -120,6 +117,7 @@ int get_first_int(FILE *file)
 
 void install_blob(struct target* targ) {
 	//create tmp dir if needed
+
 	//create dirs
 	//move files
 	//set up links
