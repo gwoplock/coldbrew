@@ -11,6 +11,7 @@
 #include "../build_parser/coldbrew/scriptHandler.h"
 #include "../utils/stringManip.h"
 #include "../utils/temporaryFiles.h"
+#include "../utils/http.h"
 #include <sys/utsname.h>
 
 
@@ -89,21 +90,36 @@ enum type get_install_type(struct target *targ)
  */
 char *download_file(struct target targ, char *tmp_dir)
 {
-	//TODO
-	struct utsname* uname_info = calloc(sizeof(struct utsname), 1);
+	//TODO finish
+
+	struct utsname *uname_info = calloc(sizeof(struct utsname), 1);
+	//get info
 	int tmp = uname(uname_info);
 	//get OS version
-	char* os = uname_info->sysname;
+	char *os = uname_info->sysname;
 	//get arch
-	char* arch = uname_info->machine;
+	char *arch = uname_info->machine;
 	//pick repo
-	
+	//get repo ip addr
 	//pick file
+	char *file_name = "";
+	//build download info
+	struct resource file;
+	char *slash = "/";
+	size_t remote_location_strleng =
+			strlen(slash) + strlen(os) + strlen(slash) + strlen(arch) + strlen(slash) + strlen(file_name);
+	file.location = calloc(sizeof(char), remote_location_strleng);
+	strcat(file.location, slash);
+	strcat(file.location, os);
+	strcat(file.location, slash);
+	strcat(file.location, arch);
+	strcat(file.location, slash);
+	strcat(file.location, file_name);
+	//TODO set repo ip addr
 	//downlaod file to tmp dir
+	download(file/*resource struct*/, tmp_dir/*fs location*/, file_name/*filename*/);
 	//return filename
-	dbfprintf(NORMAL, stderr, "we cant download files yet \n");
-	unlock();
-	exit(5);
+	return file_name;
 }
 
 /**
