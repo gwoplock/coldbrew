@@ -3,9 +3,13 @@
 //
 
 #include <string.h>
-#include <stdlib.h>
-#include <errno.h>
+#ifdef __APPLE__
 #include <unistd.h>
+#else
+#include <stdlib.h>
+#include <unistd.h>
+#endif
+#include <errno.h>
 #include "temporaryFiles.h"
 #include "print.h"
 
