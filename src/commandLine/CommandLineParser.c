@@ -344,7 +344,7 @@ void set_defaults()
 void validate_args()
 {
 	if ((config.selected_mode == INSTALL || config.selected_mode == UNINSTALL || config.selected_mode == BUILD ||
-	       config.selected_mode == CHECK) && !(num_of_targets >= 1)) {
+	     config.selected_mode == CHECK) && !(num_of_targets >= 1)) {
 		dbfprintf(NORMAL, stderr, "You must specify a target");
 		unlock();
 		exit(2);

@@ -5,6 +5,6 @@
 #ifndef COLDBREW_TEMPORARYFILES_H
 #define COLDBREW_TEMPORARYFILES_H
 
-char* create_tmp_dir(char* dir_name);
+char *create_tmp_dir(char *dir_name);
 
 #endif //COLDBREW_TEMPORARYFILES_H

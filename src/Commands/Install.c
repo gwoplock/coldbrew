@@ -11,6 +11,7 @@
 #include "../build_parser/coldbrew/scriptHandler.h"
 #include "../utils/stringManip.h"
 #include "../utils/temporaryFiles.h"
+#include <sys/utsname.h>
 
 
 const short SHABANG = 0x2321;
@@ -25,7 +26,7 @@ const short GZ_MAGIC_NUM = 0x1f8b;
 void install(struct target *targ)
 {
 	targ->target_type = get_install_type(targ);
-	if (targ->target_type == SCRIPT){
+	if (targ->target_type == SCRIPT) {
 		build_blob(targ);
 	}
 	install_blob(targ);
@@ -65,7 +66,7 @@ enum type get_install_type(struct target *targ)
 	int file_head = get_first_int(file);
 	dbprintf(DEBUG, "first 4 bytes of the package are %x\n", file_head);
 	//comp magic numbers, #! is the magic number for script files.
-	if (file_head>>16 == GZ_MAGIC_NUM) {
+	if (file_head >> 16 == GZ_MAGIC_NUM) {
 		ret = PACKAGE;
 	} else if (file_head >> 16 == SHABANG) {
 		ret = SCRIPT;
@@ -89,6 +90,17 @@ enum type get_install_type(struct target *targ)
 char *download_file(struct target targ, char *tmp_dir)
 {
 	//TODO
+	struct utsname* uname_info = calloc(sizeof(struct utsname), 1);
+	int tmp = uname(uname_info);
+	//get OS version
+	char* os = uname_info->sysname;
+	//get arch
+	char* arch = uname_info->machine;
+	//pick repo
+	
+	//pick file
+	//downlaod file to tmp dir
+	//return filename
 	dbfprintf(NORMAL, stderr, "we cant download files yet \n");
 	unlock();
 	exit(5);
@@ -114,7 +126,8 @@ int get_first_int(FILE *file)
 	return *ret;
 }
 
-void install_blob(struct target* targ) {
+void install_blob(struct target *targ)
+{
 	//create tmp dir if needed
 	//create dirs
 	//move files
