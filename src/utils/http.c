@@ -49,11 +49,20 @@ void download(struct resource to_dl, char *local_loc, char *local_filename)
 	strcat(file_name, local_loc);
 	strcat(file_name, local_filename);
 	int file_num = creat(file_name, 0777);
-
+	if (file_num < 0) {
+		//error
+	}
 	//receive response
 	char reply[256];
 	do {
+		res = write(file_num, reply, 256);
+		if (res < 0) {
+			//error
+		}
 		res = read(socket_num, reply, 256);
-		//TODO proc responce
+		if (res < 0) {
+			//error
+		}
+
 	} while (res != 0);
 }
