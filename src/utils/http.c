@@ -7,6 +7,7 @@
 #include <arpa/inet.h>
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include "http.h"
 
 
@@ -27,14 +28,19 @@ void download(struct resource to_dl, char *local_loc, char *local_filename)
 		//error
 	}
 	//send get request
-	char* get_start = "GET ";
-	char* get_tail = " HTTP/1.1\r\n\r\n";
+	char *get_start = "GET ";
+	char *get_tail = " HTTP/1.1\r\n\r\n";
 	size_t get_req_leng = strlen(get_start) + strlen(to_dl.location) + strlen(get_tail);
-	char* get_req = calloc(sizeof(char), get_req_leng);
-	res = send(socket_num,get_req,get_req_leng, 0);
-	if (res < 0){
+	char *get_req = calloc(sizeof(char), get_req_leng);
+	res = send(socket_num, get_req, get_req_leng, 0);
+	if (res < 0) {
 		//error
 	}
 	//receive response
-
+	//TODO open file
+	char reply[256];
+	do {
+		res = read(socket_num, reply, 256);
+		//TODO proc responce
+	} while (res != 0);
 }
