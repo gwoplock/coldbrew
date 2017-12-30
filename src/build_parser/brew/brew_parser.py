@@ -18,31 +18,20 @@ with open(argv[1], "r") as infile:
   sha256 = "NULL"
   instructions = {}
 
-  for line in infile.readlines():
-    line = line.strip()
-    if len(line) < 1:
-      continue
-    elif line[0] is "#":
-      continue
-    elif "desc" in line:
-      temp = line.split(" ")[1][1:-1]
-      if temp is  not "":
-        desc = temp
-    elif "homepage" in line:
-      temp = line.split(" ")[1][1:-1]
-      if temp is  not "":
-        homepage = temp
-    elif "url" in line:
-      temp = line.split(" ")[1][1:-1]
-      if temp is  not "":
-        url = temp
-    elif "sha256" in line:
-      temp = line.split(" ")[1][1:-1]
-      if temp is  not "":
-        sha256 = temp
-    elif "def" in line:
-      temp = line.split(" ")[1]
-      instructions[temp] = "test"
+  lines = infile.readlines()
+  cx = 0
+  length = len(lines)
+  while cx < length:
+    line = lines[cx].strip()
+    if len(line) < 1 or line[0] is "#":
+      del lines[cx]
+      length = length - 1
+    else:
+      lines[cx] = line
+      cx = cx + 1
+
+  for line in lines:
+    print(line)
 
   print("Desc:", desc)
   print("Homepage:", homepage)
