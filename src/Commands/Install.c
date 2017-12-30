@@ -102,7 +102,9 @@ char *download_file(struct target targ, char *tmp_dir)
 	//pick repo
 	//get repo ip addr
 	//pick file
+	//temp
 	char *file_name = "";
+	//TODO pick file
 	//build download info
 	struct resource file;
 	char *slash = "/";
