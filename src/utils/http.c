@@ -5,6 +5,8 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <string.h>
+#include <stdlib.h>
 #include "http.h"
 
 
@@ -20,10 +22,18 @@ void download(struct resource to_dl, char *local_loc, char *local_filename)
 	serv.sin_addr.s_addr = inet_addr(to_dl.IP);
 	serv.sin_family = AF_INET;
 	serv.sin_port = htons(80);
-	int con_res = connect(socket_num, (struct sockaddr *) &serv, sizeof(serv));
-	if (con_res < 0) {
+	int res = connect(socket_num, (struct sockaddr *) &serv, sizeof(serv));
+	if (res < 0) {
 		//error
 	}
 	//send get request
+	char* get_start = "GET "
+	char* get_tail = " HTTP/1.1\r\n\r\n"
+	size_t get_req_leng = strlen(get_start) + strlen(to_dl.location) + strlen(get_tail);
+	char* get_req = calloc(sizeof(char), get_req_leng);
+	res = send(socket_num,get_req,get_req_leng, 0);
+	if (res < 0){
+		//error
+	}
 	//receive response
 }
