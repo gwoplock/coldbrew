@@ -39,7 +39,7 @@ void build_blob(struct target *targ)
 //this should be moved to a build script file with the above funct
 struct script *parse_script(char *script_path)
 {
-	struct script* ret = calloc(sizeof(struct script), 1);
+	struct script *ret = calloc(sizeof(struct script), 1);
 
 	return ret;
 }

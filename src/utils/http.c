@@ -65,4 +65,8 @@ void download(struct resource to_dl, char *local_loc, char *local_filename)
 		}
 
 	} while (res != 0);
+
+	//close file
+	close(file_num);
+	close(socket_num);
 }
