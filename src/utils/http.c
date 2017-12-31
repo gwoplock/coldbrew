@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include "http.h"
+#include "print.h"
 
 
 void download(struct resource to_dl, char *local_loc, char *local_filename)
@@ -60,14 +61,23 @@ void download(struct resource to_dl, char *local_loc, char *local_filename)
 	int found_EOH = 1;
 	int found_n = 1;
 	int found_nr = 1;
+	int first_read = 0;
+	char status_code[4] = {0};
 	ssize_t readb;
 	do {
 
-		 readb = recv(socket_num, reply, 258, 0);
+		readb = recv(socket_num, reply, 258, 0);
 		if (res <= 0) {
 			//error
 		}
-
+		if (first_read == 0) {
+			// char 9-12
+			status_code[0] = reply[9];
+			status_code[1] = reply[10];
+			status_code[2] = reply[11];
+			status_code[3] = '\0';
+			dbprintf(VERBOSE, "the server returned a %s response code.", status_code);
+		}
 		if (found_EOH != 0) {
 			//I think this works for detecting the end of a header
 			for (int i = 0; i < 256; i++) {
