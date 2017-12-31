@@ -56,8 +56,6 @@ void download(struct resource to_dl, char *local_loc, char *local_filename)
 
 	//receive response
 	char reply[256];
-	//TODO check header for response code and print info if != 200
-	//TODO remove header
 	int found_EOH = 1;
 	int found_n = 1;
 	int found_nr = 1;
@@ -77,6 +75,10 @@ void download(struct resource to_dl, char *local_loc, char *local_filename)
 			status_code[2] = reply[11];
 			status_code[3] = '\0';
 			dbprintf(VERBOSE, "the server returned a %s response code.", status_code);
+			first_read =1;
+		}
+		if (strcmp(status_code, "200") == 0){
+			//errorgit
 		}
 		if (found_EOH != 0) {
 			//I think this works for detecting the end of a header
