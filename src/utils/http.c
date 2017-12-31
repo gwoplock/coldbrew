@@ -25,7 +25,7 @@ void download(struct resource to_dl, char *local_loc, char *local_filename)
 	serv.sin_addr.s_addr = inet_addr(to_dl.IP);
 	serv.sin_family = AF_INET;
 	serv.sin_port = htons(80);
-	int res = connect(socket_num, (struct sockaddr *) &serv, sizeof(serv));
+	ssize_t res = connect(socket_num, (struct sockaddr *) &serv, sizeof(serv));
 	if (res < 0) {
 		//error
 	}
@@ -52,20 +52,56 @@ void download(struct resource to_dl, char *local_loc, char *local_filename)
 	if (file_num < 0) {
 		//error
 	}
+
 	//receive response
 	char reply[256];
 	//TODO check header for response code and print info if != 200
 	//TODO remove header
+	int found_EOH = 1;
+	int found_n = 1;
+	int found_nr = 1;
+	ssize_t readb;
 	do {
-		res = write(file_num, reply, 256);
+
+		 readb = recv(socket_num, reply, 258, 0);
+		if (res <= 0) {
+			//error
+		}
+
+		if (found_EOH != 0) {
+			//I think this works for detecting the end of a header
+			for (int i = 0; i < 256; i++) {
+				if (reply[i] == '\r') {
+					found_n = 0;
+				} else if (reply[i] == '\n' && found_n == 0) {
+					found_nr = 0;
+					found_n = 1;
+				} else {
+					found_n = 1;
+				}
+
+				if (reply[i] == '\r' && found_nr == 0) {
+					found_n = 0;
+				} else if (reply[i] == '\n' && found_n == 0 && found_nr == 0) {
+					found_nr = 1;
+					found_n = 1;
+					found_EOH = 0;
+				} else if (reply[i] != '\n') {
+					found_nr = 1;
+					found_n = 1;
+				}
+
+				if (found_EOH) {
+					res = write(file_num, reply + i, 256 - i);
+				}
+			}
+		} else {
+			res = write(file_num, reply, 256);
+		}
 		if (res < 0) {
 			//error
 		}
-		res = recv(socket_num, reply, 258, 0);
-		if (res <= 0){
-			//error
-		}
-	} while (res == 256);
+	} while (readb == 256);
 
 	//close file
 	close(file_num);
