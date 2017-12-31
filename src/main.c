@@ -60,5 +60,5 @@ int main(int argc, char **argv)
 	install(&targets[0]);
 	//end temp
 	unlock();
-	exit(0);
+	return 0;
 }

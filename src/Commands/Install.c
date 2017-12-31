@@ -74,7 +74,7 @@ enum type get_install_type(struct target *targ)
 	} else {
 		dbfprintf(NORMAL, stderr, "The file doesn't appear to be a format we know about");
 		unlock();
-		exit(7);
+		exit(5);
 	}
 	dbprintf(VERBOSE, "we determened the target to be a type %i\n", ret);
 	//close the file, we will need it later

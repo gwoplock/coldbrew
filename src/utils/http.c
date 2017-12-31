@@ -9,8 +9,10 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <errno.h>
 #include "http.h"
 #include "print.h"
+#include "../commandLine/CommandlineParser.h"
 
 
 void download(struct resource to_dl, char *local_loc, char *local_filename)
@@ -18,7 +20,12 @@ void download(struct resource to_dl, char *local_loc, char *local_filename)
 	//create socket
 	int socket_num = socket(AF_INET, SOCK_STREAM, 0);
 	if (socket_num == -1) {
-		//error
+		dbfprintf(NORMAL, stderr, "There was an error opening the socket to download the file");
+		dbfprintf(DEBUG, stderr,
+		          "socket had an error and returned an errorno of %i, translated it is \"%s\"\n", errno,
+		          strerror(errno));
+		unlock();
+		exit(6);
 	}
 
 	//connect to server
@@ -28,7 +35,12 @@ void download(struct resource to_dl, char *local_loc, char *local_filename)
 	serv.sin_port = htons(80);
 	ssize_t res = connect(socket_num, (struct sockaddr *) &serv, sizeof(serv));
 	if (res < 0) {
-		//error
+		dbfprintf(NORMAL, stderr, "There was an error conneting to the server to download the file");
+		dbfprintf(DEBUG, stderr,
+		          "connect had an error and returned an errorno of %i, translated it is \"%s\"\n", errno,
+		          strerror(errno));
+		unlock();
+		exit(6);
 	}
 
 	//send get request
@@ -41,7 +53,12 @@ void download(struct resource to_dl, char *local_loc, char *local_filename)
 	strcat(get_req, get_tail);
 	res = send(socket_num, get_req, get_req_leng, 0);
 	if (res < 0) {
-		//error
+		dbfprintf(NORMAL, stderr, "There was an error sending the request of the file");
+		dbfprintf(DEBUG, stderr,
+		          "send had an error and returned an errorno of %i, translated it is \"%s\"\n", errno,
+		          strerror(errno));
+		unlock();
+		exit(6);
 	}
 
 	//open file for response
@@ -51,7 +68,12 @@ void download(struct resource to_dl, char *local_loc, char *local_filename)
 	strcat(file_name, local_filename);
 	int file_num = creat(file_name, 0777);
 	if (file_num < 0) {
-		//error
+		dbfprintf(NORMAL, stderr, "There was an error creating the file");
+		dbfprintf(DEBUG, stderr,
+		          "creat had an error and returned an errorno of %i, translated it is \"%s\"\n", errno,
+		          strerror(errno));
+		unlock();
+		exit(7);
 	}
 
 	//receive response
@@ -66,7 +88,12 @@ void download(struct resource to_dl, char *local_loc, char *local_filename)
 
 		readb = recv(socket_num, reply, 258, 0);
 		if (res <= 0) {
-			//error
+			dbfprintf(NORMAL, stderr, "There was an error receveing the file");
+			dbfprintf(DEBUG, stderr,
+			          "recv had an error and returned an errorno of %i, translated it is \"%s\"\n", errno,
+			          strerror(errno));
+			unlock();
+			exit(6);
 		}
 		if (first_read == 0) {
 			// char 9-12
@@ -75,10 +102,14 @@ void download(struct resource to_dl, char *local_loc, char *local_filename)
 			status_code[2] = reply[11];
 			status_code[3] = '\0';
 			dbprintf(VERBOSE, "the server returned a %s response code.", status_code);
-			first_read =1;
+			first_read = 1;
 		}
-		if (strcmp(status_code, "200") == 0){
-			//errorgit
+		if (strcmp(status_code, "200") == 0) {
+			//TODO change
+			dbfprintf(NORMAL, stderr, "the server didn't return a 200 OK message");
+			dbfprintf(DEBUG, stderr, "The server returned a %s message insted of 200 OK", status_code);
+			unlock();
+			exit(8);
 		}
 		if (found_EOH != 0) {
 			//I think this works for detecting the end of a header
@@ -111,7 +142,12 @@ void download(struct resource to_dl, char *local_loc, char *local_filename)
 			res = write(file_num, reply, 256);
 		}
 		if (res < 0) {
-			//error
+			dbfprintf(NORMAL, stderr, "There was an error writing to the file");
+			dbfprintf(DEBUG, stderr,
+			          "write had an error and returned an errorno of %i, translated it is \"%s\"\n", errno,
+			          strerror(errno));
+			unlock();
+			exit(7);
 		}
 	} while (readb == 256);
 
