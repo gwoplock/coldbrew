@@ -54,17 +54,18 @@ void download(struct resource to_dl, char *local_loc, char *local_filename)
 	}
 	//receive response
 	char reply[256];
+	//TODO check header for response code and print info if != 200
+	//TODO remove header
 	do {
 		res = write(file_num, reply, 256);
 		if (res < 0) {
 			//error
 		}
-		res = read(socket_num, reply, 256);
-		if (res < 0) {
+		res = recv(socket_num, reply, 258, 0);
+		if (res <= 0){
 			//error
 		}
-
-	} while (res != 0);
+	} while (res == 256);
 
 	//close file
 	close(file_num);
