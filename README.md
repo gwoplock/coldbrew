@@ -10,6 +10,6 @@ test
 * Garrett: [Garrett](mailto:battagliagarrett0+coldbrew@gmail.com)
 * Abby: coming soon
 * Oskari: [Oskari](mailto:xxc3ncoredxx+coldbrew@gmail.com)
-* Jacob Lancaster: coming soon
+* Jacob Lancaster: [Jacob](mailto:jakelanc950+coldbrew@gmail.com)
 * Jacob Cherry: [Cherry](mailto:jacobcherry36@gmail.com) 
 * Andrew: coming soon
