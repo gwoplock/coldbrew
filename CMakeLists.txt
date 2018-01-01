@@ -8,7 +8,8 @@ add_definitions(-DDEV)
 set(SOURCE_FILES src/main.c src/commandLine/CommandlineParser.h src/commandLine/CommandLineParser.c
         src/utils/stringManip.h src/utils/stringManip.c src/utils/print.c src/utils/print.h src/Commands/Install.c
         src/Commands/Install.h src/build_parser/coldbrew/scriptHandler.c src/build_parser/coldbrew/scriptHandler.h
-        src/utils/temporaryFiles.c src/utils/temporaryFiles.h src/utils/http.c src/utils/http.h)
+        src/utils/temporaryFiles.c src/utils/temporaryFiles.h src/utils/http.c src/utils/http.h src/utils/compression.c
+        src/utils/compression.h)
 
 #if we need hashmap string->int stuff uncomment the line below
 #set(SOURCE_FILES ${SOURCE_FILES} src/hashMap/hash_map_string_int.h src/hashMap/hash_map_string_int.c src/hashMap/hash.h src/hashMap/hash.c)

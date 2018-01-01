@@ -12,8 +12,10 @@
 #include "../utils/stringManip.h"
 #include "../utils/temporaryFiles.h"
 #include "../utils/http.h"
+#include "../utils/compression.h"
 #include <sys/utsname.h>
-
+#include <zlib.h>
+#include <fcntl.h>
 
 const short SHABANG = 0x2321;
 
@@ -69,6 +71,7 @@ enum type get_install_type(struct target *targ)
 	//comp magic numbers, #! is the magic number for script files.
 	if (file_head >> 16 == GZ_MAGIC_NUM) {
 		ret = PACKAGE;
+		targ->blob_loc = targ->blob_script_loc;
 	} else if (file_head >> 16 == SHABANG) {
 		ret = SCRIPT;
 	} else {
@@ -147,11 +150,10 @@ int get_first_int(FILE *file)
 void install_blob(struct target *targ)
 {
 	//create tmp dir if needed
-	if(targ->tmp_dir == NULL){
-		targ->tmp_dir = create_tmp_dir(targ->name);
+	if (targ->tmp_dir == NULL) {
+		targ->tmp_dir = create_tmp_dir(strip_path(targ->name));
 	}
 	//extract blob
-
 	//create dirs
 
 	//move files
