@@ -7,7 +7,7 @@
 
 struct resource
 {
-	char *IP;
+	char *host;
 	char *location;
 };
 

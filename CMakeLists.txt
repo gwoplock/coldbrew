@@ -13,6 +13,14 @@ set(SOURCE_FILES src/main.c src/commandLine/CommandlineParser.h src/commandLine/
 #if we need hashmap string->int stuff uncomment the line below
 #set(SOURCE_FILES ${SOURCE_FILES} src/hashMap/hash_map_string_int.h src/hashMap/hash_map_string_int.c src/hashMap/hash.h src/hashMap/hash.c)
 
+#curl
+set(CURL_LIBRARY "-lcurl")
+find_package(CURL REQUIRED)
+
 add_executable(coldbrew ${SOURCE_FILES})
 
 target_link_libraries(coldbrew m)
+
+#curl linking
+include_directories(${CURL_INCLUDE_DIR})
+target_link_libraries(coldbrew ${CURL_LIBRARIES})

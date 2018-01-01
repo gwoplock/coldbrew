@@ -119,7 +119,7 @@ char *download_file(struct target targ, char *tmp_dir)
 	strcat(file.location, file_name);
 	//TODO set repo ip addr
 	//downlaod file to tmp dir
-	download(file/*resource struct*/, tmp_dir/*fs location*/, file_name/*filename*/);
+	download(file, tmp_dir, file_name);
 	//return filename
 	return file_name;
 }
