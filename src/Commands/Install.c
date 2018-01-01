@@ -117,7 +117,7 @@ char *download_file(struct target targ, char *tmp_dir)
 	strcat(file.location, arch);
 	strcat(file.location, slash);
 	strcat(file.location, file_name);
-	//TODO set repo ip addr
+	//TODO set repo URL
 	//downlaod file to tmp dir
 	download(file, tmp_dir, file_name);
 	//return filename
@@ -133,7 +133,7 @@ int get_first_int(FILE *file)
 {
 	//create an int to hold the file
 	int *ret = calloc(1, sizeof(int));
-//read a byte at a time because fuck endiness
+	//read a byte at a time because fuck endiness
 	for (int i = 0; i < 3; i++) {
 		fread(ret, 1, 1, file);
 		*ret = *ret << 8;
@@ -147,7 +147,13 @@ int get_first_int(FILE *file)
 void install_blob(struct target *targ)
 {
 	//create tmp dir if needed
+	if(targ->tmp_dir == NULL){
+		targ->tmp_dir = create_tmp_dir(targ->name);
+	}
+	//extract blob
+
 	//create dirs
+
 	//move files
 	//set up links
 	//apply permissions

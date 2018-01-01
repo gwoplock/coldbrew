@@ -6,7 +6,6 @@
 #include "utils/print.h"
 #include "Commands/Install.h"
 #include "utils/http.h"
-#include <netdb.h>
 
 #ifdef DEV
 #define LOCKFILE "./lockfile"
@@ -58,13 +57,15 @@ int main(int argc, char **argv)
 		exit(1);
 	}
 	parseCommandLine(argc, argv);
+
 	//TODO temp
 	struct resource test;
-	test.location= "/~john.cole/";
+	test.location = "/~john.cole/";
 	test.host = "http://www.utdallas.edu";
 	download(test, ".", "/test.html");
 	install(&targets[0]);
 	//end temp
+
 	unlock();
 	return 0;
 }

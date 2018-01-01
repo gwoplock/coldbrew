@@ -17,10 +17,18 @@ set(SOURCE_FILES src/main.c src/commandLine/CommandlineParser.h src/commandLine/
 set(CURL_LIBRARY "-lcurl")
 find_package(CURL REQUIRED)
 
+#zlib
+find_package(ZLIB REQUIRED)
+
 add_executable(coldbrew ${SOURCE_FILES})
 
+#cmath linking
 target_link_libraries(coldbrew m)
 
 #curl linking
 include_directories(${CURL_INCLUDE_DIR})
 target_link_libraries(coldbrew ${CURL_LIBRARIES})
+
+#zlib linking
+include_directories( ${ZLIB_INCLUDE_DIRS} )
+target_link_libraries( coldbrew ${ZLIB_LIBRARIES} )

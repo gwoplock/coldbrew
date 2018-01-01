@@ -39,7 +39,7 @@ void download(struct resource to_dl, char *local_loc, char *local_filename)
 	if (config.brew_opts.verbosity == DEBUG) {
 		curl_easy_setopt(curl, CURLOPT_VERBOSE, 1);
 	}
-	
+
 	CURLcode success = curl_easy_perform(curl);
 
 	curl_easy_cleanup(curl);
