@@ -8,5 +8,4 @@ script:
   - mv ./src.tar.gz ./test.pkg.tar.gz
   - cmake ..
   - make
-  - ./coldbrew --debug install --force --local test.pkgbuild
   - ./coldbrew install --local test.pkg.tar.gz
