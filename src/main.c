@@ -59,10 +59,6 @@ int main(int argc, char **argv)
 	parseCommandLine(argc, argv);
 
 	//TODO temp
-	struct resource test;
-	test.location = "/~john.cole/";
-	test.host = "http://www.utdallas.edu";
-	download(test, ".", "/test.html");
 	install(&targets[0]);
 	//end temp
 
