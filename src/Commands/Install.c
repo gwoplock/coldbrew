@@ -150,10 +150,29 @@ int get_first_int(FILE *file)
 void install_blob(struct target *targ)
 {
 	//create tmp dir if needed
+	char* temp;
 	if (targ->tmp_dir == NULL) {
-		targ->tmp_dir = create_tmp_dir(strip_path(targ->name));
+		temp = create_tmp_dir(strip_path(targ->name));
 	}
+	dbprintf(DEBUG, "targ->tmp_dir = %s\n", temp);
 	//extract blob
+	char* tar_cmd;
+	if (config.brew_opts.verbosity > VERBOSE) {
+		tar_cmd = "tar -xvf ";
+	} else {
+		tar_cmd = "tar -xf ";
+	}
+
+	char* tar_output = " -C ";
+
+	size_t tar_full_len = strlen(tar_cmd) + strlen(targ->blob_loc) + strlen(tar_output) + strlen(targ->tmp_dir);
+	char* tar_full = calloc(tar_full_len, sizeof(char));
+	strcat(tar_full, tar_cmd);
+	strcat(tar_full, targ->blob_loc);
+	strcat(tar_full, tar_output);
+	strcat(tar_full, targ->tmp_dir);
+	dbprintf(VERBOSE, "tar command: %s\n", tar_full);
+	system(tar_full);
 	//create dirs
 
 	//move files
