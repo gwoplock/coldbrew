@@ -72,3 +72,8 @@ int decompress(FILE *in_f, FILE *out_f){
 	(void)inflateEnd(&strm);
 	return ret == Z_STREAM_END ? Z_OK : Z_DATA_ERROR;
 }
+
+int decompress_gzip(FILE *in, FILE* out){
+	//strip header
+	//decompress
+}
