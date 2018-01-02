@@ -14,6 +14,7 @@
 #endif
 
 #include <errno.h>
+#include <stdlib.h>
 #include "temporaryFiles.h"
 #include "print.h"
 
@@ -23,7 +24,8 @@ char *create_tmp_dir(char *dir_name)
 	const char *suffix = ".XXXXXX";
 	// +1 for null terminator
 	const size_t name_len = strlen(prefix) + strlen(dir_name) + strlen(suffix) + 1;
-	char tmp_dir_template[name_len];
+	char* tmp_dir_template = calloc(name_len, sizeof(char));
+	//char tmp_dir_template[name_len];
 	// Initialize to 0
 	memset (tmp_dir_template, 0, name_len);
 	//create a template for the temp dir, this will be where we build the package and such.
