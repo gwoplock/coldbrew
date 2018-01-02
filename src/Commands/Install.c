@@ -12,10 +12,7 @@
 #include "../utils/stringManip.h"
 #include "../utils/temporaryFiles.h"
 #include "../utils/http.h"
-#include "../utils/compression.h"
 #include <sys/utsname.h>
-#include <zlib.h>
-#include <fcntl.h>
 
 const short SHABANG = 0x2321;
 
@@ -150,11 +147,10 @@ int get_first_int(FILE *file)
 void install_blob(struct target *targ)
 {
 	//create tmp dir if needed
-	char* temp;
 	if (targ->tmp_dir == NULL) {
-		temp = create_tmp_dir(strip_path(targ->name));
+		targ->tmp_dir = create_tmp_dir(strip_path(targ->name));
 	}
-	dbprintf(DEBUG, "targ->tmp_dir = %s\n", temp);
+	dbprintf(DEBUG, "targ->tmp_dir = %s\n", targ->tmp_dir);
 	//extract blob
 	char* tar_cmd;
 	if (config.brew_opts.verbosity > VERBOSE) {
@@ -172,6 +168,7 @@ void install_blob(struct target *targ)
 	strcat(tar_full, tar_output);
 	strcat(tar_full, targ->tmp_dir);
 	dbprintf(VERBOSE, "tar command: %s\n", tar_full);
+	//TODO fork not system
 	system(tar_full);
 	//create dirs
 
