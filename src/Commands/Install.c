@@ -76,7 +76,7 @@ enum type get_install_type(struct target *targ)
 		unlock();
 		exit(5);
 	}
-	dbprintf(VERBOSE, "we determened the target to be a type %i\n", ret);
+	dbprintf(VERBOSE, "we determened the target \"%s\" to be a type %i\n", targ->name,ret);
 	//close the file, we will need it later
 	fclose(file);
 	return ret;
@@ -153,7 +153,7 @@ void install_blob(struct target *targ)
 	dbprintf(DEBUG, "targ->tmp_dir = %s\n", targ->tmp_dir);
 	//extract blob
 	char* tar_cmd;
-	if (config.brew_opts.verbosity > VERBOSE) {
+	if (config.brew_opts.verbosity == DEBUG) {
 		tar_cmd = "tar -xvf ";
 	} else {
 		tar_cmd = "tar -xf ";
@@ -167,7 +167,7 @@ void install_blob(struct target *targ)
 	strcat(tar_full, targ->blob_loc);
 	strcat(tar_full, tar_output);
 	strcat(tar_full, targ->tmp_dir);
-	dbprintf(VERBOSE, "tar command: %s\n", tar_full);
+	dbprintf(DEBUG, "tar command: %s\n", tar_full);
 	//TODO fork not system
 	system(tar_full);
 	//create dirs
