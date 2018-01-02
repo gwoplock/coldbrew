@@ -8,6 +8,10 @@
 #include "hash_map_string_int.h"
 #include "hash.h"
 
+/**
+ * creates a new hashmap and all supporting arrays
+ * @return hashmap created
+ */
 struct hashmap_string_int *new_hashmap_string_int()
 {
 	//create struct
@@ -23,6 +27,12 @@ struct hashmap_string_int *new_hashmap_string_int()
 	return tmp;
 }
 
+/**
+ * add element to hashmap
+ * @param hashmap: map to use
+ * @param key: key to add
+ * @param value: value to add
+ */
 void add_hashmap_string_int(struct hashmap_string_int *hashmap, char *key, int value)
 {
 	int hash = hash_string(key);
@@ -39,7 +49,11 @@ void add_hashmap_string_int(struct hashmap_string_int *hashmap, char *key, int v
 		hashmap_string_int_resize(hashmap);
 	}
 }
-
+/**
+ * calculates % used in a hashmap
+ * @param hashmap
+ * @return % used
+ */
 int hashmap_string_int_used(struct hashmap_string_int *hashmap)
 {
 	int used = 0;
@@ -49,10 +63,13 @@ int hashmap_string_int_used(struct hashmap_string_int *hashmap)
 			used++;
 		}
 	}
-	return round(((double)used / (double)hashmap->size) * 100);
+	return round(((double) used / (double) hashmap->size) * 100);
 }
 
-
+/**
+ * resize a hashmap
+ * @param hashmap: hashmap to resize
+ */
 void hashmap_string_int_resize(struct hashmap_string_int *hashmap)
 {
 	int *old_map = hashmap->map;
@@ -68,10 +85,10 @@ void hashmap_string_int_resize(struct hashmap_string_int *hashmap)
 		char *old_key = old_key_arr[i];
 		if (old_val != 0/*TODO check for side chaining*/) {
 			int index = hash_string(old_key) % hashmap->size;
-			if(hashmap->map[index] == 0) {
+			if (hashmap->map[index] == 0) {
 				hashmap->key[index] = old_key;
 				hashmap->map[index] = old_val;
-			} else{
+			} else {
 				//TODO side chaining
 			}
 		}
@@ -110,7 +127,11 @@ void hashmap_string_int_resize(struct hashmap_string_int *hashmap)
 		}
 	}*/
 }
-
+/**
+ * remove an element from the hashmap
+ * @param hashmap
+ * @param key: key to remove
+ */
 void hashmap_string_int_remove(struct hashmap_string_int *hashmap, char *key)
 {
 	int index = hash_string(key) % hashmap->size;
@@ -120,6 +141,12 @@ void hashmap_string_int_remove(struct hashmap_string_int *hashmap, char *key)
 	}
 }
 
+/**
+ * get value from key
+ * @param hashmap
+ * @param key
+ * @return value
+ */
 int get_hashmap_string_int(struct hashmap_string_int *hashmap, char *key)
 {
 	int index = hash_string(key) % hashmap->size;
@@ -127,12 +154,38 @@ int get_hashmap_string_int(struct hashmap_string_int *hashmap, char *key)
 		return hashmap->map[index];
 	}
 }
-
+/**
+ * modify a value in the hashmao. key must currently be in the hashmap, isnt checked yet but will be
+ * @param hashmap
+ * @param key
+ * @param value
+ */
 void mod_hashmap_string_int(struct hashmap_string_int *hashmap, char *key, int value)
 {
 	int index = hash_string(key) % hashmap->size;
 	if (/*todo side chanined */ 1) {
 		hashmap->map[index] = value;
 		hashmap->key[index] = key;
+	}
+}
+
+/**
+ * search for element in hashmap
+ * @param hashmap
+ * @param search: key to search for
+ * @return bool, 1 if exsits, 0 if it doesn't
+ */
+
+int hashmap_string_int_contains(struct hashmap_string_int *hashmap, char *search)
+{
+	int index = hash_string(search) % hashmap->size;
+	if (/*todo side chained*/ 1) {
+		if (hashmap->key[index] != 0 && !strcmp(hashmap->key[index], search)) {
+			return 1;
+		} else {
+			return 0;
+		}
+	} else {
+
 	}
 }
