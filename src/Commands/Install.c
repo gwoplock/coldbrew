@@ -175,9 +175,10 @@ void install_blob(struct target *targ)
 	//parse .PKGINFO file
 	size_t pkginfo_path_leng = strlen(targ->tmp_dir) + strlen(".PKGINFO");
 	char* pkginfo_path = calloc(pkginfo_path_leng, sizeof(char));
-	FILE* pkginfo = fopen(pkginfo_path,"rw");
+	FILE* pkginfo = fopen(pkginfo_path,"r");
 	parse_pkginfo(pkginfo);
 	//parse .FILEINFO file
+	//TODO basicly the same as above
 	//create dirs
 	//move files
 	//set up links
