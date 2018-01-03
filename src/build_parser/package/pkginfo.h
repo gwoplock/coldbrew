@@ -9,4 +9,6 @@
 
 void parse_pkginfo(FILE* pkginfo_file);
 
+void proc_pkg_line(char* buffer, int buf_size);
+
 #endif //COLDBREW_PKGINFO_H
