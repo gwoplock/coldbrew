@@ -173,8 +173,11 @@ void install_blob(struct target *targ)
 	//TODO fork not system
 	system(tar_full);
 	//parse .PKGINFO file
-	size_t pkginfo_path_leng = strlen(targ->tmp_dir) + strlen(".PKGINFO");
+	char* pkginfo_name = "/.PKGINFO";
+	size_t pkginfo_path_leng = strlen(targ->tmp_dir) + strlen(pkginfo_name);
 	char* pkginfo_path = calloc(pkginfo_path_leng, sizeof(char));
+	strcat(pkginfo_path, targ->tmp_dir);
+	strcat(pkginfo_path, pkginfo_name);
 	FILE* pkginfo = fopen(pkginfo_path,"r");
 	parse_pkginfo(pkginfo);
 	//parse .FILEINFO file
