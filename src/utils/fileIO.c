@@ -9,7 +9,9 @@ int read_line(char *buffer, int buf_size, FILE *file)
 {
 	char last_read = '\0';
 	for (int i = 0; i < buf_size && last_read != '\n'; i++) {
-		buffer[i] = last_read;
+		if (last_read != '\0') {
+			buffer[i-1] = last_read;
+		}
 		last_read = getc(file);
 		if (last_read == EOF) {
 			return -1;

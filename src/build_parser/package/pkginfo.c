@@ -16,6 +16,7 @@ void parse_pkginfo(FILE *pkginfo_file, struct target *targ)
 		int succ = read_line(buf, 256, pkginfo_file);
 		if (succ == 1) {
 			proc_pkg_line(buf, 256, targ);
+			memset(buf, sizeof(char),256);
 		} else if (succ < 0) {
 			dbfprintf(NORMAL, stderr, "the .PKGINFO was invalid.\n");
 			dbfprintf(VERBOSE, stderr,
@@ -25,6 +26,7 @@ void parse_pkginfo(FILE *pkginfo_file, struct target *targ)
 			unlock();
 			exit(6);
 		} else {
+			//TODO
 			//didnt read full line
 		}
 	}
@@ -32,5 +34,5 @@ void parse_pkginfo(FILE *pkginfo_file, struct target *targ)
 
 void proc_pkg_line(char *buffer, int buf_size, struct target *targ)
 {
-
+	dbprintf(VERBOSE, "parsing line: %s\n", buffer);
 }
