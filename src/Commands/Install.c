@@ -180,6 +180,8 @@ void install_blob(struct target *targ)
 	strcat(pkginfo_path, pkginfo_name);
 	FILE *pkginfo = fopen(pkginfo_path, "r");
 	parse_pkginfo(pkginfo, targ);
+	//print pkginfo
+	
 	//parse .FILEINFO file
 	//TODO basicly the same as above
 	//create dirs
