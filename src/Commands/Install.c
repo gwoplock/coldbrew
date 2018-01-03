@@ -77,7 +77,7 @@ enum type get_install_type(struct target *targ)
 		unlock();
 		exit(5);
 	}
-	dbprintf(VERBOSE, "we determened the target \"%s\" to be a type %i\n", targ->name,ret);
+	dbprintf(VERBOSE, "we determened the target \"%s\" to be a type %i\n", targ->name, ret);
 	//close the file, we will need it later
 	fclose(file);
 	return ret;
@@ -154,17 +154,17 @@ void install_blob(struct target *targ)
 	}
 	dbprintf(DEBUG, "targ->tmp_dir = %s\n", targ->tmp_dir);
 	//extract blob
-	char* tar_cmd;
+	char *tar_cmd;
 	if (config.brew_opts.verbosity == DEBUG) {
 		tar_cmd = "tar -xvf ";
 	} else {
 		tar_cmd = "tar -xf ";
 	}
 
-	char* tar_output = " -C ";
+	char *tar_output = " -C ";
 
 	size_t tar_full_len = strlen(tar_cmd) + strlen(targ->blob_loc) + strlen(tar_output) + strlen(targ->tmp_dir);
-	char* tar_full = calloc(tar_full_len, sizeof(char));
+	char *tar_full = calloc(tar_full_len, sizeof(char));
 	strcat(tar_full, tar_cmd);
 	strcat(tar_full, targ->blob_loc);
 	strcat(tar_full, tar_output);
@@ -173,13 +173,13 @@ void install_blob(struct target *targ)
 	//TODO fork not system
 	system(tar_full);
 	//parse .PKGINFO file
-	char* pkginfo_name = "/.PKGINFO";
+	char *pkginfo_name = "/.PKGINFO";
 	size_t pkginfo_path_leng = strlen(targ->tmp_dir) + strlen(pkginfo_name);
-	char* pkginfo_path = calloc(pkginfo_path_leng, sizeof(char));
+	char *pkginfo_path = calloc(pkginfo_path_leng, sizeof(char));
 	strcat(pkginfo_path, targ->tmp_dir);
 	strcat(pkginfo_path, pkginfo_name);
-	FILE* pkginfo = fopen(pkginfo_path,"r");
-	parse_pkginfo(pkginfo);
+	FILE *pkginfo = fopen(pkginfo_path, "r");
+	parse_pkginfo(pkginfo, targ);
 	//parse .FILEINFO file
 	//TODO basicly the same as above
 	//create dirs

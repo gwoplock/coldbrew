@@ -7,6 +7,6 @@
 #ifndef COLDBREW_FILEIO_H
 #define COLDBREW_FILEIO_H
 
-int read_line(char* buffer, int buf_size, FILE* file);
+int read_line(char *buffer, int buf_size, FILE *file);
 
 #endif //COLDBREW_FILEIO_H

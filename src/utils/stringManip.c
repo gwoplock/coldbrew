@@ -37,3 +37,23 @@ char *strip_path(char *path)
 	}
 	return ret;
 }
+
+//TODO test, this may not work how i expect
+char **string_split(char *to_split, char delim)
+{
+	int spl_ind = -1;
+	for (int i = 0; i < strlen(to_split); i++) {
+		if (to_split[i] == delim) {
+			spl_ind = i;
+			break;
+		}
+	}
+	if (spl_ind == -1) {
+		return NULL;
+	}
+	char **ret = calloc(2, sizeof(char *));
+	ret[0] = to_split;
+	ret[0][spl_ind] = '\0';
+	ret[1] = to_split + spl_ind + 1;
+	return ret;
+}

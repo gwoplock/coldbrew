@@ -11,13 +11,13 @@ int read_line(char *buffer, int buf_size, FILE *file)
 	for (int i = 0; i < buf_size && last_read != '\n'; i++) {
 		buffer[i] = last_read;
 		last_read = getc(file);
-		if(last_read == EOF){
+		if (last_read == EOF) {
 			return -1;
 		}
 		dbprintf(DEBUG, "just read: %c \n", last_read);
 	}
 	dbprintf(DEBUG, "exited loop with char: %c\n", last_read);
-	if (last_read == '\n'){
+	if (last_read == '\n') {
 		return 1;
 	} else {
 		return 0;
