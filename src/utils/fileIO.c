@@ -12,7 +12,7 @@ int read_line(char *buffer, int buf_size, FILE *file)
 		buffer[i] = last_read;
 		last_read = getc(file);
 		if(last_read == EOF){
-			return -1;g
+			return -1;
 		}
 		dbprintf(DEBUG, "just read: %c \n", last_read);
 	}
