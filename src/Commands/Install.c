@@ -12,6 +12,7 @@
 #include "../utils/stringManip.h"
 #include "../utils/temporaryFiles.h"
 #include "../utils/http.h"
+#include "../build_parser/package/pkginfo.h"
 #include <sys/utsname.h>
 
 const short SHABANG = 0x2321;
@@ -144,6 +145,7 @@ int get_first_int(FILE *file)
 	return *ret;
 }
 
+//TODO functionafiy
 void install_blob(struct target *targ)
 {
 	//create tmp dir if needed
@@ -170,10 +172,16 @@ void install_blob(struct target *targ)
 	dbprintf(DEBUG, "tar command: %s\n", tar_full);
 	//TODO fork not system
 	system(tar_full);
+	//parse .PKGINFO file
+	size_t pkginfo_path_leng = strlen(targ->tmp_dir) + strlen(".PKGINFO");
+	char* pkginfo_path = calloc(pkginfo_path_leng, sizeof(char));
+	FILE* pkginfo = fopen(pkginfo_path,"rw");
+	parse_pkginfo(pkginfo);
+	//parse .FILEINFO file
 	//create dirs
-
 	//move files
 	//set up links
 	//apply permissions
 	//save package info
+	//install deps
 }
