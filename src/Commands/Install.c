@@ -15,6 +15,10 @@
 #include "../build_parser/package/pkginfo.h"
 #include <sys/utsname.h>
 
+#include <sys/types.h>
+#include <sys/uio.h>
+#include <unistd.h>
+
 const short SHABANG = 0x2321;
 
 const short GZ_MAGIC_NUM = 0x1f8b;
@@ -133,7 +137,7 @@ char *download_file(struct target targ, char *tmp_dir)
 int get_first_int(FILE *file)
 {
 	//create an int to hold the file
-	int *ret = calloc(1, sizeof(int));
+	int *ret = calloc(1 , sizeof(int));
 	//read a byte at a time because fuck endiness
 	for (int i = 0; i < 3; i++) {
 		fread(ret, 1, 1, file);
@@ -181,7 +185,7 @@ void install_blob(struct target *targ)
 	FILE *pkginfo = fopen(pkginfo_path, "r");
 	parse_pkginfo(pkginfo, targ);
 	//print pkginfo
-	
+
 	//parse .FILEINFO file
 	//TODO basicly the same as above
 	//create dirs

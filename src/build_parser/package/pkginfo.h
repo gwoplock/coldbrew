@@ -11,7 +11,7 @@ struct pkginfo
 {
 	char *pkgver;
 	char *cbver;
-	char *script_type;
+	int script_type;
 	char *pkgname;
 	char *build_date;
 	char *deps;
@@ -24,5 +24,6 @@ void parse_pkginfo(FILE *pkginfo_file, struct target *targ);
 
 void proc_pkg_line(char *buffer, int buf_size, struct target *targ);
 
+void proc_deps_from_pkginfo(char* deps_arr, struct target* targ);
 
 #endif //COLDBREW_PKGINFO_H
