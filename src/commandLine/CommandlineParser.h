@@ -5,7 +5,6 @@
 #ifndef COLDBREW_COMMANDLINEPARSER_H
 #define COLDBREW_COMMANDLINEPARSER_H
 
-
 #include "../build_parser/package/pkginfo.h"
 
 extern struct configuration config;
@@ -115,5 +114,7 @@ void print_targets();
 void set_defaults();
 
 void validate_args();
+
+
 
 #endif //COLDBREW_COMMANDLINEPARSER_H

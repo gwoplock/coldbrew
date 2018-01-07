@@ -14,7 +14,7 @@ struct pkginfo
 	int script_type;
 	char *pkgname;
 	char *build_date;
-	char *deps;
+	char ** deps;
 	int to_install_count;
 };
 

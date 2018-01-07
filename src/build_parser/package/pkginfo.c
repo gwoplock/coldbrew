@@ -71,10 +71,10 @@ void proc_deps_from_pkginfo(char *deps_arr, struct target *targ)
 		}
 		targ->pkginfo.deps = calloc(count + 1, sizeof(char *));
 		char **ret;
-		ret = string_split(deps_arr, ",");
+		ret = string_split(deps_arr, ',');
 		targ->pkginfo.deps[0] = ret[0];
 		for (int i = 1; ret != NULL; i++) {
-			ret = string_split(ret[1], ",");
+			ret = string_split(ret[1], ',');
 			targ->pkginfo.deps[i] = ret[0];
 		}
 	}
