@@ -3,7 +3,7 @@ language: c
 script:
   - cd build
   - tar -cvf testpkg.pkg.tar -C ./../testpkg ./
-  - gzip testpkg.tar
+  - gzip testpkg.pkg.tar
   - cmake ..
   - make
   - ./coldbrew install --local testpkg.pkg.tar.gz
