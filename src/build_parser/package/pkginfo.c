@@ -31,6 +31,7 @@ void parse_pkginfo(FILE *pkginfo_file, struct target *targ)
 			//didnt read full line
 		}
 	}
+	print_pkg_info(targ);
 }
 
 void proc_pkg_line(char *buffer, int buf_size, struct target *targ)
@@ -77,5 +78,18 @@ void proc_deps_from_pkginfo(char *deps_arr, struct target *targ)
 			ret = string_split(ret[1], ',');
 			targ->pkginfo.deps[i] = ret[0];
 		}
+	}
+}
+
+void print_pkg_info(struct target *targ)
+{
+	dbprintf(VERBOSE,"pkgver: %s\n",targ->pkginfo.pkgver);
+	dbprintf(VERBOSE, "cbver: %s\n", targ->pkginfo.cbver);
+	dbprintf(VERBOSE, "script_type: %i\n", targ->pkginfo.script_type);
+	dbprintf(VERBOSE, "pkgname: %s\n", targ->pkginfo.pkgname);
+	dbprintf(VERBOSE, "build_date: %s\n", targ->pkginfo.build_date);
+	dbprintf(VERBOSE, "deps count: %i\n", targ->pkginfo.to_install_count);
+	for (int i =0; i < targ->pkginfo.to_install_count; i++){
+		dbprintf(VERBOSE, "dep %i: %s\n", i, targ->pkginfo.deps[i]);
 	}
 }
