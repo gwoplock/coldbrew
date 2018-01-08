@@ -10,7 +10,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <fcntl.h>
-#include <errno.h>
 
 //TODO reactor and make into functions
 void download(struct resource to_dl, char *local_loc, char *local_filename)

@@ -5,7 +5,6 @@
 #include "commandLine/CommandlineParser.h"
 #include "utils/print.h"
 #include "Commands/Install.h"
-#include "utils/http.h"
 
 #ifdef DEV
 #define LOCKFILE "./lockfile"
