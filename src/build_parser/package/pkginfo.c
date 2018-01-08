@@ -40,15 +40,23 @@ void proc_pkg_line(char *buffer, int buf_size, struct target *targ)
 	char **spl = string_split(buffer, '=');
 	dbprintf(VERBOSE, "opt: %s, val: %s\n", spl[0], spl[1]);
 	if (strcmp(spl[0], "PKGVER") == 0) {
-		targ->pkginfo.pkgver = spl[1];
+		char *temp = calloc(strlen(spl[1]), sizeof(char));
+		strcpy(temp, spl[1]);
+		targ->pkginfo.pkgver = temp;
 	} else if (strcmp(spl[0], "CBVER") == 0) {
-		targ->pkginfo.cbver = spl[1];
+		char *temp = calloc(strlen(spl[1]), sizeof(char));
+		strcpy(temp, spl[1]);
+		targ->pkginfo.cbver = temp;
 	} else if (strcmp(spl[0], "SCRIPTTYP") == 0) {
 		targ->pkginfo.script_type = atoi(spl[1]);
 	} else if (strcmp(spl[0], "PKGNAME") == 0) {
-		targ->pkginfo.pkgname = spl[1];
+		char *temp = calloc(strlen(spl[1]), sizeof(char));
+		strcpy(temp, spl[1]);
+		targ->pkginfo.pkgname = temp;
 	} else if (strcmp(spl[0], "BULDDATE") == 0) {
-		targ->pkginfo.build_date = spl[1];
+		char *temp = calloc(strlen(spl[1]), sizeof(char));
+		strcpy(temp, spl[1]);
+		targ->pkginfo.build_date = temp;
 	} else if (strcmp(spl[0], "DEPS") == 0) {
 		proc_deps_from_pkginfo(spl[1], targ);
 
@@ -73,23 +81,27 @@ void proc_deps_from_pkginfo(char *deps_arr, struct target *targ)
 		targ->pkginfo.deps = calloc(count + 1, sizeof(char *));
 		char **ret;
 		ret = string_split(deps_arr, ',');
-		targ->pkginfo.deps[0] = ret[0];
+		char *temp = calloc(strlen(ret[0]), sizeof(char));
+		strcpy(temp, ret[0]);
+		targ->pkginfo.deps[0] = temp;
 		for (int i = 1; ret != NULL; i++) {
 			ret = string_split(ret[1], ',');
-			targ->pkginfo.deps[i] = ret[0];
+			char *temp = calloc(strlen(ret[0]), sizeof(char));
+			strcpy(temp, ret[0]);
+			targ->pkginfo.deps[i] = temp;
 		}
 	}
 }
 
 void print_pkg_info(struct target *targ)
 {
-	dbprintf(VERBOSE,"pkgver: %s\n",targ->pkginfo.pkgver);
+	dbprintf(VERBOSE, "pkgver: %s\n", targ->pkginfo.pkgver);
 	dbprintf(VERBOSE, "cbver: %s\n", targ->pkginfo.cbver);
 	dbprintf(VERBOSE, "script_type: %i\n", targ->pkginfo.script_type);
 	dbprintf(VERBOSE, "pkgname: %s\n", targ->pkginfo.pkgname);
 	dbprintf(VERBOSE, "build_date: %s\n", targ->pkginfo.build_date);
 	dbprintf(VERBOSE, "deps count: %i\n", targ->pkginfo.to_install_count);
-	for (int i =0; i < targ->pkginfo.to_install_count; i++){
+	for (int i = 0; i < targ->pkginfo.to_install_count; i++) {
 		dbprintf(VERBOSE, "dep %i: %s\n", i, targ->pkginfo.deps[i]);
 	}
 }
