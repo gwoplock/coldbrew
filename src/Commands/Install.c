@@ -184,10 +184,14 @@ void install_blob(struct target *targ)
 	strcat(pkginfo_path, pkginfo_name);
 	FILE *pkginfo = fopen(pkginfo_path, "r");
 	parse_pkginfo(pkginfo, targ);
-	//print pkginfo
-
 	//parse .FILEINFO file
-	//TODO basicly the same as above
+	char *srcinfo_name = "/.SRCINFO";
+	size_t srcinfo_path_leng = strlen(targ->tmp_dir) + strlen(pkginfo_name);
+	char *srcinfo_path = calloc(srcinfo_path_leng, sizeof(char));
+	strcat(srcinfo_path, targ->tmp_dir);
+	strcat(srcinfo_path, pkginfo_name);
+	FILE *srcinfo = fopen(pkginfo_path, "r");
+	parse_srcinfo(srcinfo, targ);
 	//create dirs
 	//move files
 	//set up links

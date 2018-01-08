@@ -10,7 +10,7 @@ set(SOURCE_FILES src/main.c src/commandLine/CommandlineParser.h src/commandLine/
         src/Commands/Install.h src/build_parser/coldbrew/scriptHandler.c src/build_parser/coldbrew/scriptHandler.h
         src/utils/temporaryFiles.c src/utils/temporaryFiles.h src/utils/http.c src/utils/http.h src/utils/compression.c
         src/utils/compression.h src/build_parser/package/pkginfo.c src/build_parser/package/pkginfo.h src/utils/fileIO.c
-        src/utils/fileIO.h)
+        src/utils/fileIO.h src/build_parser/package/srcinfo.c src/build_parser/package/srcinfo.h)
 
 #if we need hashmap string->int stuff uncomment the line below
 #set(SOURCE_FILES ${SOURCE_FILES} src/hashMap/hash_map_string_int.h src/hashMap/hash_map_string_int.c src/hashMap/hash.h src/hashMap/hash.c)
