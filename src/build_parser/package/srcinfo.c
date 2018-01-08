@@ -4,6 +4,7 @@
 
 #include "srcinfo.h"
 
-void parse_srcinfo(FILE *pkginfo_file, struct target *targ){
+void parse_srcinfo(FILE *pkginfo_file, struct target *targ)
+{
 
 }

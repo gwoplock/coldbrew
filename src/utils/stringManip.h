@@ -9,6 +9,6 @@ char *lower_string(char *string);
 
 char *strip_path(char *path);
 
-char** string_split(char* to_split, char delim);
+char **string_split(char *to_split, char delim);
 
 #endif //COLDBREW_STRINGMANIP_H

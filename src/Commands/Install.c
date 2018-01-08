@@ -133,7 +133,7 @@ char *download_file(struct target targ, char *tmp_dir)
 int get_first_int(FILE *file)
 {
 	//create an int to hold the file
-	int *ret = calloc(1 , sizeof(int));
+	int *ret = calloc(1, sizeof(int));
 	//read a byte at a time because fuck endiness
 	for (int i = 0; i < 3; i++) {
 		fread(ret, 1, 1, file);
@@ -182,10 +182,10 @@ void install_blob(struct target *targ)
 	parse_pkginfo(pkginfo, targ);
 	//parse .FILEINFO file
 	char *srcinfo_name = "/.SRCINFO";
-	size_t srcinfo_path_leng = strlen(targ->tmp_dir) + strlen(pkginfo_name);
+	size_t srcinfo_path_leng = strlen(targ->tmp_dir) + strlen(srcinfo_name);
 	char *srcinfo_path = calloc(srcinfo_path_leng, sizeof(char));
 	strcat(srcinfo_path, targ->tmp_dir);
-	strcat(srcinfo_path, pkginfo_name);
+	strcat(srcinfo_path, srcinfo_name);
 	FILE *srcinfo = fopen(pkginfo_path, "r");
 	parse_srcinfo(srcinfo, targ);
 	//create dirs

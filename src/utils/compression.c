@@ -16,7 +16,8 @@
 
 #define CHUNK 16384
 
-int decompress(FILE *in_f, FILE *out_f){
+int decompress(FILE *in_f, FILE *out_f)
+{
 	int ret;
 	unsigned have;
 	z_stream strm;
@@ -37,7 +38,7 @@ int decompress(FILE *in_f, FILE *out_f){
 	do {
 		strm.avail_in = fread(in, 1, CHUNK, in_f);
 		if (ferror(in_f)) {
-			(void)inflateEnd(&strm);
+			(void) inflateEnd(&strm);
 			return Z_ERRNO;
 		}
 		if (strm.avail_in == 0)
@@ -55,12 +56,12 @@ int decompress(FILE *in_f, FILE *out_f){
 					ret = Z_DATA_ERROR;     /* and fall through */
 				case Z_DATA_ERROR:
 				case Z_MEM_ERROR:
-					(void)inflateEnd(&strm);
+					(void) inflateEnd(&strm);
 					return ret;
 			}
 			have = CHUNK - strm.avail_out;
 			if (fwrite(out, 1, have, out_f) != have || ferror(out_f)) {
-				(void)inflateEnd(&strm);
+				(void) inflateEnd(&strm);
 				return Z_ERRNO;
 			}
 		} while (strm.avail_out == 0);
@@ -69,11 +70,12 @@ int decompress(FILE *in_f, FILE *out_f){
 	} while (ret != Z_STREAM_END);
 
 	/* clean up and return */
-	(void)inflateEnd(&strm);
+	(void) inflateEnd(&strm);
 	return ret == Z_STREAM_END ? Z_OK : Z_DATA_ERROR;
 }
 
-int decompress_gzip(FILE *in, FILE* out){
+int decompress_gzip(FILE *in, FILE *out)
+{
 	//strip header
 	//decompress
 }

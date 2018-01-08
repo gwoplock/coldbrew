@@ -9,6 +9,6 @@
 
 int decompress(FILE *in, FILE *out);
 
-int decompress_gzip(FILE *in, FILE* out);
+int decompress_gzip(FILE *in, FILE *out);
 
 #endif //COLDBREW_COMPRESSION_H

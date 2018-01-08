@@ -14,7 +14,7 @@ struct pkginfo
 	int script_type;
 	char *pkgname;
 	char *build_date;
-	char ** deps;
+	char **deps;
 	int to_install_count;
 };
 
@@ -24,7 +24,8 @@ void parse_pkginfo(FILE *pkginfo_file, struct target *targ);
 
 void proc_pkg_line(char *buffer, int buf_size, struct target *targ);
 
-void proc_deps_from_pkginfo(char* deps_arr, struct target* targ);
+void proc_deps_from_pkginfo(char *deps_arr, struct target *targ);
 
-void print_pkg_info(struct target* targ);
+void print_pkg_info(struct target *targ);
+
 #endif //COLDBREW_PKGINFO_H
