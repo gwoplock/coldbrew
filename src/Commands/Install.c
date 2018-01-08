@@ -12,12 +12,8 @@
 #include "../utils/stringManip.h"
 #include "../utils/temporaryFiles.h"
 #include "../utils/http.h"
-#include "../build_parser/package/pkginfo.h"
+#include "../build_parser/package/srcinfo.h"
 #include <sys/utsname.h>
-
-#include <sys/types.h>
-#include <sys/uio.h>
-#include <unistd.h>
 
 const short SHABANG = 0x2321;
 
