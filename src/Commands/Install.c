@@ -189,6 +189,7 @@ void install_blob(struct target *targ)
 	strcat(srcinfo_gz_command, targ->tmp_dir);
 	strcat(srcinfo_gz_command, srcinfo_gz_name);
 	dbprintf(DEBUG, "gunzip command: %s\n", srcinfo_gz_command);
+	//TODO fork not system
 	system(srcinfo_gz_command);
 	//parse .FILEINFO file
 	char *srcinfo_name = "/.SRCINFO";
@@ -198,7 +199,6 @@ void install_blob(struct target *targ)
 	strcat(srcinfo_path, srcinfo_name);
 	FILE *srcinfo = fopen(pkginfo_path, "r");
 	parse_srcinfo(srcinfo, targ);
-
 	//create dirs
 	//move files
 	//set up links
