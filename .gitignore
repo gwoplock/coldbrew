@@ -75,3 +75,5 @@ cmake-build-debug/
 
 build/*
 !build/.keep
+
+.SRCINFO.gz

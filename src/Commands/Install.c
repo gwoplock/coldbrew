@@ -180,6 +180,16 @@ void install_blob(struct target *targ)
 	strcat(pkginfo_path, pkginfo_name);
 	FILE *pkginfo = fopen(pkginfo_path, "r");
 	parse_pkginfo(pkginfo, targ);
+	//extract .SRCINFO
+	char*gunzip = "gunzip ";
+	char *srcinfo_gz_name = "/.SRCINFO.gz";
+	size_t srcinfo_gz_command_leng = strlen(targ->tmp_dir) + strlen(srcinfo_gz_name) +strlen(gunzip);
+	char *srcinfo_gz_command = calloc(srcinfo_gz_command_leng, sizeof(char));
+	strcat(srcinfo_gz_command, gunzip);
+	strcat(srcinfo_gz_command, targ->tmp_dir);
+	strcat(srcinfo_gz_command, srcinfo_gz_name);
+	dbprintf(DEBUG, "gunzip command: %s\n", srcinfo_gz_command);
+	system(srcinfo_gz_command);
 	//parse .FILEINFO file
 	char *srcinfo_name = "/.SRCINFO";
 	size_t srcinfo_path_leng = strlen(targ->tmp_dir) + strlen(srcinfo_name);
@@ -188,6 +198,7 @@ void install_blob(struct target *targ)
 	strcat(srcinfo_path, srcinfo_name);
 	FILE *srcinfo = fopen(pkginfo_path, "r");
 	parse_srcinfo(srcinfo, targ);
+
 	//create dirs
 	//move files
 	//set up links

@@ -1,8 +1,11 @@
 language: c
 
 script:
+  - cd testpkg
+  - gzip .SRCINFO
+  - cd ./..
   - cd build
-  - tar -cvf testpkg.pkg.tar -C ./../testpkg ./
+  - tar -cf testpkg.pkg.tar -C ./../testpkg ./.PKGINFO ./.SRCINFO.gz
   - gzip testpkg.pkg.tar
   - cmake ..
   - make
