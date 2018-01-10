@@ -1,8 +1,13 @@
 language: c
 
 script:
+  - cd testpkg
+  - gzip .SRCINFO
+  - cd ./..
   - cd build
+  - tar -cf testpkg.pkg.tar -C ./../testpkg ./.PKGINFO ./.SRCINFO.gz ./tmp/test/testfile
+  - gzip testpkg.pkg.tar
   - cmake ..
   - make
-  - ./coldbrew --debug install --force test
-  - ./coldbrew --debug uninstall --no-deps test
+  - ./coldbrew install --local testpkg.pkg.tar.gz
+  - ls /tmp/test

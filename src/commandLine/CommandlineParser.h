@@ -5,6 +5,7 @@
 #ifndef COLDBREW_COMMANDLINEPARSER_H
 #define COLDBREW_COMMANDLINEPARSER_H
 
+#include "../build_parser/package/pkginfo.h"
 
 extern struct configuration config;
 
@@ -80,7 +81,11 @@ struct check_options
 struct target
 {
 	char *name;
-
+	char *tmp_dir;
+	char *blob_loc;
+	char *blob_script_loc;
+	enum type target_type;
+	struct pkginfo pkginfo;
 };
 
 extern char lock();
@@ -109,5 +114,6 @@ void print_targets();
 void set_defaults();
 
 void validate_args();
+
 
 #endif //COLDBREW_COMMANDLINEPARSER_H
