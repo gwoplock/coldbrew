@@ -5,7 +5,7 @@ script:
   - gzip .SRCINFO
   - cd ./..
   - cd build
-  - tar -cf testpkg.pkg.tar -C ./../testpkg ./.PKGINFO ./.SRCINFO.gz
+  - tar -cf testpkg.pkg.tar -C ./../testpkg ./.PKGINFO ./.SRCINFO.gz ./tmp/test/testfile
   - gzip testpkg.pkg.tar
   - cmake ..
   - make
