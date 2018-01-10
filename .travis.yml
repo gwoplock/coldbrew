@@ -10,3 +10,4 @@ script:
   - cmake ..
   - make
   - ./coldbrew install --local testpkg.pkg.tar.gz
+  - ls /tmp/test
