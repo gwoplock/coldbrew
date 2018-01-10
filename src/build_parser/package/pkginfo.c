@@ -13,11 +13,12 @@
 void parse_pkginfo(FILE *pkginfo_file, struct target *targ)
 {
 	char *buf = calloc(256, sizeof(char));
+	int buf_size = 256;
 	for (int i = 0; i < 6; i++) {
-		int succ = read_line(buf, 256, pkginfo_file);
+		int succ = read_line(buf, buf_size, pkginfo_file);
 		if (succ == 1) {
-			proc_pkg_line(buf, 256, targ);
-			memset(buf, 0, 256);
+			proc_pkg_line(buf, buf_size, targ);
+			memset(buf, 0, buf_size);
 		} else if (succ < 0) {
 			dbfprintf(NORMAL, stderr, "the .PKGINFO was invalid.\n");
 			dbfprintf(VERBOSE, stderr,
@@ -27,8 +28,8 @@ void parse_pkginfo(FILE *pkginfo_file, struct target *targ)
 			unlock();
 			exit(6);
 		} else {
-			//TODO
-			//didnt read full line
+			//im not worried about this, will write into spec that the max line length is 256 chars, if
+			// needed we can change this but i dont think we will
 		}
 	}
 	print_pkg_info(targ);

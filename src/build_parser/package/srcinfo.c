@@ -30,8 +30,8 @@ void parse_srcinfo(FILE *pkginfo_file, struct target *targ)
 			unlock();
 			exit(7);
 		} */else {
-			//TODO
-			//didnt read full line
+			//im not worried about this, will write into spec that the max line length is 256 chars, if
+			// needed we can change this but i dont think we will
 		}
 	}
 }
