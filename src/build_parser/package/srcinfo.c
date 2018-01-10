@@ -66,6 +66,15 @@ void proc_srcinfo_line(char *buffer, int buf_size, struct target *targ)
 		strcat(tmp_path, line[0]);
 		FILE *to_cpy = fopen(tmp_path, "r");
 		FILE *out = fopen(line[0], "w");
+		if(to_cpy == NULL || out == NULL){
+			dbfprintf(NORMAL, stderr, "there was an error copying the file\n");
+			dbfprintf(VERBOSE, stderr,
+			          "fopen had an error and returned an errorno of %i, translated it is \"%s\"\n",
+			          errno,
+			          strerror(errno));
+			unlock();
+			exit(7);
+		}
 		copy_file(to_cpy, out);
 		fclose(to_cpy);
 		fclose(out);
