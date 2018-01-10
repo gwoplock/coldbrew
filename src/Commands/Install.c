@@ -221,7 +221,7 @@ void install_blob(struct target *targ)
 	strcat(srcinfo_path, targ->tmp_dir);
 	strcat(srcinfo_path, srcinfo_name);
 	FILE *srcinfo = fopen(srcinfo_path, "r");
-	parse_srcinfo(srcinfo, targ);g
+	parse_srcinfo(srcinfo, targ);
 	//save package info
 	//install deps
 }
