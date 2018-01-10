@@ -14,6 +14,7 @@
 #include "../utils/http.h"
 #include "../build_parser/package/srcinfo.h"
 #include <sys/utsname.h>
+#include <unistd.h>
 
 const short SHABANG = 0x2321;
 
@@ -91,7 +92,7 @@ enum type get_install_type(struct target *targ)
  */
 char *download_file(struct target targ, char *tmp_dir)
 {
-	//TODO finish
+	//TODO finish, waiting for database code
 
 	struct utsname *uname_info = calloc(sizeof(struct utsname), 1);
 	//get info
@@ -105,7 +106,7 @@ char *download_file(struct target targ, char *tmp_dir)
 	//pick file
 	//temp
 	char *file_name = "";
-	//TODO pick file
+	//TODO pick file, waiting for database code
 	//build download info
 	struct resource file;
 	char *slash = "/";
@@ -118,7 +119,7 @@ char *download_file(struct target targ, char *tmp_dir)
 	strcat(file.location, arch);
 	strcat(file.location, slash);
 	strcat(file.location, file_name);
-	//TODO set repo URL
+	//TODO set repo URL, waiting for database code
 	//downlaod file to tmp dir
 	download(file, tmp_dir, file_name);
 	//return filename
@@ -154,15 +155,15 @@ void install_blob(struct target *targ)
 	}
 	dbprintf(DEBUG, "targ->tmp_dir = %s\n", targ->tmp_dir);
 	//extract blob
-	char *tar_cmd;
+	char *tar_opts;
 	if (config.brew_opts.verbosity == DEBUG) {
-		tar_cmd = "tar -xvf ";
+		tar_opts = "-xvf";
 	} else {
-		tar_cmd = "tar -xf ";
+		tar_opts = "-xf";
 	}
 
-	char *tar_output = " -C ";
-
+	char *tar_output = "-C";
+/*
 	size_t tar_full_len = strlen(tar_cmd) + strlen(targ->blob_loc) + strlen(tar_output) + strlen(targ->tmp_dir);
 	char *tar_full = calloc(tar_full_len, sizeof(char));
 	strcat(tar_full, tar_cmd);
@@ -170,8 +171,22 @@ void install_blob(struct target *targ)
 	strcat(tar_full, tar_output);
 	strcat(tar_full, targ->tmp_dir);
 	dbprintf(DEBUG, "tar command: %s\n", tar_full);
-	//TODO fork not system
+
 	system(tar_full);
+	 */
+
+	pid_t pid = fork();
+	dbprintf(DEBUG, "execlp(\"tar\", \"tar\", %s, %s, %s, %s)", tar_opts, targ->blob_loc, tar_output,
+	         targ->tmp_dir);
+	if (pid == 0) {
+		int ret = execlp("tar", "tar", tar_opts, targ->blob_loc, tar_output, targ->tmp_dir, NULL);
+		dbprintf(DEBUG, "exec returned %i\n", ret);
+	} else if (pid < 0) {
+		//error
+	} else {
+		waitpid(pid, NULL, 0);
+	}
+
 	//parse .PKGINFO file
 	char *pkginfo_name = "/.PKGINFO";
 	size_t pkginfo_path_leng = strlen(targ->tmp_dir) + strlen(pkginfo_name);
@@ -181,28 +196,32 @@ void install_blob(struct target *targ)
 	FILE *pkginfo = fopen(pkginfo_path, "r");
 	parse_pkginfo(pkginfo, targ);
 	//extract .SRCINFO
-	char*gunzip = "gunzip ";
 	char *srcinfo_gz_name = "/.SRCINFO.gz";
-	size_t srcinfo_gz_command_leng = strlen(targ->tmp_dir) + strlen(srcinfo_gz_name) +strlen(gunzip);
+	size_t srcinfo_gz_command_leng = strlen(targ->tmp_dir) + strlen(srcinfo_gz_name) /*+ strlen(gunzip)*/;
 	char *srcinfo_gz_command = calloc(srcinfo_gz_command_leng, sizeof(char));
-	strcat(srcinfo_gz_command, gunzip);
+	//strcat(srcinfo_gz_command, gunzip);
 	strcat(srcinfo_gz_command, targ->tmp_dir);
 	strcat(srcinfo_gz_command, srcinfo_gz_name);
 	dbprintf(DEBUG, "gunzip command: %s\n", srcinfo_gz_command);
-	//TODO fork not system
-	system(srcinfo_gz_command);
-	//parse .FILEINFO file
+	//system(srcinfo_gz_command);
+
+	pid = fork();
+	if (pid == 0) {
+		int ret = execlp("gunzip", "gunzip", srcinfo_gz_command, NULL);
+		dbprintf(DEBUG, "exec returned %i\n", ret);
+	} else if (pid < 0) {
+		//error
+	} else {
+		waitpid(pid, NULL, 0);
+	}
+	//parse .SRCINFO file
 	char *srcinfo_name = "/.SRCINFO";
 	size_t srcinfo_path_leng = strlen(targ->tmp_dir) + strlen(srcinfo_name);
 	char *srcinfo_path = calloc(srcinfo_path_leng, sizeof(char));
 	strcat(srcinfo_path, targ->tmp_dir);
 	strcat(srcinfo_path, srcinfo_name);
 	FILE *srcinfo = fopen(srcinfo_path, "r");
-	parse_srcinfo(srcinfo, targ);
-	//create dirs
-	//move files
-	//set up links
-	//apply permissions
+	parse_srcinfo(srcinfo, targ);g
 	//save package info
 	//install deps
 }
