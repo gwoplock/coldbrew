@@ -11,4 +11,6 @@ int read_line(char *buffer, int buf_size, FILE *file);
 
 void create_dir(char* location);
 
+void copy_file(FILE* in, FILE* out);
+
 #endif //COLDBREW_FILEIO_H

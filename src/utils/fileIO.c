@@ -27,10 +27,19 @@ int read_line(char *buffer, int buf_size, FILE *file)
 	}
 }
 
-void create_dir(char* location){
+void create_dir(char *location)
+{
 	struct stat st = {0};
 	if (stat(location, &st) == -1) {
 		volatile int ret = mkdir(location, 0700);
 		volatile int foo = 10;
+	}
+}
+
+void copy_file(FILE *in, FILE *out)
+{
+	char ch;
+	while ((ch = fgetc(in)) != EOF) {
+		fputc(ch, out);
 	}
 }
