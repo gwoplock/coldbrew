@@ -59,9 +59,6 @@ void proc_pkg_line(char *buffer, int buf_size, struct target *targ)
 		targ->pkginfo.build_date = temp;
 	} else if (strcmp(spl[0], "DEPS") == 0) {
 		proc_deps_from_pkginfo(spl[1], targ);
-
-		/*//TODO split to each dep
-		targ->pkginfo.deps=spl[1];*/
 	} else {
 		//error
 	}

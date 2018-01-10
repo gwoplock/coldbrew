@@ -14,14 +14,14 @@ void parse_srcinfo(FILE *pkginfo_file, struct target *targ)
 {
 	//read line
 	char *buf = calloc(256, sizeof(char));
-	//TODO replace with a while loop
-	for (int i = 0; i < 2; i++) {
-		int succ = read_line(buf, 256, pkginfo_file);
+	int succ = 0;
+	while (succ != -1) {
+		succ = read_line(buf, 256, pkginfo_file);
 		if (succ == 1) {
 			proc_srcinfo_line(buf, 256, targ);
 			memset(buf, 0, 256);
-		} else if (succ < 0) {
-			//TODO this may not be true.
+		} /*else if (succ < 0) {
+			//this may not be true.
 			dbfprintf(NORMAL, stderr, "the .SRCINFO was invalid.\n");
 			dbfprintf(VERBOSE, stderr,
 			          "read_line had an error and returned an errorno of %i, translated it is \"%s\"\n",
@@ -29,7 +29,7 @@ void parse_srcinfo(FILE *pkginfo_file, struct target *targ)
 			          strerror(errno));
 			unlock();
 			exit(7);
-		} else {
+		} */else {
 			//TODO
 			//didnt read full line
 		}
@@ -66,7 +66,7 @@ void proc_srcinfo_line(char *buffer, int buf_size, struct target *targ)
 		strcat(tmp_path, line[0]);
 		FILE *to_cpy = fopen(tmp_path, "r");
 		FILE *out = fopen(line[0], "w");
-		if(to_cpy == NULL || out == NULL){
+		if (to_cpy == NULL || out == NULL) {
 			dbfprintf(NORMAL, stderr, "there was an error copying the file\n");
 			dbfprintf(VERBOSE, stderr,
 			          "fopen had an error and returned an errorno of %i, translated it is \"%s\"\n",

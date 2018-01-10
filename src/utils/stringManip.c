@@ -38,7 +38,7 @@ char *strip_path(char *path)
 	return ret;
 }
 
-//TODO test, this may not work how i expect
+//This looks like it works but it might not
 char **string_split(char *to_split, char delim)
 {
 	int spl_ind = -1;
