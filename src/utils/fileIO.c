@@ -2,6 +2,7 @@
 // Created by Garrett Battaglia on 1/3/18.
 //
 
+#include <sys/stat.h>
 #include "fileIO.h"
 #include "print.h"
 
@@ -23,5 +24,13 @@ int read_line(char *buffer, int buf_size, FILE *file)
 		return 1;
 	} else {
 		return 0;
+	}
+}
+
+void create_dir(char* location){
+	struct stat st = {0};
+	if (stat(location, &st) == -1) {
+		volatile int ret = mkdir(location, 0700);
+		volatile int foo = 10;
 	}
 }

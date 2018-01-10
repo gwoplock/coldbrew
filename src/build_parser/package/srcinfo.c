@@ -54,7 +54,7 @@ void proc_srcinfo_line(char *buffer, int buf_size, struct target *targ)
 
 	//switch on type
 	if (strcmp(line[1], "dir") == 0) {
-
+		create_dir(line[0]);
 	} else if (strcmp(line[1], "file") == 0) {
 		spl = string_split(spl[1], ' ');
 		line[2] = spl[0];
