@@ -7,7 +7,6 @@
 #include "scriptHandler.h"
 #include "../../utils/stringManip.h"
 #include "../../utils/IO/temporaryFiles.h"
-#include "../package/package.h"
 
 
 //this should be moved to a build script file

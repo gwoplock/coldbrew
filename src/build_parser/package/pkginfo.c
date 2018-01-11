@@ -9,7 +9,6 @@
 #include "../../utils/IO/fileIO.h"
 #include "../../utils/IO/print.h"
 #include "../../utils/stringManip.h"
-#include "package.h"
 
 void parse_pkginfo(FILE *pkginfo_file, struct target *targ)
 {
