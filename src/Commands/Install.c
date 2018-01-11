@@ -14,6 +14,7 @@
 #include "../build_parser/package/srcinfo.h"
 #include "../utils/IO/temporaryFiles.h"
 #include "../utils/IO/fileIO.h"
+#include "../build_parser/package/package.h"
 #include <sys/utsname.h>
 #include <unistd.h>
 

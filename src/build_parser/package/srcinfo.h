@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include "../../commandLine/CommandlineParser.h"
+#include "package.h"
 
 void parse_srcinfo(FILE *pkginfo_file, struct target *targ);
 

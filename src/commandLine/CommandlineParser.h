@@ -6,10 +6,9 @@
 #define COLDBREW_COMMANDLINEPARSER_H
 
 #include "../build_parser/package/pkginfo.h"
+#include "../build_parser/package/package.h"
 
 extern struct configuration config;
-
-extern struct target *targets;
 
 extern int num_of_targets;
 
@@ -18,11 +17,6 @@ extern int max_targets;
 enum mode
 {
 	INSTALL, UPGRADE, UPDATE, SYNC, UNINSTALL, BUILD, CHECK, HELP, SEARCH, QUERY
-};
-
-enum type
-{
-	PACKAGE, SCRIPT
 };
 
 struct brew_options
@@ -77,16 +71,6 @@ struct check_options
 	enum type check_type;
 };
 
-
-struct target
-{
-	char *name;
-	char *tmp_dir;
-	char *blob_loc;
-	char *blob_script_loc;
-	enum type target_type;
-	struct pkginfo pkginfo;
-};
 
 extern char lock();
 
