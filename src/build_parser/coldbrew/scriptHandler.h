@@ -6,6 +6,7 @@
 #define COLDBREW_SCRIPTHANDLER_H
 
 #include "../../commandLine/CommandlineParser.h"
+#include "../../build_parser/package/package.h"
 
 struct script
 {

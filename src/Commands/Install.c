@@ -7,14 +7,16 @@
 #include <sys/errno.h>
 #include <stdlib.h>
 #include "Install.h"
-#include "../utils/print.h"
+#include "../utils/IO/print.h"
 #include "../build_parser/coldbrew/scriptHandler.h"
 #include "../utils/stringManip.h"
-#include "../utils/temporaryFiles.h"
-#include "../utils/http.h"
+#include "../utils/IO/http.h"
 #include "../build_parser/package/srcinfo.h"
+#include "../utils/IO/temporaryFiles.h"
+#include "../utils/IO/fileIO.h"
 #include <sys/utsname.h>
 #include <unistd.h>
+#include "../commandLine/options.h"
 
 const short SHABANG = 0x2321;
 
@@ -126,25 +128,6 @@ char *download_file(struct target targ, char *tmp_dir)
 	return file_name;
 }
 
-/**
- * gets the first int (4 bytes) from the file, may be moved to utils
- * @param file: FILE* to file
- * @return first 4 bytes. c
- */
-int get_first_int(FILE *file)
-{
-	//create an int to hold the file
-	int *ret = calloc(1, sizeof(int));
-	//read a byte at a time because fuck endiness
-	for (int i = 0; i < 3; i++) {
-		fread(ret, 1, 1, file);
-		*ret = *ret << 8;
-	}
-	//read lasy byte b/c dont want to shift
-	fread(ret, 1, 1, file);
-	//return
-	return *ret;
-}
 
 //TODO functionafiy
 void install_blob(struct target *targ)
@@ -155,6 +138,31 @@ void install_blob(struct target *targ)
 	}
 	dbprintf(DEBUG, "targ->tmp_dir = %s\n", targ->tmp_dir);
 	//extract blob
+	extract_blob(targ);
+	//parse .PKGINFO file
+	char *pkginfo_name = "/.PKGINFO";
+	size_t pkginfo_path_leng = strlen(targ->tmp_dir) + strlen(pkginfo_name);
+	char *pkginfo_path = calloc(pkginfo_path_leng, sizeof(char));
+	strcat(pkginfo_path, targ->tmp_dir);
+	strcat(pkginfo_path, pkginfo_name);
+	FILE *pkginfo = fopen(pkginfo_path, "r");
+	parse_pkginfo(pkginfo, targ);
+	//extract .SRCINFO
+	extract_srcinfo(targ);
+	//parse .SRCINFO file
+	char *srcinfo_name = "/.SRCINFO";
+	size_t srcinfo_path_leng = strlen(targ->tmp_dir) + strlen(srcinfo_name);
+	char *srcinfo_path = calloc(srcinfo_path_leng, sizeof(char));
+	strcat(srcinfo_path, targ->tmp_dir);
+	strcat(srcinfo_path, srcinfo_name);
+	FILE *srcinfo = fopen(srcinfo_path, "r");
+	parse_srcinfo(srcinfo, targ);
+	//save package info
+	//install deps
+}
+
+void extract_blob(struct target *targ)
+{
 	char *tar_opts;
 	if (config.brew_opts.verbosity == DEBUG) {
 		tar_opts = "-xvf";
@@ -163,17 +171,6 @@ void install_blob(struct target *targ)
 	}
 
 	char *tar_output = "-C";
-/*
-	size_t tar_full_len = strlen(tar_cmd) + strlen(targ->blob_loc) + strlen(tar_output) + strlen(targ->tmp_dir);
-	char *tar_full = calloc(tar_full_len, sizeof(char));
-	strcat(tar_full, tar_cmd);
-	strcat(tar_full, targ->blob_loc);
-	strcat(tar_full, tar_output);
-	strcat(tar_full, targ->tmp_dir);
-	dbprintf(DEBUG, "tar command: %s\n", tar_full);
-
-	system(tar_full);
-	 */
 
 	pid_t pid = fork();
 	dbprintf(DEBUG, "execlp(\"tar\", \"tar\", %s, %s, %s, %s)", tar_opts, targ->blob_loc, tar_output,
@@ -186,26 +183,18 @@ void install_blob(struct target *targ)
 	} else {
 		waitpid(pid, NULL, 0);
 	}
+}
 
-	//parse .PKGINFO file
-	char *pkginfo_name = "/.PKGINFO";
-	size_t pkginfo_path_leng = strlen(targ->tmp_dir) + strlen(pkginfo_name);
-	char *pkginfo_path = calloc(pkginfo_path_leng, sizeof(char));
-	strcat(pkginfo_path, targ->tmp_dir);
-	strcat(pkginfo_path, pkginfo_name);
-	FILE *pkginfo = fopen(pkginfo_path, "r");
-	parse_pkginfo(pkginfo, targ);
-	//extract .SRCINFO
+void extract_srcinfo(struct target *targ)
+{
 	char *srcinfo_gz_name = "/.SRCINFO.gz";
 	size_t srcinfo_gz_command_leng = strlen(targ->tmp_dir) + strlen(srcinfo_gz_name) /*+ strlen(gunzip)*/;
 	char *srcinfo_gz_command = calloc(srcinfo_gz_command_leng, sizeof(char));
-	//strcat(srcinfo_gz_command, gunzip);
 	strcat(srcinfo_gz_command, targ->tmp_dir);
 	strcat(srcinfo_gz_command, srcinfo_gz_name);
 	dbprintf(DEBUG, "gunzip command: %s\n", srcinfo_gz_command);
-	//system(srcinfo_gz_command);
 
-	pid = fork();
+	int pid = fork();
 	if (pid == 0) {
 		int ret = execlp("gunzip", "gunzip", srcinfo_gz_command, NULL);
 		dbprintf(DEBUG, "exec returned %i\n", ret);
@@ -214,14 +203,4 @@ void install_blob(struct target *targ)
 	} else {
 		waitpid(pid, NULL, 0);
 	}
-	//parse .SRCINFO file
-	char *srcinfo_name = "/.SRCINFO";
-	size_t srcinfo_path_leng = strlen(targ->tmp_dir) + strlen(srcinfo_name);
-	char *srcinfo_path = calloc(srcinfo_path_leng, sizeof(char));
-	strcat(srcinfo_path, targ->tmp_dir);
-	strcat(srcinfo_path, srcinfo_name);
-	FILE *srcinfo = fopen(srcinfo_path, "r");
-	parse_srcinfo(srcinfo, targ);
-	//save package info
-	//install deps
 }

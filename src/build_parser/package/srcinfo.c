@@ -6,9 +6,10 @@
 #include <string.h>
 #include <errno.h>
 #include "srcinfo.h"
-#include "../../utils/fileIO.h"
-#include "../../utils/print.h"
+#include "../../utils/IO/fileIO.h"
+#include "../../utils/IO/print.h"
 #include "../../utils/stringManip.h"
+
 
 void parse_srcinfo(FILE *pkginfo_file, struct target *targ)
 {
@@ -56,28 +57,7 @@ void proc_srcinfo_line(char *buffer, int buf_size, struct target *targ)
 	if (strcmp(line[1], "dir") == 0) {
 		create_dir(line[0]);
 	} else if (strcmp(line[1], "file") == 0) {
-		//spl = string_split(spl[1], ' ');
-		//line[2] = spl[0];
-		//fidbprintf(DEBUG, "type args: %s", line[2]);
-		//todo parse type args
-		int tmp_path_length = strlen(targ->tmp_dir) + strlen(line[0]);
-		char *tmp_path = calloc(tmp_path_length, sizeof(char));
-		strcat(tmp_path, targ->tmp_dir);
-		strcat(tmp_path, line[0]);
-		FILE *to_cpy = fopen(tmp_path, "r");
-		FILE *out = fopen(line[0], "w");
-		if (to_cpy == NULL || out == NULL) {
-			dbfprintf(NORMAL, stderr, "there was an error copying the file\n");
-			dbfprintf(VERBOSE, stderr,
-			          "fopen had an error and returned an errorno of %i, translated it is \"%s\"\n",
-			          errno,
-			          strerror(errno));
-			unlock();
-			exit(7);
-		}
-		copy_file(to_cpy, out);
-		fclose(to_cpy);
-		fclose(out);
+		handle_file(targ, line);
 	} else if (strcmp(line[1], "link") == 0) {
 		spl = string_split(spl[1], ' ');
 		line[2] = spl[0];
@@ -90,4 +70,30 @@ void proc_srcinfo_line(char *buffer, int buf_size, struct target *targ)
 		exit(7);
 	}
 	//apply action
+}
+
+void handle_file(struct target *targ, char **line)
+{
+	//spl = string_split(spl[1], ' ');
+	//line[2] = spl[0];
+	//fidbprintf(DEBUG, "type args: %s", line[2]);
+	//todo parse type args
+	int tmp_path_length = strlen(targ->tmp_dir) + strlen(line[0]);
+	char *tmp_path = calloc(tmp_path_length, sizeof(char));
+	strcat(tmp_path, targ->tmp_dir);
+	strcat(tmp_path, line[0]);
+	FILE *to_cpy = fopen(tmp_path, "r");
+	FILE *out = fopen(line[0], "w");
+	if (to_cpy == NULL || out == NULL) {
+		dbfprintf(NORMAL, stderr, "there was an error copying the file\n");
+		dbfprintf(VERBOSE, stderr,
+		          "fopen had an error and returned an errorno of %i, translated it is \"%s\"\n",
+		          errno,
+		          strerror(errno));
+		unlock();
+		exit(7);
+	}
+	copy_file(to_cpy, out);
+	fclose(to_cpy);
+	fclose(out);
 }

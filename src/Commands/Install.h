@@ -2,10 +2,13 @@
 // Created by Garrett Battaglia on 12/24/17.
 //
 
-#include "../commandLine/CommandlineParser.h"
+
 
 #ifndef COLDBREW_INSTALL_H
 #define COLDBREW_INSTALL_H
+
+#include "../commandLine/CommandlineParser.h"
+#include "../build_parser/package/package.h"
 
 extern const short SHABANG;
 
@@ -18,10 +21,11 @@ enum type get_install_type(struct target *targ);
 
 char *download_file(struct target targ, char *tmp_dir);
 
-int get_first_int(FILE *file);
-
 
 void install_blob(struct target *targ);
 
+void extract_blob(struct target *targ);
+
+void extract_srcinfo(struct target *targ);
 
 #endif //COLDBREW_INSTALL_H

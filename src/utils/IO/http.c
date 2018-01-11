@@ -5,11 +5,12 @@
 
 #include "http.h"
 #include "print.h"
-#include "../commandLine/CommandlineParser.h"
+#include "../../commandLine/CommandlineParser.h"
 #include <curl/curl.h>
 #include <string.h>
 #include <stdlib.h>
 #include <fcntl.h>
+#include "../../commandLine/options.h"
 
 void download(struct resource to_dl, char *local_loc, char *local_filename)
 {

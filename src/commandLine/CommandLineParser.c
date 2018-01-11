@@ -7,7 +7,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "CommandlineParser.h"
-#include "../utils/print.h"
+#include "../utils/IO/print.h"
+#include "options.h"
 
 
 struct configuration config;
@@ -102,6 +103,7 @@ void read_mode(int argc, char **argv, int index)
 	}
 }
 
+//todo functions maybe
 int parse_mode_opts(int argc, char **argv, int start_index)
 {
 	int i;

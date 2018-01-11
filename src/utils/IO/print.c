@@ -5,7 +5,8 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include "print.h"
-#include "../commandLine/CommandlineParser.h"
+#include "../../commandLine/options.h"
+#include "../../commandLine/CommandlineParser.h"
 
 void dbprintf(enum print_level pl, char *format, ...)
 {

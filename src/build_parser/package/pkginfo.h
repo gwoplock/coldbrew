@@ -7,18 +7,8 @@
 
 #include <stdio.h>
 
-struct pkginfo
-{
-	char *pkgver;
-	char *cbver;
-	int script_type;
-	char *pkgname;
-	char *build_date;
-	char **deps;
-	int to_install_count;
-};
-
 #include "../../commandLine/CommandlineParser.h"
+#include "package.h"
 
 void parse_pkginfo(FILE *pkginfo_file, struct target *targ);
 
