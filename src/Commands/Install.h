@@ -18,10 +18,11 @@ enum type get_install_type(struct target *targ);
 
 char *download_file(struct target targ, char *tmp_dir);
 
-int get_first_int(FILE *file);
-
 
 void install_blob(struct target *targ);
 
+void extract_blob(struct target *targ);
+
+void extract_srcinfo(struct target*targ);
 
 #endif //COLDBREW_INSTALL_H

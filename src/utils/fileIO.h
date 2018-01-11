@@ -13,4 +13,6 @@ void create_dir(char* location);
 
 void copy_file(FILE* in, FILE* out);
 
+int get_first_int(FILE *file);
+
 #endif //COLDBREW_FILEIO_H

@@ -101,7 +101,7 @@ void read_mode(int argc, char **argv, int index)
 		exit(2);
 	}
 }
-
+//todo functions maybe
 int parse_mode_opts(int argc, char **argv, int start_index)
 {
 	int i;
