@@ -15,7 +15,7 @@ set(SOURCE_FILES src/main.c src/commandLine/CommandlineParser.h src/commandLine/
 #if we need hashmap string->int stuff uncomment the line below
 #set(SOURCE_FILES ${SOURCE_FILES} src/hashMap/hash_map_string_int.h src/hashMap/hash_map_string_int.c src/hashMap/hash.h src/hashMap/hash.c)
 
-set(SOURCE_FILES ${SOURCE_FILES} src/utils/IO/http.c src/utils/IO/http.h src/build_parser/package/package.h)
+set(SOURCE_FILES ${SOURCE_FILES} src/utils/IO/http.c src/utils/IO/http.h src/build_parser/package/package.h src/commandLine/options.h)
 
 #if we need zlib compression stuff uncomment the line below
 #set(SOURCE_FILES ${SOURCE_FILES} src/utils/compression.c src/utils/compression.h)

@@ -10,6 +10,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <fcntl.h>
+#include "../../commandLine/options.h"
 
 void download(struct resource to_dl, char *local_loc, char *local_filename)
 {

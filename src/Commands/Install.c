@@ -16,6 +16,7 @@
 #include "../utils/IO/fileIO.h"
 #include <sys/utsname.h>
 #include <unistd.h>
+#include "../commandLine/options.h"
 
 const short SHABANG = 0x2321;
 

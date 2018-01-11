@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include "CommandlineParser.h"
 #include "../utils/IO/print.h"
+#include "options.h"
 
 
 struct configuration config;
