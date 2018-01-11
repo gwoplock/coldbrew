@@ -6,8 +6,8 @@
 #include <string.h>
 #include <errno.h>
 #include "srcinfo.h"
-#include "../../utils/fileIO.h"
-#include "../../utils/print.h"
+#include "../../utils/IO/fileIO.h"
+#include "../../utils/IO/print.h"
 #include "../../utils/stringManip.h"
 
 void parse_srcinfo(FILE *pkginfo_file, struct target *targ)

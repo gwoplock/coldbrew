@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "CommandlineParser.h"
-#include "../utils/print.h"
+#include "../utils/IO/print.h"
 
 
 struct configuration config;

@@ -7,13 +7,13 @@
 #include <sys/errno.h>
 #include <stdlib.h>
 #include "Install.h"
-#include "../utils/print.h"
+#include "../utils/IO/print.h"
 #include "../build_parser/coldbrew/scriptHandler.h"
 #include "../utils/stringManip.h"
-#include "../utils/temporaryFiles.h"
-#include "../utils/http.h"
+#include "../utils/IO/http.h"
 #include "../build_parser/package/srcinfo.h"
-#include "../utils/fileIO.h"
+#include "../utils/IO/temporaryFiles.h"
+#include "../utils/IO/fileIO.h"
 #include <sys/utsname.h>
 #include <unistd.h>
 

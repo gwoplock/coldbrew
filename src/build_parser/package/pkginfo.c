@@ -6,8 +6,8 @@
 #include <errno.h>
 #include <string.h>
 #include "pkginfo.h"
-#include "../../utils/fileIO.h"
-#include "../../utils/print.h"
+#include "../../utils/IO/fileIO.h"
+#include "../../utils/IO/print.h"
 #include "../../utils/stringManip.h"
 
 void parse_pkginfo(FILE *pkginfo_file, struct target *targ)
