@@ -11,3 +11,5 @@ script:
   - make
   - ./coldbrew install --local testpkg.pkg.tar.gz
   - ls /tmp/test
+  - ./coldbrew uninstall testpkg
+  - ls /tmp/
