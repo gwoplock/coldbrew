@@ -6,6 +6,7 @@
 #include "utils/IO/print.h"
 #include "Commands/Install.h"
 #include "Commands/uninstall.h"
+#include "commandLine/options.h"
 
 #ifdef DEV
 #define LOCKFILE "./lockfile"
@@ -58,10 +59,17 @@ int main(int argc, char **argv)
 	}
 	parseCommandLine(argc, argv);
 
-	//TODO temp
-	install(&targets[0]);
-	uninstall(&targets[0]);
-	//end temp
+	switch (config.selected_mode) {
+		case INSTALL: {
+			for (int i = 0; i < num_of_targets; i++) {
+				install(targets + i);
+			}
+			break;
+		}
+		default: {
+			dbfprintf(NORMAL, stderr, "The mode you used is currently disabled or not implemented");
+		}
+	}
 
 	unlock();
 	return 0;
