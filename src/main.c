@@ -66,6 +66,12 @@ int main(int argc, char **argv)
 			}
 			break;
 		}
+		case UNINSTALL:{
+			for (int i = 0; i < num_of_targets; i++) {
+				uninstall(targets + i);
+			}
+			break;
+		}
 		default: {
 			dbfprintf(NORMAL, stderr, "The mode you used is currently disabled or not implemented");
 		}
