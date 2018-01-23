@@ -11,4 +11,4 @@ A C based package manger for Mac OS X
 * Oskari: [Oskari](mailto:xxc3ncoredxx+coldbrew@gmail.com)
 * Jacob Lancaster: [Jacob](mailto:jakelanc950+coldbrew@gmail.com)
 * Jacob Cherry: [Cherry](mailto:jacobcherry36@gmail.com) 
-* Andrew: coming soon
+* Olivia: [Olivia](mailto:zancoproductions@gmail.com)
